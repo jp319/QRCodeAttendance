@@ -107,7 +107,6 @@ Trait Model
     public function getAllFaci(): array
     {
         $stmt = $this->connect()->prepare("SELECT * FROM viewfaci");
-        var_dump(DBNAME);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_NUM);
     }
