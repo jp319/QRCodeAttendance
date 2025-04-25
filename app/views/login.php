@@ -136,6 +136,7 @@ global $imageSource, $imageSource2, $imageSource4;
         </form>
     </div>
 
+
     <!-- Hidden Issue Form (Fixed Centered Position) -->
     <div id="issue-form" class="w-full mb-6 hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white shadow-lg rounded-xl p-4 border border-gray-200 max-w-sm mx-auto z-50">
         <label for="issueDetails" class="text-[#515050] text-xl font-normal mb-2">Please specify the issue:</label>
