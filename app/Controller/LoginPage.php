@@ -81,16 +81,18 @@ class LoginPage extends Controller
                         ]
                     ];
 
+                    // Set cookie expiration based on role
+                    $cookieExpiry = ($role == 'student') ? time() + (60 * 10) : time() + (60 * 60 * 24 * 2);
+
                     setcookie(
                         'user_data',
                         json_encode($userSessions),
-                        time() + (60 * 60 * 24 * 2), // 2 days
+                        $cookieExpiry, // 10 mins for students, 2 days for others
                         '/',
-                        '',      // domain, leave empty to default to current
-                        isset($_SERVER['HTTPS']), // $secure: true if using HTTPS
-                        true     // HttpOnly: true = not accessible via JS
+                        '',      // domain
+                        isset($_SERVER['HTTPS']), // secure flag
+                        true     // HttpOnly
                     );
-
 
                     $uri = '';
                     // Redirect based on role

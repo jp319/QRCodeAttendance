@@ -21,7 +21,9 @@ Trait Model
         $userAgent = $_SERVER['HTTP_USER_AGENT'];
         $deviceInfo = $this->getDeviceInfo($userAgent);
 
-        $expiresAt = date('Y-m-d H:i:s', strtotime('+2 days'));
+        // Set expiry: 10 mins for students, 2 days for others
+        $expiryTime = ($role === 'student') ? '+10 minutes' : '+2 days';
+        $expiresAt = date('Y-m-d H:i:s', strtotime($expiryTime));
 
         $stmt = $this->connect()->prepare("INSERT INTO user_sessions (user_id, role, token, user_agent, ip_address, deviceInfo, expires_at) VALUES (?, ?, ?, ?, ?, ?, ?)");
         $stmt->execute([$userId, $role, $token1, $userAgent, $ipAddress, $deviceInfo, $expiresAt]);
