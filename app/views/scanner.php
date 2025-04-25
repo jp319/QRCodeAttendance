@@ -169,8 +169,8 @@ require_once '../app/core/config.php';
                                 document.getElementById("student-name").textContent = `Student: ${data.student}`;
                                 document.getElementById("student-program").textContent = `Program: ${data.program}`;
 
-                                if (<?php echo $studentProfileBase64?>) {
-                                    document.getElementById("student-image").src = `data:image/jpeg;base64,${<?php echo $studentProfileBase64?>}`;
+                                if ("<?php echo $studentProfileBase64; ?>") {
+                                    document.getElementById("student-image").src = `data:image/jpeg;base64,<?php echo $studentProfileBase64; ?>`;
                                     document.getElementById("student-image").style.display = "block";
                                 } else {
                                     document.getElementById("student-image").style.display = "none";
