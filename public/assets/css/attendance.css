@@ -1,0 +1,177 @@
+
+header {
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header-content i {
+    font-size: 2rem;
+    color: #2d3748;
+    margin-right: 10px;
+}
+
+.header-content h1 {
+    font-size: 1.5rem;
+    color: #2d3748;
+    margin: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+.search-add-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.search-bar {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.search-bar input {
+    width: 50%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+}
+
+.btn {
+    background-color: #9d4545;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn:hover {
+    background-color: #b40000;
+}
+
+/* Table Header */
+.event-list-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #2d3748;
+    color: white;
+    font-size: 1rem;
+    border-radius: 5px 5px 0 0;
+}
+
+.event-list-header div {
+    flex: 1;
+    text-align: center;
+}
+
+/* Table Rows */
+.event-record {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 10px 0;
+    align-items: center;
+}
+
+.event-record div {
+    flex: 1;
+    text-align: center;
+}
+
+.event-record .status.ongoing {
+    color: green;
+}
+
+.event-record .status.closed {
+    color: red;
+}
+
+.event-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.event-actions i {
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.event-actions .fa-eye {
+    color: #4CAF50;
+}
+
+.event-actions .fa-pencil {
+    color: #2196F3;
+}
+
+.event-actions .fa-trash {
+    color: #f44336;
+}
+
+.event-actions i:hover {
+    opacity: 0.8;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .event-list-header {
+        display: none;
+    }
+
+    .event-record {
+        display: block;
+        padding: 15px;
+        text-align: left;
+    }
+
+    .event-record div {
+        text-align: left;
+        margin: 5px 0;
+    }
+
+    .event-record::before {
+        content: " ";
+        display: block;
+        border-top: 1px solid #ddd;
+        margin: 10px 0;
+    }
+
+    .event-record div::before {
+        font-weight: bold;
+        color: #555;
+        display: inline-block;
+        width: 120px;
+    }
+
+    .event-record div:nth-child(1)::before { content: "Event No:"; }
+    .event-record div:nth-child(2)::before { content: "Event Name:"; }
+    .event-record div:nth-child(3)::before { content: "Date Created:"; }
+    .event-record div:nth-child(4)::before { content: "Status:"; }
+    .event-record div:nth-child(5)::before { content: "Actions:"; }
+
+    .event-actions {
+        justify-content: flex-start;
+    }
+}
