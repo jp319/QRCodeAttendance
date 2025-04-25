@@ -114,7 +114,7 @@ Trait Model
 
     public function getAllAttendance(): array
     {
-        $stmt = $this->connect()->prepare("SELECT * FROM viewAttendance");
+        $stmt = $this->connect()->prepare("SELECT * FROM viewattendance");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_NUM);
     }
