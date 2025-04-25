@@ -48,7 +48,7 @@ class QRScanner extends Controller
                         echo json_encode([
                             "status" => "success",
                             "student" => $name,
-//                            "studentProfile" => $studentProfileBase64,
+                            "studentProfile" => $studentProfileBase64,
                             "program" => $program
 
                         ]);
