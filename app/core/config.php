@@ -16,5 +16,5 @@ if($_SERVER['SERVER_NAME'] == 'localhost'){
     define('DBHOST', 'localhost');
     define('DBPORT', '3306');
 
-    defined('ROOT') or define("ROOT", 'https://usep-qrattendance.site/QRCodeAttendance/public/');
+    defined('ROOT') or define("ROOT", 'https://usep-qrattendance.site/public/');
 }

@@ -33,34 +33,34 @@ $routes = [
     '/view_records' => '../app/Controller/ViewAttendanceRecord.php',
 
 
-    '/QRCodeAttendance/public/login' => '../app/Controller/LoginPage.php',
-    '/QRCodeAttendance/public/logout' => '../app/Controller/Logout.php',
-    '/QRCodeAttendance/public/logout2' => '../app/Controller/Logout2.php',
-    '/QRCodeAttendance/public/adminHome' => '../app/Controller/AdminHome.php',
-    '/QRCodeAttendance/public/delete_student' => '../app/Controller/DeleteStudent.php',
-    '/QRCodeAttendance/public/edit_attendance' => '../app/Controller/EditAttendance.php',
-    '/QRCodeAttendance/public/update_attendance' => '../app/Controller/UpdateAttendance.php',
-    '/QRCodeAttendance/public/add_student' => '../app/Controller/AddStudent.php',
-    '/QRCodeAttendance/public/edit_student' => '../app/Controller/EditStudent.php',
-    '/QRCodeAttendance/public/edit_user' => '../app/Controller/EditUser.php',
-    '/QRCodeAttendance/public/add_user' => '../app/Controller/AddUser.php',
+    '/public/login' => '../app/Controller/LoginPage.php',
+    '/public/logout' => '../app/Controller/Logout.php',
+    '/public/logout2' => '../app/Controller/Logout2.php',
+    '/public/adminHome' => '../app/Controller/AdminHome.php',
+    '/public/delete_student' => '../app/Controller/DeleteStudent.php',
+    '/public/edit_attendance' => '../app/Controller/EditAttendance.php',
+    '/public/update_attendance' => '../app/Controller/UpdateAttendance.php',
+    '/public/add_student' => '../app/Controller/AddStudent.php',
+    '/public/edit_student' => '../app/Controller/EditStudent.php',
+    '/public/edit_user' => '../app/Controller/EditUser.php',
+    '/public/add_user' => '../app/Controller/AddUser.php',
 
-    '/QRCodeAttendance/public/remove_sanction' => '../app/Controller/RemoveSanction.php',
+    '/public/remove_sanction' => '../app/Controller/RemoveSanction.php',
 
-    '/QRCodeAttendance/public/facilitator' => '../app/Controller/Facilitator.php',
-    '/QRCodeAttendance/public/scanner' => '../app/Controller/QRScanner.php',
-    '/QRCodeAttendance/public/upload_file' => '../app/Controller/UploadFile.php',
-    '/QRCodeAttendance/public/student' => '../app/Controller/StudentHome.php',
-    '/QRCodeAttendance/public/qr_code' => '../app/Controller/StudentQRCode.php',
+    '/public/facilitator' => '../app/Controller/Facilitator.php',
+    '/public/scanner' => '../app/Controller/QRScanner.php',
+    '/public/upload_file' => '../app/Controller/UploadFile.php',
+    '/public/student' => '../app/Controller/StudentHome.php',
+    '/public/qr_code' => '../app/Controller/StudentQRCode.php',
 
-    '/QRCodeAttendance/public/choose_attendance' => '../app/Controller/ChooseAttendance.php',
+    '/public/choose_attendance' => '../app/Controller/ChooseAttendance.php',
 
-    '/QRCodeAttendance/public/add_attendance' => '../app/Controller/AddAttendance.php',
-    '/QRCodeAttendance/public/create_attendance_for_student' => '../app/Controller/AttendanceSpecificStudents.php',
-    '/QRCodeAttendance/public/delete_attendance' => '../app/Controller/DeleteAttendance.php',
-    '/QRCodeAttendance/public/delete_attendance_record' => '../app/Controller/DeleteAttendanceRecord.php',
+    '/public/add_attendance' => '../app/Controller/AddAttendance.php',
+    '/public/create_attendance_for_student' => '../app/Controller/AttendanceSpecificStudents.php',
+    '/public/delete_attendance' => '../app/Controller/DeleteAttendance.php',
+    '/public/delete_attendance_record' => '../app/Controller/DeleteAttendanceRecord.php',
 
-    '/QRCodeAttendance/public/view_records' => '../app/Controller/ViewAttendanceRecord.php',
+    '/public/view_records' => '../app/Controller/ViewAttendanceRecord.php',
 
 
 ];
