@@ -103,6 +103,14 @@ class User
     }
 
 
+    public function deleteSession(): bool|array{
+        $query = "DELETE FROM user_sessions WHERE expires_at < NOW()";
+        $stmt = $this->connect()->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
     function checkSession($url) {
         if (isset($_COOKIE['user_data'])) {
 
