@@ -28,6 +28,7 @@ class QRScanner extends Controller
 
         $qrcode = new QRCode();
         $activityLog = new ActivityLog();
+
         try {
             $result = $qrcode->getQRData($data);
 
@@ -47,7 +48,7 @@ class QRScanner extends Controller
                         echo json_encode([
                             "status" => "success",
                             "student" => $name,
-                            "studentProfile" => $studentProfileBase64,
+//                            "studentProfile" => $studentProfileBase64,
                             "program" => $program
 
                         ]);
@@ -243,11 +244,30 @@ foreach ($attendanceList as $attendance) {
         break;
     }
 }
-
+$studentProfileBase64 = '';
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['qrData']) && isset($_POST['atten_id'])) {
     $confirm = isset($_POST['confirm']) && $_POST['confirm'] === 'true';
-    $qrCodeScanner->processScannedData($_POST['qrData'], $_POST['atten_id'], $ProgramRequired, $YearRequired, $onTimeCheck, $confirm);
+    $qrcode = new QRCode();
+    $activityLog = new ActivityLog();
+    $result = $qrcode->getQRData($_POST['qrData']);
+
+    if (!empty($result) && isset($result[0]['student_id'])) {
+        $studentId = $result[0]['student_id'];
+
+        $studentData = $qrcode->getStudentData($studentId);
+        if (!empty($studentData)) {
+            $student = $studentData[0];
+            // Convert BLOB to base64
+            $studentProfileBase64 = !empty($student['studentProfile']) ? base64_encode($student['studentProfile']) : null;
+            $qrCodeScanner->processScannedData($_POST['qrData'], $_POST['atten_id'], $ProgramRequired, $YearRequired, $onTimeCheck, $confirm);
+        }
+
+
+    }
+
+
 }
+
 
 $data = [
     "attendanceList" => $attendanceList,
@@ -257,7 +277,8 @@ $data = [
     "EventTime" => $EventTime,
     "ProgramRequired" => $ProgramRequired,
     "YearRequired" => $YearRequired,
-    "isOngoing" => $isOngoing
+    "isOngoing" => $isOngoing,
+    "studentProfileBase64" => $studentProfileBase64
 
 ];
 

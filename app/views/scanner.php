@@ -1,5 +1,5 @@
 <?php
-global $AttendanceID, $EventName, $EventDate, $EventTime, $isOngoing;
+global $AttendanceID, $EventName, $EventDate, $EventTime, $isOngoing, $studentProfileBase64;
 require_once '../app/core/config.php';
 
 ?>
@@ -169,8 +169,8 @@ require_once '../app/core/config.php';
                                 document.getElementById("student-name").textContent = `Student: ${data.student}`;
                                 document.getElementById("student-program").textContent = `Program: ${data.program}`;
 
-                                if (data.studentProfile) {
-                                    document.getElementById("student-image").src = `data:image/jpeg;base64,${data.studentProfile}`;
+                                if (<?php echo $studentProfileBase64?>) {
+                                    document.getElementById("student-image").src = `data:image/jpeg;base64,${<?php echo $studentProfileBase64?>}`;
                                     document.getElementById("student-image").style.display = "block";
                                 } else {
                                     document.getElementById("student-image").style.display = "none";
