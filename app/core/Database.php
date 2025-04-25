@@ -4,7 +4,7 @@ Trait Database
 {
     public function connect(): PDO
     {
-        $string = "mysql:host=".DBHOST.";dbname=".DBNAME;
+        $string = "mysql:host=".DBHOST.";dbname="."u753706103_qr_attendance";
         $con = new PDO($string, DBUSER, DBPASS);
         $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Enable exception handling
         return $con;
