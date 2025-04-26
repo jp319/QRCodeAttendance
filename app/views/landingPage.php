@@ -20,11 +20,7 @@ require "../app/core/imageConfig.php";
 <body class="bg-gray-50 flex flex-col min-h-screen">
 <header class="bg-[var(--maroon)] text-white">
     <div class="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
-        <div class="text-2xl font-bold">QR Attendance System</div>
-        <nav class="space-x-6 text-lg">
-            <a href="/" class="hover:underline">Home</a>
-            <a href="/public/login" class="hover:underline">Login</a>
-        </nav>
+        
     </div>
 </header>
 <section class="flex-grow flex flex-col items-center justify-center text-center p-8">
