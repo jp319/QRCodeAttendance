@@ -24,7 +24,7 @@ require "../app/core/imageConfig.php";
 <section class="flex-grow flex flex-col items-center justify-center text-center p-8">
     <div class="max-w-4xl mx-auto">
         <h1 class="text-4xl md:text-6xl font-extrabold text-[var(--maroon)] mb-6">
-            Welcome to the Attendance System
+            Welcome to the QR Attendance System
         </h1>
         <p class="text-gray-700 text-lg md:text-xl mb-8">
             Track student attendance seamlessly and efficiently. Simplified, secure, and built for you.
@@ -35,33 +35,24 @@ require "../app/core/imageConfig.php";
             Get Started
         </a>
 
-        <!-- Interactive Images -->
+        <!-- Infographic Images -->
         <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Image Card 1 -->
+            <!-- Infographic 1 -->
             <div class="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105">
-                <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400"
-                     alt="Attendance" class="w-full h-60 object-cover">
-                <div class="p-4">
-                    <h2 class="text-xl font-semibold text-[var(--maroon)] group-hover:underline">Real-Time Attendance</h2>
-                </div>
+                <img src="https://images.unsplash.com/photo-1629904853716-f0bc54eea481?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400"
+                     alt="Infographic 1" class="w-full h-60 object-cover">
             </div>
 
-            <!-- Image Card 2 -->
+            <!-- Infographic 2 -->
             <div class="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105">
-                <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400"
-                     alt="Secure" class="w-full h-60 object-cover">
-                <div class="p-4">
-                    <h2 class="text-xl font-semibold text-[var(--maroon)] group-hover:underline">Secure and Reliable</h2>
-                </div>
+                <img src="https://images.unsplash.com/photo-1635337564088-8161b4073b50?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400"
+                     alt="Infographic 2" class="w-full h-60 object-cover">
             </div>
 
-            <!-- Image Card 3 -->
+            <!-- Infographic 3 -->
             <div class="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105">
-                <img src="https://images.unsplash.com/photo-1581091012184-7a5e1f94eae9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400"
-                     alt="Analytics" class="w-full h-60 object-cover">
-                <div class="p-4">
-                    <h2 class="text-xl font-semibold text-[var(--maroon)] group-hover:underline">Smart Analytics</h2>
-                </div>
+                <img src="https://images.unsplash.com/photo-1612831455543-dc1d3f2e7d6c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400"
+                     alt="Infographic 3" class="w-full h-60 object-cover">
             </div>
         </div>
     </div>

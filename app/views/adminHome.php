@@ -24,7 +24,7 @@ if (!in_array($page, $allowed_pages)) {
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="<?php echo ROOT?>assets/js/dropdown.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="icon" type="image/x-icon" href="<?php echo ROOT?>assets/images/LOGO_QRCODE_v2.png">
+    <link rel="icon" type="image/x-icon" href="<?php echo $imageSource ?>">
     <title>Attendance System • Admin </title>
 </head>
 <body>
