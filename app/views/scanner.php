@@ -106,9 +106,24 @@ require_once '../app/core/config.php';
         #confirmation-modal button {
             margin: 5px;
         }
+
+        .loader {
+            border: 8px solid #f3f3f3; /* Light gray */
+            border-top: 8px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
+
 <h1>QR Code Scanner</h1>
 
 <?php if ($isOngoing): ?>
@@ -164,6 +179,8 @@ require_once '../app/core/config.php';
                         .then(response => response.json())
                         .then(data => {
                             console.log("Fetched Student Data:", data); // Debugging
+
+                            document.getElementById("loading-screen").style.display = "flex";
 
                             if (data.status === "success") {
                                 document.getElementById("student-name").textContent = `Student: ${data.student}`;
@@ -275,6 +292,14 @@ require_once '../app/core/config.php';
     <p style="color: red;">No ongoing attendance event available.</p>
     <a id="back-btn" href="<?php echo ROOT ?>facilitator">Back</a>
 <?php endif; ?>
+
+<!-- Loading Screen -->
+<div id="loading-screen" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(255,255,255,0.8); z-index:1000; align-items:center; justify-content:center;">
+    <div class="text-center">
+        <div class="loader"></div>
+        <p>Loading student data...</p>
+    </div>
+</div>
 
 <script>
 
