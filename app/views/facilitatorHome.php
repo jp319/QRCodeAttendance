@@ -74,101 +74,98 @@ global $imageSource, $imageSource2, $imageSource3, $programList, $selectedProgra
             </button>
         </form>
     </div>
-    <!-- Students Section -->
-    <div class="bg-white p-6 rounded-lg shadow-lg">
-        <div class="overflow-x-auto">
-            <table class="min-w-full bg-white border border-gray-200 rounded-lg hidden md:table">
-                <thead class="bg-gray-100">
-                <tr>
-                    <th class="py-3 px-4 text-left text-sm font-semibold text-maroon">Student ID</th>
-                    <th class="py-3 px-4 text-left text-sm font-semibold text-maroon">Student Name</th>
-                    <th class="py-3 px-4 text-left text-sm font-semibold text-maroon">Program</th>
-                    <th class="py-3 px-4 text-left text-sm font-semibold text-maroon">Year/Section</th>
-                    <th class="py-3 px-4 text-left text-sm font-semibold text-maroon">Action</th>
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-white border border-gray-200 rounded-lg hidden md:table">
+            <thead class="bg-gray-100">
+            <tr>
+                <th class="py-3 px-4 text-left text-sm font-semibold text-maroon">Student ID</th>
+                <th class="py-3 px-4 text-left text-sm font-semibold text-maroon">Student Name</th>
+                <th class="py-3 px-4 text-left text-sm font-semibold text-maroon">Program</th>
+                <th class="py-3 px-4 text-left text-sm font-semibold text-maroon">Year/Section</th>
+                <th class="py-3 px-4 text-left text-sm font-semibold text-maroon">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($attendanceRecordList as $attendanceRecord) { ?>
+                <tr class="border-t border-gray-200 hover:bg-gray-50">
+                    <td class="py-3 px-4 text-sm text-gray-600"><?php echo htmlspecialchars($attendanceRecord['student_id'])?></td>
+                    <td class="py-3 px-4 text-sm text-gray-600 data-student-name"><?php echo htmlspecialchars($attendanceRecord['f_name'] . ' ' . $attendanceRecord['l_name'])?></td>
+                    <td class="py-3 px-4 text-sm text-gray-600"><?php echo htmlspecialchars($attendanceRecord['program'])?></td>
+                    <td class="py-3 px-4 text-sm text-gray-600"><?php echo htmlspecialchars($attendanceRecord['acad_year'])?></td>
+                    <td class="py-3 px-4 text-sm text-gray-600">
+                        <a class="text-red-500 hover:text-red-700 delete-btn"
+                           href="<?php echo ROOT?>delete_attendance_record?atten_id=<?php echo $EventID; ?>&student_id=<?php echo $attendanceRecord['student_id'];?>&event_name=<?php echo $EventName?>">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
                 </tr>
-                </thead>
-                <tbody>
-                <?php if(!empty($attendanceRecordList)){?>
-                <?php foreach ($attendanceRecordList as $attendanceRecord) { ?>
-                    <tr class="border-t border-gray-200 hover:bg-gray-50">
-                        <td class="py-3 px-4 text-sm text-gray-600"><?php echo htmlspecialchars($attendanceRecord['student_id'])?></td>
-                        <td class="py-3 px-4 text-sm text-gray-600 data-student-name"><?php echo htmlspecialchars($attendanceRecord['f_name'] . ' ' . $attendanceRecord['l_name'])?></td>
-                        <td class="py-3 px-4 text-sm text-gray-600"><?php echo htmlspecialchars($attendanceRecord['program'])?></td>
-                        <td class="py-3 px-4 text-sm text-gray-600"><?php echo htmlspecialchars($attendanceRecord['acad_year'])?></td>
-                        <td class="py-3 px-4 text-sm text-gray-600">
-                            <a class="text-red-500 hover:text-red-700 delete-btn"
-                               href="<?php echo ROOT?>delete_attendance_record?atten_id=<?php echo $EventID; ?>&student_id=<?php echo $attendanceRecord['student_id'];?>&event_name=<?php echo $EventName?>">
-                                <i class="fas fa-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
-                <?php } ?>
-                <?php }else{
-                    echo "Student record will be displayed here.";
-                }?>
-                </tbody>
-                <script>
-                    document.addEventListener("DOMContentLoaded", function() {
-                        document.querySelectorAll(".delete-btn").forEach(function(button) {
-                            button.addEventListener("click", function(event) {
-                                event.preventDefault(); // Prevent default link action
-                                let deleteUrl = this.getAttribute("href");
+            <?php } ?>
+            </tbody>
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    document.querySelectorAll(".delete-btn").forEach(function(button) {
+                        button.addEventListener("click", function(event) {
+                            event.preventDefault(); // Prevent default link action
+                            let deleteUrl = this.getAttribute("href");
 
-                                Swal.fire({
-                                    title: "Are you sure?",
-                                    text: "You won't be able to revert this!",
-                                    icon: "warning",
-                                    showCancelButton: true,
-                                    confirmButtonColor: "#d33",
-                                    cancelButtonColor: "#3085d6",
-                                    confirmButtonText: "Yes, delete it!"
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        fetch(deleteUrl, { method: "GET" })
-                                            .then(response => response.text())
-                                            .then(data => {
-                                                Swal.fire({
-                                                    title: "Deleted!",
-                                                    text: "The attendance record has been deleted.",
-                                                    icon: "success",
-                                                    timer: 1500,
-                                                    showConfirmButton: false
-                                                });
-                                                setTimeout(() => {
-                                                    window.location.reload();
-                                                }, 1600);
-                                            })
-                                            .catch(error => {
-                                                Swal.fire({
-                                                    title: "Error!",
-                                                    text: "Something went wrong while deleting.",
-                                                    icon: "error"
-                                                });
+                            Swal.fire({
+                                title: "Are you sure?",
+                                text: "You won't be able to revert this!",
+                                icon: "warning",
+                                showCancelButton: true,
+                                confirmButtonColor: "#d33",
+                                cancelButtonColor: "#3085d6",
+                                confirmButtonText: "Yes, delete it!"
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    fetch(deleteUrl, { method: "GET" })
+                                        .then(response => response.text())
+                                        .then(data => {
+                                            Swal.fire({
+                                                title: "Deleted!",
+                                                text: "The attendance record has been deleted.",
+                                                icon: "success",
+                                                timer: 1500,
+                                                showConfirmButton: false
                                             });
-                                    }
-                                });
+                                            setTimeout(() => {
+                                                window.location.reload();
+                                            }, 1600);
+                                        })
+                                        .catch(error => {
+                                            Swal.fire({
+                                                title: "Error!",
+                                                text: "Something went wrong while deleting.",
+                                                icon: "error"
+                                            });
+                                        });
+                                }
                             });
                         });
                     });
-                </script>
+                });
+            </script>
 
-            </table>
-            <!-- Cards for Mobile View -->
-            <div class="md:hidden">
-                <?php foreach ($attendanceRecordList as $attendanceRecord) { ?>
-                    <div class="bg-gray-100 border border-gray-200 rounded-lg p-4 mb-4">
-                        <h3 class="text-lg font-bold text-maroon"><?php echo htmlspecialchars($attendanceRecord['f_name'] . ' ' . $attendanceRecord['l_name'])?></h3>
-                        <p><strong>Student ID:</strong> <?php echo htmlspecialchars($attendanceRecord['student_id'])?></p>
-                        <p><strong>Program:</strong> <?php echo htmlspecialchars($attendanceRecord['program'])?></p>
-                        <p><strong>Year/Section:</strong> <?php echo htmlspecialchars($attendanceRecord['acad_year'])?></p>
-                        <a class="text-red-500 hover:text-red-700 delete-btn"
-                           href="<?php echo ROOT?>delete_attendance_record?atten_id=<?php echo $EventID; ?>&student_id=<?php echo $attendanceRecord['student_id'];?>">
-                            <i class="fas fa-trash"></i>Delete
-                        </a>
-                    </div>
-                <?php } ?>
-            </div>
+        </table>
+        <!-- Cards for Mobile View -->
+        <div class="md:hidden">
+            <?php foreach ($attendanceRecordList as $attendanceRecord) { ?>
+                <div class="bg-gray-100 border border-gray-200 rounded-lg p-4 mb-4">
+                    <h3 class="text-lg font-bold text-maroon"><?php echo htmlspecialchars($attendanceRecord['f_name'] . ' ' . $attendanceRecord['l_name'])?></h3>
+                    <p><strong>Student ID:</strong> <?php echo htmlspecialchars($attendanceRecord['student_id'])?></p>
+                    <p><strong>Program:</strong> <?php echo htmlspecialchars($attendanceRecord['program'])?></p>
+                    <p><strong>Year/Section:</strong> <?php echo htmlspecialchars($attendanceRecord['acad_year'])?></p>
+                    <a class="text-red-500 hover:text-red-700 delete-btn"
+                       href="<?php echo ROOT?>delete_attendance_record?atten_id=<?php echo $EventID; ?>&student_id=<?php echo $attendanceRecord['student_id'];?>">
+                        <i class="fas fa-trash"></i>Delete
+                    </a>
+                </div>
+            <?php } ?>
         </div>
+    </div>
+    <!-- Students Section -->
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+
     </div>
 
     <!-- Event Section -->
