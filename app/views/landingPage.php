@@ -31,7 +31,7 @@ require "../app/core/imageConfig.php";
         </p>
 
         <!-- Get Started Button -->
-        <a href="login" class="inline-block bg-[var(--maroon)] hover:bg-red-700 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300">
+        <a href="/public/login" class="inline-block bg-[var(--maroon)] hover:bg-red-700 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300">
             Get Started
         </a>
 
@@ -39,20 +39,20 @@ require "../app/core/imageConfig.php";
         <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
             <!-- Infographic 1 -->
             <div class="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105">
-                <img src="https://images.unsplash.com/photo-1629904853716-f0bc54eea481?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400"
-                     alt="Infographic 1" class="w-full h-60 object-cover">
+                <img src="https://images.unsplash.com/photo-1630934458093-04247d2b7d94?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400"
+                     alt="Attendance Infographic" class="w-full h-60 object-cover">
             </div>
 
             <!-- Infographic 2 -->
             <div class="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105">
-                <img src="https://images.unsplash.com/photo-1635337564088-8161b4073b50?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400"
-                     alt="Infographic 2" class="w-full h-60 object-cover">
+                <img src="https://images.unsplash.com/photo-1613145999591-ff1cb9f3d73c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400"
+                     alt="QR Code Infographic" class="w-full h-60 object-cover">
             </div>
 
             <!-- Infographic 3 -->
             <div class="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105">
-                <img src="https://images.unsplash.com/photo-1612831455543-dc1d3f2e7d6c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400"
-                     alt="Infographic 3" class="w-full h-60 object-cover">
+                <img src="https://images.unsplash.com/photo-1591696205602-2b6a06bda8f3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400"
+                     alt="Analytics Infographic" class="w-full h-60 object-cover">
             </div>
         </div>
     </div>
