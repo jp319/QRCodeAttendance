@@ -32,6 +32,7 @@ $routes = [
 
     '/view_records' => '../app/Controller/ViewAttendanceRecord.php',
 
+    '' => '../app/Controller/LandingPage.php',
 
     '/public/login' => '../app/Controller/LoginPage.php',
     '/public/logout' => '../app/Controller/Logout.php',
