@@ -181,9 +181,10 @@ require_once '../app/core/config.php';
                         .then(data => {
                             console.log("Fetched Student Data:", data); // Debugging
                             document.getElementById("loading-screen").style.display = "none";
+                            document.getElementById("student-name").textContent = `Student: ${data.student}`;
+                            document.getElementById("student-program").textContent = `Program: ${data.program}`;
                             if (data.status === "success") {
-                                document.getElementById("student-name").textContent = `Student: ${data.student}`;
-                                document.getElementById("student-program").textContent = `Program: ${data.program}`;
+
 
                                 // Then handle image asynchronously
                                 if (data.studentProfile) {
