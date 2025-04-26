@@ -24,11 +24,14 @@ require "../app/core/imageConfig.php";
 <section class="flex-grow flex flex-col items-center justify-center text-center p-8">
     <div class="max-w-4xl mx-auto">
         <h1 class="text-4xl md:text-6xl font-extrabold text-[var(--maroon)] mb-6">
-            Welcome to the QR Attendance System
+            Welcome to the QR Code Attendance System
         </h1>
         <p class="text-gray-700 text-lg md:text-xl mb-8">
-            Track student attendance seamlessly and efficiently. Simplified, secure, and built for you.
+            University of Southeastern Philippines Tagum-Mabini Campus QR Code Attendance System.
+            This platform streamlines student attendance tracking through secure QR code scanning,
+            ensuring accuracy, reliability, and real-time monitoring for school activities.
         </p>
+
 
         <!-- Get Started Button -->
         <a href="/public/login" class="inline-block bg-[var(--maroon)] hover:bg-red-700 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300">
