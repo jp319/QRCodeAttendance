@@ -179,46 +179,41 @@ require_once '../app/core/config.php';
                     })
                         .then(response => response.json())
                         .then(data => {
-                            console.log("Fetched Student Data:", data);
-
-                            // Hide the loading screen as soon as we have a response
+                            console.log("Fetched Student Data:", data); // Debugging
                             document.getElementById("loading-screen").style.display = "none";
-
                             if (data.status === "success") {
-                                // Show student name and program immediately
                                 document.getElementById("student-name").textContent = `Student: ${data.student}`;
                                 document.getElementById("student-program").textContent = `Program: ${data.program}`;
 
-                                // Show confirmation modal right away (even if image is not ready yet)
-                                document.getElementById("confirmation-modal").style.display = "flex";
-
+                                // Then handle image asynchronously
                                 if (data.studentProfile) {
-                                    // Load the image in background
                                     const img = new Image();
                                     img.onload = function() {
-                                        const studentImage = document.getElementById("student-image");
-                                        studentImage.src = this.src;
-                                        studentImage.style.display = "block";
-                                        studentImage.style.maxWidth = "150px";
-                                        studentImage.style.maxHeight = "150px";
-                                        studentImage.style.opacity = "1"; // If using fade-in later
+                                        document.getElementById("student-image").src = this.src;
+                                        document.getElementById("student-image").style.display = "block";
+                                        document.getElementById("student-image").style.maxWidth = "150px";
+                                        document.getElementById("student-image").style.maxHeight = "150px";
+
+                                        // Show confirmation modal AFTER image loads
+                                        document.getElementById("confirmation-modal").style.display = "flex";
                                     };
                                     img.src = `data:image/jpeg;base64,${data.studentProfile}`;
-
-                                    // While loading, keep the image hidden
-                                    const studentImage = document.getElementById("student-image");
-                                    studentImage.style.display = "none";
-                                    studentImage.style.opacity = "0"; // Prepare for fade-in if needed
-                                } else {
-                                    // No image available
+                                    // Hide image container while loading
                                     document.getElementById("student-image").style.display = "none";
+                                } else {
+                                    document.getElementById("student-image").style.display = "none";
+                                    // Show confirmation modal immediately if no image
+                                    document.getElementById("confirmation-modal").style.display = "flex";
                                 }
 
-                                // Handle Confirm Attendance button
+                                // Show confirmation modal
+                                document.getElementById("confirmation-modal").style.display = "flex";
+
+                                // Confirm attendance
                                 document.getElementById("confirm-btn").onclick = () => {
                                     document.getElementById("confirmation-modal").style.display = "none";
 
-                                    // Start confirming attendance
+                                    // Proceed with recording attendance
                                     fetch("", {
                                         method: "POST",
                                         headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -247,29 +242,23 @@ require_once '../app/core/config.php';
                                         });
                                 };
 
-                                // Handle Cancel button
+                                // Cancel attendance
                                 document.getElementById("cancel-btn").onclick = () => {
                                     document.getElementById("confirmation-modal").style.display = "none";
                                     document.getElementById("result").innerHTML = `<p style="color:red;">Attendance recording cancelled.</p>`;
+
+                                    // Show "Scan Again" button
                                     document.getElementById("restart-btn").style.display = "block";
                                 };
-
                             } else {
-                                // If status is not success
                                 document.getElementById("student-info").textContent = data.message;
                                 document.getElementById("student-info").style.color = "red";
+
+                                // Show "Scan Again" button
                                 document.getElementById("restart-btn").style.display = "block";
                             }
                         })
                         .catch(error => {
-                            console.error("Error:", error);
-                            document.getElementById("student-info").textContent = "An error occurred: " + error.message;
-                            document.getElementById("student-info").style.color = "red";
-                            document.getElementById("loading-screen").style.display = "none";
-                            document.getElementById("restart-btn").style.display = "block";
-                        });
-
-                .catch(error => {
                             console.error("Error:", error);
                             document.getElementById("student-info").textContent = "An error occurred: " + error.message;
                             document.getElementById("student-info").style.color = "red";
@@ -307,7 +296,7 @@ require_once '../app/core/config.php';
 <div id="loading-screen" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(255,255,255,0.8); z-index:1000; align-items:center; justify-content:center;">
     <div class="text-center">
         <div class="loader"></div>
-        <p style="color: #0cb10c">Loading student data...</p>
+        <p style="color: green">Loading student data...</p>
     </div>
 </div>
 
