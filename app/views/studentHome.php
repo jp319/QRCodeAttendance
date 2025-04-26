@@ -1,6 +1,7 @@
 <?php
 
 
+global $imageSource;
 require_once '../app/core/imageConfig.php'; // Include your configuration file
 
 $page = $_GET['page'] ?? 'studentProfile'; // Default to 'studentProfile'
@@ -19,7 +20,7 @@ if (!in_array($page, $allowed_pages)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="icon" type="image/x-icon" href="<?php echo ROOT?>assets/images/LOGO_QRCODE_v2.png">
+    <link rel="icon" type="image/x-icon" href="<?php echo $imageSource ?>">
     <title>Student Home • QRCode Attendance System</title>
     <style>
         /* Maroon Color Theme */

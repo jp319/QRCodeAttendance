@@ -20,7 +20,7 @@ require "../app/core/imageConfig.php";
 <body class="bg-gray-50 flex flex-col min-h-screen">
 <header class="bg-[var(--maroon)] text-white">
     <div class="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
-        
+
     </div>
 </header>
 <section class="flex-grow flex flex-col items-center justify-center text-center p-8">
