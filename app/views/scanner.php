@@ -180,6 +180,7 @@ require_once '../app/core/config.php';
                         .then(response => response.json())
                         .then(data => {
                             console.log("Fetched Student Data:", data); // Debugging
+                            document.getElementById("confirmation-modal").style.display = "flex";
                             document.getElementById("loading-screen").style.display = "none";
                             document.getElementById("student-name").textContent = `Student: ${data.student}`;
                             document.getElementById("student-program").textContent = `Program: ${data.program}`;
@@ -191,7 +192,7 @@ require_once '../app/core/config.php';
                                 document.getElementById("student-image").style.maxHeight = "150px";
 
                                 // Show confirmation modal AFTER image loads
-                                document.getElementById("confirmation-modal").style.display = "flex";
+
                             };
                             img.src = `data:image/jpeg;base64,${data.studentProfile}`;
                             // Hide image container while loading
