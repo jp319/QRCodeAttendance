@@ -170,6 +170,7 @@ require_once '../app/core/config.php';
                 (decodedText) => {
                     document.getElementById("result").innerHTML = `<p>Decoded QR Code: ${decodedText}</p>`;
                     document.getElementById("loading-screen").style.display = "flex";
+                    document.getElementById("confirmation-modal").style.display = "flex";
                     // Fetch student details before confirming attendance
                     fetch("", {
                         method: "POST",
@@ -180,7 +181,7 @@ require_once '../app/core/config.php';
                         .then(response => response.json())
                         .then(data => {
                             console.log("Fetched Student Data:", data); // Debugging
-                            document.getElementById("confirmation-modal").style.display = "flex";
+
                             document.getElementById("loading-screen").style.display = "none";
                             document.getElementById("student-name").textContent = `Student: ${data.student}`;
                             document.getElementById("student-program").textContent = `Program: ${data.program}`;
