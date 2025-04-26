@@ -31,7 +31,7 @@ require "../app/core/imageConfig.php";
         </p>
 
         <!-- Get Started Button -->
-        <a href="login" class="inline-block bg-[var(--maroon)] hover:bg-red-700 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300">
+        <a href="/public/login" class="inline-block bg-[var(--maroon)] hover:bg-red-700 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300">
             Get Started
         </a>
 
@@ -39,20 +39,20 @@ require "../app/core/imageConfig.php";
         <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
             <!-- Infographic 1 -->
             <div class="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105">
-                <img src="https://static.vecteezy.com/system/resources/thumbnails/002/038/202/small/online-attendance-management-flat-illustration-vector.jpg"
-                     alt="Attendance Infographic" class="w-full h-60 object-cover">
+                <img src="https://cdn.pixabay.com/photo/2020/10/30/14/23/qr-code-5708613_1280.jpg"
+                     alt="QR Code Attendance" class="w-full h-60 object-cover">
             </div>
 
             <!-- Infographic 2 -->
             <div class="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105">
-                <img src="https://static.vecteezy.com/system/resources/previews/007/097/668/original/qr-code-scan-illustration-free-vector.jpg"
-                     alt="QR Code Infographic" class="w-full h-60 object-cover">
+                <img src="https://cdn.pixabay.com/photo/2021/10/01/13/35/data-6672201_1280.jpg"
+                     alt="Data Analytics" class="w-full h-60 object-cover">
             </div>
 
             <!-- Infographic 3 -->
             <div class="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105">
-                <img src="https://static.vecteezy.com/system/resources/thumbnails/005/694/526/small/business-analytics-dashboard-concept-flat-illustration-vector.jpg"
-                     alt="Analytics Infographic" class="w-full h-60 object-cover">
+                <img src="https://cdn.pixabay.com/photo/2017/01/31/15/39/checklist-2023737_1280.png"
+                     alt="Checklist Attendance" class="w-full h-60 object-cover">
             </div>
         </div>
     </div>
