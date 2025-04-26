@@ -123,8 +123,8 @@ require_once '../app/core/imageConfig.php';
                                     const ctx = canvas.getContext("2d");
 
                                     // ⚡ Resize logic (set maximum width/height)
-                                    const maxWidth = 300;  // You can adjust
-                                    const maxHeight = 300;
+                                    const maxWidth = 100;  // You can adjust
+                                    const maxHeight = 100;
                                     let width = img.width;
                                     let height = img.height;
 
