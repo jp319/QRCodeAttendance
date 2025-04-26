@@ -50,39 +50,23 @@ require_once '../app/core/imageConfig.php';
 
 
             <!-- Profile Picture Upload Form -->
-            <form action="<?php echo ROOT?>student" method="post" enctype="multipart/form-data" class="mt-4 text-center">
-                <!-- File Input & Preview -->
+            <form id="profile-form" method="post" enctype="multipart/form-data" class="mt-4 text-center">
+                <!-- File Input -->
                 <label for="file-upload"
                        class="cursor-pointer bg-gray-200 hover:bg-gray-300 text-gray-700 py-2 px-4 rounded-lg shadow-md inline-block">
                     Choose File
                 </label>
-                <input type="file" id="file-upload" name="profile_picture" accept="image/*" class="hidden">
+                <input type="file" id="file-upload" accept="image/*" class="hidden">
 
-
-                <!-- Upload Button (Initially Hidden) -->
-                <button type="submit" id="upload-button" class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md ml-2 hover:bg-blue-600 hidden">
+                <!-- Upload Button -->
+                <button type="button" id="upload-button" class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md ml-2 hover:bg-blue-600 hidden">
                     Upload
                 </button>
-
-                <script>
-                    document.addEventListener('DOMContentLoaded', function () {
-                        const fileInput = document.getElementById('file-upload');
-                        const uploadButton = document.getElementById('upload-button');
-
-                        // Show/hide upload button based on file selection
-                        fileInput.addEventListener('change', function () {
-                            if (fileInput.files.length > 0) {
-                                uploadButton.classList.remove('hidden');
-                            } else {
-                                uploadButton.classList.add('hidden');
-                            }
-                        });
-                    });
-                </script>
 
                 <!-- Display File Name -->
                 <p id="file-name" class="text-gray-500 mt-2 hidden"></p>
             </form>
+
 
 
             <!-- Success Popup -->
@@ -91,25 +75,24 @@ require_once '../app/core/imageConfig.php';
             <!-- JavaScript: Show Preview & Success Popup -->
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
-                    const fileInput = document.getElementById("file-upload");
-                    const uploadButton = document.getElementById("upload-button");
-                    const fileNameDisplay = document.getElementById("file-name");
-                    const previewImg = document.getElementById("profile-img");
+                    const fileInput = document.getElementById('file-upload');
+                    const uploadButton = document.getElementById('upload-button');
+                    const fileNameDisplay = document.getElementById('file-name');
+                    const previewImg = document.getElementById('profile-img');
+                    let resizedBlob = null; // To store resized Blob
 
                     fileInput.addEventListener("change", function (event) {
                         const file = event.target.files[0];
 
                         if (file) {
-                            // ✅ Check file size (max 2MB)
                             if (file.size > 2 * 1024 * 1024) {
                                 alert("❌ File is too large. Maximum allowed size is 2MB.");
-                                fileInput.value = ""; // Clear the file input
+                                fileInput.value = "";
                                 uploadButton.classList.add("hidden");
                                 fileNameDisplay.classList.add("hidden");
                                 return;
                             }
 
-                            // ✅ Show file name and upload button
                             fileNameDisplay.textContent = "Selected: " + file.name;
                             fileNameDisplay.classList.remove("hidden");
                             uploadButton.classList.remove("hidden");
@@ -118,44 +101,37 @@ require_once '../app/core/imageConfig.php';
                             reader.onload = function (e) {
                                 const img = new Image();
                                 img.onload = function () {
-                                    // ✨ Create a canvas to resize the image
                                     const canvas = document.createElement("canvas");
                                     const ctx = canvas.getContext("2d");
 
-                                    // ⚡ Resize logic (set maximum width/height)
-                                    const maxWidth = 100;  // You can adjust
-                                    const maxHeight = 100;
+                                    const maxWidth = 300;
+                                    const maxHeight = 300;
                                     let width = img.width;
                                     let height = img.height;
 
                                     if (width > height) {
                                         if (width > maxWidth) {
-                                            height = height * (maxWidth / width);
+                                            height *= maxWidth / width;
                                             width = maxWidth;
                                         }
                                     } else {
                                         if (height > maxHeight) {
-                                            width = width * (maxHeight / height);
+                                            width *= maxHeight / height;
                                             height = maxHeight;
                                         }
                                     }
 
                                     canvas.width = width;
                                     canvas.height = height;
-
-                                    // Draw resized image
                                     ctx.drawImage(img, 0, 0, width, height);
 
-                                    // ✨ Get the compressed Base64 data URL (you can control quality)
-                                    const compressedDataUrl = canvas.toDataURL("image/jpeg", 0.7);
-                                    // 0.7 = compression quality (0.0 worst - 1.0 best)
+                                    const compressedBase64 = canvas.toDataURL("image/jpeg", 0.7);
 
-                                    // ✅ Set preview
                                     if (previewImg) {
-                                        previewImg.src = compressedDataUrl;
+                                        previewImg.src = compressedBase64;
                                     }
 
-                                    // If you want: you can now upload compressedDataUrl (not the original file)
+                                    resizedBlob = dataURLtoBlob(compressedBase64);
                                 };
                                 img.src = e.target.result;
                             };
@@ -166,8 +142,58 @@ require_once '../app/core/imageConfig.php';
                         }
                     });
 
+                    // Convert Base64 to Blob
+                    function dataURLtoBlob(dataurl) {
+                        const arr = dataurl.split(',');
+                        const mime = arr[0].match(/:(.*?);/)[1];
+                        const bstr = atob(arr[1]);
+                        let n = bstr.length;
+                        const u8arr = new Uint8Array(n);
+
+                        while (n--) {
+                            u8arr[n] = bstr.charCodeAt(n);
+                        }
+
+                        return new Blob([u8arr], { type: mime });
+                    }
+
+                    // Handle Upload Button Click
+                    uploadButton.addEventListener("click", function () {
+                        if (!resizedBlob) {
+                            alert("No resized image available!");
+                            return;
+                        }
+
+                        const formData = new FormData();
+                        formData.append("profile_picture", resizedBlob, "profile.jpg");
+
+                        fetch("<?php echo ROOT ?>student", {
+                            method: "POST",
+                            body: formData
+                        })
+                            .then(response => response.text())
+                            .then(data => {
+                                console.log(data);
+                                showPopup("✅ Profile picture uploaded successfully!");
+                                uploadButton.classList.add("hidden");
+                            })
+                            .catch(error => {
+                                console.error(error);
+                                alert("Upload failed.");
+                            });
+                    });
+
+                    function showPopup(message) {
+                        const popup = document.getElementById('popup');
+                        popup.textContent = message;
+                        popup.style.display = 'block';
+                        setTimeout(() => {
+                            popup.style.display = 'none';
+                        }, 3000);
+                    }
                 });
             </script>
+
 
 
         </div>
