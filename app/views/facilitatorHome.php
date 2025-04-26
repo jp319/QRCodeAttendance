@@ -88,6 +88,7 @@ global $imageSource, $imageSource2, $imageSource3, $programList, $selectedProgra
                 </tr>
                 </thead>
                 <tbody>
+                <?php if(!empty($attendanceRecordList)){?>
                 <?php foreach ($attendanceRecordList as $attendanceRecord) { ?>
                     <tr class="border-t border-gray-200 hover:bg-gray-50">
                         <td class="py-3 px-4 text-sm text-gray-600"><?php echo htmlspecialchars($attendanceRecord['student_id'])?></td>
@@ -102,6 +103,9 @@ global $imageSource, $imageSource2, $imageSource3, $programList, $selectedProgra
                         </td>
                     </tr>
                 <?php } ?>
+                <?php }else{
+                    echo "Student record will be displayed here.";
+                }?>
                 </tbody>
                 <script>
                     document.addEventListener("DOMContentLoaded", function() {
