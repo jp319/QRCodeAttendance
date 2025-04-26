@@ -39,7 +39,7 @@ require "../app/core/imageConfig.php";
         <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
             <!-- Infographic 1 -->
             <div class="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105">
-                <img src="https://cdn.pixabay.com/photo/2020/10/30/14/23/qr-code-5708613_1280.jpg"
+                <img src="https://img.freepik.com/free-vector/qr-code-characters-their-laptop_23-2148626341.jpg?t=st=1745660972~exp=1745664572~hmac=d09c618d59c2ec53b074801ad670d929a891e338044a158707efcd2812f9c4f0&w=996"
                      alt="QR Code Attendance" class="w-full h-60 object-cover">
             </div>
 
