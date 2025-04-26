@@ -3,6 +3,7 @@ require '../app/core/init.php';
 
 
 $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
+print_r($uri);
 $routes = [
     '/login' => '../app/Controller/LoginPage.php',
     '/logout' => '../app/Controller/Logout.php',
