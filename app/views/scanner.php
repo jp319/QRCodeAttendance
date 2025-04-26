@@ -180,9 +180,7 @@ require_once '../app/core/config.php';
                         .then(response => response.json())
                         .then(data => {
                             console.log("Fetched Student Data:", data); // Debugging
-
-
-
+                            document.getElementById("loading-screen").style.display = "none";
                             if (data.status === "success") {
                                 document.getElementById("student-name").textContent = `Student: ${data.student}`;
                                 document.getElementById("student-program").textContent = `Program: ${data.program}`;
