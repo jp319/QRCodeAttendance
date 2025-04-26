@@ -169,18 +169,19 @@ require_once '../app/core/config.php';
                 { fps: 10, qrbox: { width: 300, height: 300 } },
                 (decodedText) => {
                     document.getElementById("result").innerHTML = `<p>Decoded QR Code: ${decodedText}</p>`;
-
+                    document.getElementById("loading-screen").style.display = "flex";
                     // Fetch student details before confirming attendance
                     fetch("", {
                         method: "POST",
                         headers: { "Content-Type": "application/x-www-form-urlencoded" },
                         body: `qrData=${encodeURIComponent(decodedText)}&atten_id=${encodeURIComponent("<?= $AttendanceID; ?>")}&fetchStudent=true`
+
                     })
                         .then(response => response.json())
                         .then(data => {
                             console.log("Fetched Student Data:", data); // Debugging
 
-                            document.getElementById("loading-screen").style.display = "flex";
+
 
                             if (data.status === "success") {
                                 document.getElementById("student-name").textContent = `Student: ${data.student}`;
