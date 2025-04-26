@@ -45,13 +45,13 @@ require "../app/core/imageConfig.php";
 
             <!-- Infographic 2 -->
             <div class="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105">
-                <img src="https://cdn.pixabay.com/photo/2021/10/01/13/35/data-6672201_1280.jpg"
+                <img src="https://img.freepik.com/free-vector/data-analyst-oversees-governs-income-expenses-with-magnifier-financial-management-system-finance-software-it-management-tool-concept_335657-1891.jpg?t=st=1745660844~exp=1745664444~hmac=bbbd6e822e1f2b4857ed85d114421a6e66a6f6fd0c72af0975b438a0634b05b3&w=996"
                      alt="Data Analytics" class="w-full h-60 object-cover">
             </div>
 
             <!-- Infographic 3 -->
             <div class="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105">
-                <img src="https://cdn.pixabay.com/photo/2017/01/31/15/39/checklist-2023737_1280.png"
+                <img src="https://img.freepik.com/free-vector/confirmed-attendance-concept-illustration_114360-30959.jpg?t=st=1745661282~exp=1745664882~hmac=dc8da9e0f15c298e244c05b65f3621d35dc51faacaebc4b45009a3b64b3f0177&w=740"
                      alt="Checklist Attendance" class="w-full h-60 object-cover">
             </div>
         </div>
