@@ -170,7 +170,6 @@ require_once '../app/core/config.php';
                 (decodedText) => {
                     document.getElementById("result").innerHTML = `<p>Decoded QR Code: ${decodedText}</p>`;
                     document.getElementById("loading-screen").style.display = "flex";
-                    document.getElementById("confirmation-modal").style.display = "flex";
                     // Fetch student details before confirming attendance
                     fetch("", {
                         method: "POST",
@@ -181,29 +180,26 @@ require_once '../app/core/config.php';
                         .then(response => response.json())
                         .then(data => {
                             console.log("Fetched Student Data:", data); // Debugging
-
                             document.getElementById("loading-screen").style.display = "none";
-                            document.getElementById("student-name").textContent = `Student: ${data.student}`;
-                            document.getElementById("student-program").textContent = `Program: ${data.program}`;
-                            const img = new Image();
-                            img.onload = function() {
-                                document.getElementById("student-image").src = this.src;
-                                document.getElementById("student-image").style.display = "block";
-                                document.getElementById("student-image").style.maxWidth = "150px";
-                                document.getElementById("student-image").style.maxHeight = "150px";
-
-                                // Show confirmation modal AFTER image loads
-
-                            };
-                            img.src = `data:image/jpeg;base64,${data.studentProfile}`;
-                            // Hide image container while loading
-                            document.getElementById("student-image").style.display = "none";
                             if (data.status === "success") {
-
+                                document.getElementById("student-name").textContent = `Student: ${data.student}`;
+                                document.getElementById("student-program").textContent = `Program: ${data.program}`;
 
                                 // Then handle image asynchronously
                                 if (data.studentProfile) {
+                                    const img = new Image();
+                                    img.onload = function() {
+                                        document.getElementById("student-image").src = this.src;
+                                        document.getElementById("student-image").style.display = "block";
+                                        document.getElementById("student-image").style.maxWidth = "150px";
+                                        document.getElementById("student-image").style.maxHeight = "150px";
 
+                                        // Show confirmation modal AFTER image loads
+                                        document.getElementById("confirmation-modal").style.display = "flex";
+                                    };
+                                    img.src = `data:image/jpeg;base64,${data.studentProfile}`;
+                                    // Hide image container while loading
+                                    document.getElementById("student-image").style.display = "none";
                                 } else {
                                     document.getElementById("student-image").style.display = "none";
                                     // Show confirmation modal immediately if no image

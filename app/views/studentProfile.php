@@ -114,12 +114,50 @@ require_once '../app/core/imageConfig.php';
                             fileNameDisplay.classList.remove("hidden");
                             uploadButton.classList.remove("hidden");
 
-                            // ✅ Preview image
                             const reader = new FileReader();
                             reader.onload = function (e) {
-                                if (previewImg) {
-                                    previewImg.src = e.target.result;
-                                }
+                                const img = new Image();
+                                img.onload = function () {
+                                    // ✨ Create a canvas to resize the image
+                                    const canvas = document.createElement("canvas");
+                                    const ctx = canvas.getContext("2d");
+
+                                    // ⚡ Resize logic (set maximum width/height)
+                                    const maxWidth = 300;  // You can adjust
+                                    const maxHeight = 300;
+                                    let width = img.width;
+                                    let height = img.height;
+
+                                    if (width > height) {
+                                        if (width > maxWidth) {
+                                            height = height * (maxWidth / width);
+                                            width = maxWidth;
+                                        }
+                                    } else {
+                                        if (height > maxHeight) {
+                                            width = width * (maxHeight / height);
+                                            height = maxHeight;
+                                        }
+                                    }
+
+                                    canvas.width = width;
+                                    canvas.height = height;
+
+                                    // Draw resized image
+                                    ctx.drawImage(img, 0, 0, width, height);
+
+                                    // ✨ Get the compressed Base64 data URL (you can control quality)
+                                    const compressedDataUrl = canvas.toDataURL("image/jpeg", 0.7);
+                                    // 0.7 = compression quality (0.0 worst - 1.0 best)
+
+                                    // ✅ Set preview
+                                    if (previewImg) {
+                                        previewImg.src = compressedDataUrl;
+                                    }
+
+                                    // If you want: you can now upload compressedDataUrl (not the original file)
+                                };
+                                img.src = e.target.result;
                             };
                             reader.readAsDataURL(file);
                         } else {
@@ -127,6 +165,7 @@ require_once '../app/core/imageConfig.php';
                             fileNameDisplay.classList.add("hidden");
                         }
                     });
+
                 });
             </script>
 
