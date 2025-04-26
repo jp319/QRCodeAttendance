@@ -193,9 +193,6 @@ require_once '../app/core/imageConfig.php';
                     }
                 });
             </script>
-
-
-
         </div>
 
         <div class="p-6">
