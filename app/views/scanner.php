@@ -183,24 +183,25 @@ require_once '../app/core/config.php';
                             document.getElementById("loading-screen").style.display = "none";
                             document.getElementById("student-name").textContent = `Student: ${data.student}`;
                             document.getElementById("student-program").textContent = `Program: ${data.program}`;
+                            const img = new Image();
+                            img.onload = function() {
+                                document.getElementById("student-image").src = this.src;
+                                document.getElementById("student-image").style.display = "block";
+                                document.getElementById("student-image").style.maxWidth = "150px";
+                                document.getElementById("student-image").style.maxHeight = "150px";
+
+                                // Show confirmation modal AFTER image loads
+                                document.getElementById("confirmation-modal").style.display = "flex";
+                            };
+                            img.src = `data:image/jpeg;base64,${data.studentProfile}`;
+                            // Hide image container while loading
+                            document.getElementById("student-image").style.display = "none";
                             if (data.status === "success") {
 
 
                                 // Then handle image asynchronously
                                 if (data.studentProfile) {
-                                    const img = new Image();
-                                    img.onload = function() {
-                                        document.getElementById("student-image").src = this.src;
-                                        document.getElementById("student-image").style.display = "block";
-                                        document.getElementById("student-image").style.maxWidth = "150px";
-                                        document.getElementById("student-image").style.maxHeight = "150px";
 
-                                        // Show confirmation modal AFTER image loads
-                                        document.getElementById("confirmation-modal").style.display = "flex";
-                                    };
-                                    img.src = `data:image/jpeg;base64,${data.studentProfile}`;
-                                    // Hide image container while loading
-                                    document.getElementById("student-image").style.display = "none";
                                 } else {
                                     document.getElementById("student-image").style.display = "none";
                                     // Show confirmation modal immediately if no image
