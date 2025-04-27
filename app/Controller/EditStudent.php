@@ -7,6 +7,8 @@ require_once '../app/Model/Sanction.php';
 require_once '../app/core/config.php';
 
 
+use DateTime;
+use DateTimeZone;
 use Model\Sanction;
 use Model\Student;
 use Model\User;
@@ -37,7 +39,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($_POST['sanctionH']) && isset($_POST['reason'])) {
         // Insert Sanction
         $sanction = new Sanction();
-        $sanction->insertSanction($_POST['id'], $_POST['reason'], $_POST['sanctionH']);
+        try {
+            $date = new DateTime("now", new DateTimeZone('Asia/Manila'));
+        } catch (\DateMalformedStringException $e) {
+
+        }
+        $formattedTime = $date->format('Y-m-d H:i:s'); // FULL Date and Time
+        $sanction->insertSanction($_POST['id'], $_POST['reason'], $_POST['sanctionH'], $formattedTime);
         header("Location: " . ROOT . "adminHome?page=Students");
         exit();
     }

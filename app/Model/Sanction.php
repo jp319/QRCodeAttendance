@@ -6,13 +6,14 @@ use PDO;
 class Sanction
 {
     use \Database;
-    public function insertSanction($student_id, $reason, $hours): bool|array
+    public function insertSanction($student_id, $reason, $hours, $date): bool|array
     {
-        $sql = "CALL insertSanction(?,?,?)";
+        $sql = "CALL insertSanction(?,?,?,?)";
         $params = [
             $student_id,
             $reason,
-            $hours
+            $hours.
+            $date
         ];
         return $this->query2($sql, $params);
     }

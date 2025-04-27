@@ -107,7 +107,8 @@ class UpdateAttendance
                         $studentList = $student->getAllStudent(); // Fetch students as associative arrays
 
                         $attendanceRecordList = array_map('strval', array_column($attendances->AttendanceRecord2($eventId), 'student_id'));
-
+                        $date = new DateTime("now", new DateTimeZone('Asia/Manila'));
+                        $formattedTime = $date->format('Y-m-d H:i:s'); // FULL Date and Time
 
                         if (in_array('AllStudents', $requiredAttendees )) {
                             foreach ($studentList as $student) {
@@ -116,12 +117,13 @@ class UpdateAttendance
                                     if(in_array($student_id, $attendanceRecordList, true)){
                                         //check if naka time out
                                         if(!$qrCode->checkAttendance2($eventId, $student_id)){
-                                            $sanction->insertSanction($student_id, 'Unable to attend ' . $eventName . ' event', $hours);
+
+                                            $sanction->insertSanction($student_id, 'Unable to attend ' . $eventName . ' event', $hours, $formattedTime);
                                         }
                                     }
                                 }
                                 if (!in_array($student_id, $attendanceRecordList, true)){
-                                    $sanction->insertSanction($student_id, 'Unable to attend ' . $eventName . ' event', $hours);
+                                    $sanction->insertSanction($student_id, 'Unable to attend ' . $eventName . ' event', $hours, $formattedTime);
                                 }
                             }
 
@@ -157,12 +159,12 @@ class UpdateAttendance
                                         if(in_array($student_id, $attendanceRecordList, true)){
                                             //check if naka time out
                                             if(!$qrCode->checkAttendance2($eventId, $student_id)){
-                                                $sanction->insertSanction($student_id, 'Unable to time out ' . $eventName . ' event', $hours);
+                                                $sanction->insertSanction($student_id, 'Unable to time out ' . $eventName . ' event', $hours, $formattedTime);
                                             }
                                         }
                                     }
                                 }elseif($studentIsRequired && !in_array($student_id, $attendanceRecordList, true)){
-                                    $sanction->insertSanction($student_id, 'Unable to attend ' . $eventName . ' event', $hours);
+                                    $sanction->insertSanction($student_id, 'Unable to attend ' . $eventName . ' event', $hours, $formattedTime);
                                 }
                             }
                         }
