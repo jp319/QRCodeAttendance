@@ -25,6 +25,7 @@ class LoginPage extends Controller
 
     /**
      * @throws RandomException
+     * @throws \DateMalformedStringException
      */
     public function index(): void
     {

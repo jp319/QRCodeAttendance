@@ -23,19 +23,23 @@ Trait Model
         $deviceInfo = $this->getDeviceInfo($userAgent);
 
         // Create a DateTime object now in Asia/Manila
-        $date = new DateTime('now', new DateTimeZone('Asia/Manila'));
+        $now = new DateTime('now', new DateTimeZone('Asia/Manila'));
+        $created = $now->format('Y-m-d H:i:s'); // Save 'created_at' first
+
+        // Clone the $now object to calculate expiry
+        $expiry = clone $now;
         if ($role === 'student') {
-            $date->modify('+10 minutes');
+            $expiry->modify('+10 minutes');
         } else {
-            $date->modify('+2 days');
+            $expiry->modify('+2 days');
         }
+        $expiresAt = $expiry->format('Y-m-d H:i:s');
 
-        $expiresAt = $date->format('Y-m-d H:i:s');
-
-
-        $stmt = $this->connect()->prepare("INSERT INTO user_sessions (user_id, role, token, user_agent, ip_address, deviceInfo, expires_at) VALUES (?, ?, ?, ?, ?, ?, ?)");
-        $stmt->execute([$userId, $role, $token1, $userAgent, $ipAddress, $deviceInfo, $expiresAt]);
+        // Insert into database
+        $stmt = $this->connect()->prepare("INSERT INTO user_sessions (user_id, role, token, user_agent, ip_address, deviceInfo, created_at, expires_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->execute([$userId, $role, $token1, $userAgent, $ipAddress, $deviceInfo, $created, $expiresAt]);
     }
+
 
 // Function to get the actual IP address
     function getUserIP(): string {
