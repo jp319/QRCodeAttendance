@@ -8,6 +8,8 @@ require_once '../app/Model/Student.php';
 require_once '../app/Model/Sanction.php';
 require_once '../app/Model/QRCode.php';
 use Database;
+use DateTime;
+use DateTimeZone;
 use Exception;
 use Model\Attendances;
 use Model\QRCode;
@@ -40,8 +42,11 @@ class UpdateAttendance
                 switch ($action) {
                     case 'start':
                         if (!$attendance->checkAttendanceOnGoing()){
-                            $stmt = $this->connect()->prepare("UPDATE attendance SET atten_status = 'on going', atten_started = NOW() WHERE atten_id = :eventId");
+                            $date = new DateTime("now", new DateTimeZone('Asia/Manila'));
+                            $formattedTime = $date->format('h:i:s A'); // 12-hour format with AM/PM
+                            $stmt = $this->connect()->prepare("UPDATE attendance SET atten_status = 'on going', atten_started = :date WHERE atten_id = :eventId");
                             $stmt->bindParam(':eventId', $eventId);
+                            $stmt->bindParam(':date', $formattedTime);
                             $stmt->execute();
                             $message = 'Attendance started successfully.';
                         }else{
