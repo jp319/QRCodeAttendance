@@ -39,11 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($_POST['sanctionH']) && isset($_POST['reason'])) {
         // Insert Sanction
         $sanction = new Sanction();
-        try {
-            $date = new DateTime("now", new DateTimeZone('Asia/Manila'));
-        } catch (\DateMalformedStringException $e) {
-
-        }
+        $date = new DateTime("now", new DateTimeZone('Asia/Manila'));
         $formattedTime = $date->format('Y-m-d H:i:s'); // FULL Date and Time
         $sanction->insertSanction($_POST['id'], $_POST['reason'], $_POST['sanctionH'], $formattedTime);
         header("Location: " . ROOT . "adminHome?page=Students");

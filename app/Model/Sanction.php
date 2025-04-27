@@ -11,10 +11,9 @@ class Sanction
         $sql = "CALL insertSanction(?,?,?,?)";
         $params = [
             $student_id,
-            $date,
             $reason,
-            $hours
-
+            $hours,
+            $date
         ];
         return $this->query2($sql, $params);
     }
