@@ -8,6 +8,7 @@ Trait Model
     use Database;
 
     /**
+     * @throws DateMalformedStringException
      */
     function createSession($userId, $role, $token): void
     {
@@ -21,9 +22,16 @@ Trait Model
         $userAgent = $_SERVER['HTTP_USER_AGENT'];
         $deviceInfo = $this->getDeviceInfo($userAgent);
 
-        // Set expiry: 10 mins for students, 2 days for others
-        $expiryTime = ($role === 'student') ? '+10 minutes' : '+2 days';
-        $expiresAt = date('Y-m-d H:i:s', strtotime($expiryTime));
+        // Create a DateTime object now in Asia/Manila
+        $date = new DateTime('now', new DateTimeZone('Asia/Manila'));
+        if ($role === 'student') {
+            $date->modify('+10 minutes');
+        } else {
+            $date->modify('+2 days');
+        }
+
+        $expiresAt = $date->format('Y-m-d H:i:s');
+
 
         $stmt = $this->connect()->prepare("INSERT INTO user_sessions (user_id, role, token, user_agent, ip_address, deviceInfo, expires_at) VALUES (?, ?, ?, ?, ?, ?, ?)");
         $stmt->execute([$userId, $role, $token1, $userAgent, $ipAddress, $deviceInfo, $expiresAt]);
