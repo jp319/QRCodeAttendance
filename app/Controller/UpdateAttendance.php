@@ -43,7 +43,7 @@ class UpdateAttendance
                     case 'start':
                         if (!$attendance->checkAttendanceOnGoing()){
                             $date = new DateTime("now", new DateTimeZone('Asia/Manila'));
-                            $formattedTime = $date->format('h:i:s A'); // 12-hour format with AM/PM
+                            $formattedTime = $date->format('Y-m-d H:i:s'); // FULL Date and Time
                             $stmt = $this->connect()->prepare("UPDATE attendance SET atten_status = 'on going', atten_started = :date WHERE atten_id = :eventId");
                             $stmt->bindParam(':eventId', $eventId);
                             $stmt->bindParam(':date', $formattedTime);
