@@ -41,4 +41,8 @@ class DeleteSessions
 }
 
 $deleteSession = new DeleteSessions();
-$deleteSession->deleteSession();
+try {
+    $deleteSession->deleteSession();
+} catch (DateMalformedStringException $e) {
+
+}
