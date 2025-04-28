@@ -120,13 +120,14 @@ class AddStudent extends \Controller
         for ($i = 1; $i < count($data); $i++) {
             $row = $data[$i];
 
-            $student_id = $row[$indices['student id']];
+            $student_id = trim($row[$indices['student id']]);
             $first_name = $row[$indices['first name']];
             $last_name = $row[$indices['last name']];
             $program = $row[$indices['program']];
             $year = $row[$indices['year']];
-            $email = $row[$indices['email']];
+            $email = trim($row[$indices['email']]);
             $contact = $row[$indices['contact number']];
+
 
             if (!filter_var($email, FILTER_VALIDATE_EMAIL) || !str_ends_with($email, '@usep.edu.ph')) {
                 echo "<script>alert('Invalid email: $email. Skipping entry.');</script>";
