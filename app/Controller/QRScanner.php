@@ -56,8 +56,9 @@ class QRScanner extends Controller
                     }
 
                     // Check if the student has already scanned
+                    $attendanceExists = $qrcode->checkAttendance($attenId, $studentId);
                     if($onTimeCheck == 0){
-                        $attendanceExists = $qrcode->checkAttendance($attenId, $studentId);
+
                         if (!empty($attendanceExists)) {
                             echo json_encode([
                                 "status" => "error",
@@ -67,8 +68,19 @@ class QRScanner extends Controller
                             exit;
                         }
                     }elseif ($onTimeCheck == 1){
-                        $attendanceExists = $qrcode->checkAttendance2($attenId, $studentId);
-                        if (!empty($attendanceExists)) {
+                        $attendanceExists1 = $qrcode->checkAttendance2($attenId, $studentId);
+
+                        //check kung naka time in
+                        if(empty($attendanceExists)){
+                            echo json_encode([
+                                "status" => "error",
+                                "student" => $studentId,
+                                "message" => "Student did not time in!"
+                            ]);
+                            exit;
+                        }
+
+                        if (!empty($attendanceExists1)) {
                             echo json_encode([
                                 "status" => "error",
                                 "student" => $studentId,
@@ -76,6 +88,8 @@ class QRScanner extends Controller
                             ]);
                             exit;
                         }
+
+
                     }
 
 
@@ -92,6 +106,7 @@ class QRScanner extends Controller
                                     "message" => "QR Code Scanned Successfully! (Time in)"
                                 ]);
                             }else{
+
                                 $qrcode->recordAttendance2($attenId, $studentId,);
                                 $activityLog->createActivityLog($_SESSION['user_id'], $_SESSION['role'],$_SESSION['username'] .' Scanned student: '. $studentId . ' (Time out)',$EventName );
                                 echo json_encode([
