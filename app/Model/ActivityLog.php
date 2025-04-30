@@ -19,7 +19,7 @@ class ActivityLog
     {
         $date = new DateTime("now", new DateTimeZone('Asia/Manila'));
         $formattedTime = $date->format('Y-m-d H:i:s'); // FULL Date and Time
-        $query = 'CALL createActivityLog(:id, :role,:activity, :event, :time)';
+        $query = 'CALL createActivityLog(:id, :activity, :role, :event, :time)';
         $params = [
             'id' => $userID,
             'role' => $role,
