@@ -4,19 +4,28 @@ namespace Model;
 require_once '../app/core/Database.php';
 
 use Database;
+use DateMalformedStringException;
+use DateTime;
+use DateTimeZone;
 use PDO;
 class ActivityLog
 {
     use Database;
-    public function createActivityLog($userID,$role,  $activityLog,$event): false|string
+
+    /**
+     * @throws DateMalformedStringException
+     */
+    public function createActivityLog($userID, $role, $activityLog, $event): false|string
     {
-        $query = 'CALL createActivityLog(:id,:activity, :role, :event)';
+        $date = new DateTime("now", new DateTimeZone('Asia/Manila'));
+        $formattedTime = $date->format('Y-m-d H:i:s'); // FULL Date and Time
+        $query = 'CALL createActivityLog(:id, :role,:activity, :time, :event)';
         $params = [
             'id' => $userID,
             'activity' => $activityLog,
             'role' => $role,
+            'time' => $formattedTime,
             'event' => $event
-
         ];
         return $this->query2($query, $params);
     }
