@@ -106,7 +106,6 @@ class QRScanner extends Controller
                                     "message" => "QR Code Scanned Successfully! (Time in)"
                                 ]);
                             }else{
-
                                 $qrcode->recordAttendance2($attenId, $studentId,);
                                 $activityLog->createActivityLog($_SESSION['user_id'], $_SESSION['role'],$_SESSION['username'] .' Scanned student: '. $studentId . ' (Time out)',$EventName );
                                 echo json_encode([
