@@ -73,7 +73,6 @@
 
 
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo htmlspecialchars($student['sanction_hours']); ?></td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo htmlspecialchars($student['sanction_reason']); ?></td>
                 </tr>
             <?php endforeach; ?>
         <?php else: ?>
