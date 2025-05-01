@@ -71,34 +71,62 @@ global $imageSource, $imageSource2, $imageSource3, $programList, $selectedProgra
     </div>
 
     <!-- Attendance Dropdown -->
-    <div class="mb-6">
-        <select id="attendanceDropdown"
-                class="w-full p-3 border border-maroon rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-maroon bg-white shadow-md">
+    <div class="mb-6 relative">
+        <button id="attendanceDropdownButton"
+                class="w-full sm:w-auto bg-maroon hover:bg-maroon-hover text-white px-4 py-2 rounded-lg flex items-center justify-between gap-2 shadow-md focus:outline-none">
+            <span>View Events</span>
+            <i class="fas fa-chevron-down" id="dropdownIcon"></i>
+        </button>
+        <div id="attendanceDropdownMenu"
+             class="hidden absolute z-10 w-full sm:w-80 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-y-auto">
             <?php if (empty($attendanceList2)) { ?>
-                <option value="" disabled selected>No attendance records found</option>
+                <div class="p-4 text-center text-gray-500">
+                    No attendance records found.
+                </div>
             <?php } else { ?>
-                <option value="" disabled selected>Select an event...</option>
                 <?php foreach ($attendanceList2 as $attendance) { ?>
-                    <option value="<?php echo htmlspecialchars($attendance['event_id']); ?>"
-                            data-event-name="<?php echo htmlspecialchars($attendance['event_name']); ?>">
-                        <?php echo htmlspecialchars($attendance['event_name'] . ' - ' . $attendance['date_created']); ?>
-                    </option>
+                    <a href="<?php echo ROOT ?>view_record2?id=<?php echo htmlspecialchars($attendance['event_id']); ?>&eventName=<?php echo htmlspecialchars($attendance['event_name']); ?>"
+                       class="flex items-center justify-between p-3 border-b border-gray-200 hover:bg-gray-50">
+                        <div>
+                            <p class="text-sm font-semibold text-maroon"><?php echo htmlspecialchars($attendance['event_name']); ?></p>
+                            <p class="text-xs text-gray-600"><?php echo htmlspecialchars($attendance['date_created']); ?></p>
+                        </div>
+                        <i class="fas fa-eye text-maroon hover:text-maroon-hover" title="View Details"></i>
+                    </a>
                 <?php } ?>
             <?php } ?>
-        </select>
+        </div>
     </div>
 
     <script>
-        document.getElementById('attendanceDropdown').addEventListener('change', function() {
-            const eventId = this.value;
-            const eventName = this.options[this.selectedIndex].getAttribute('data-event-name');
-            if (eventId && eventName) {
-                const url = '<?php echo ROOT ?>view_record2?id=' + encodeURIComponent(eventId) + '&eventName=' + encodeURIComponent(eventName);
-                window.location.href = url;
+        const dropdownButton = document.getElementById('attendanceDropdownButton');
+        const dropdownMenu = document.getElementById('attendanceDropdownMenu');
+        const dropdownIcon = document.getElementById('dropdownIcon');
+
+        dropdownButton.addEventListener('click', () => {
+            dropdownMenu.classList.toggle('hidden');
+            dropdownIcon.classList.toggle('fa-chevron-down');
+            dropdownIcon.classList.toggle('fa-chevron-up');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (event) => {
+            if (!dropdownButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                dropdownMenu.classList.add('hidden');
+                dropdownIcon.classList.add('fa-chevron-down');
+                dropdownIcon.classList.remove('fa-chevron-up');
             }
         });
-    </script>
 
+        // Close dropdown when an item is clicked
+        dropdownMenu.querySelectorAll('a').forEach(item => {
+            item.addEventListener('click', () => {
+                dropdownMenu.classList.add('hidden');
+                dropdownIcon.classList.add('fa-chevron-down');
+                dropdownIcon.classList.remove('fa-chevron-up');
+            });
+        });
+    </script>
     <!-- Event Section -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <div class="bg-maroon rounded-2xl text-white text-center shadow-lg p-6">
