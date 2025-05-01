@@ -49,7 +49,6 @@ $totalHours = array_sum(array_column($sanctionList, 'sanction_hours'));
         </div>
     </div>
 
-    <!-- Recent Attendance Section -->
     <div class="mb-8">
         <h3 class="text-xl font-bold text-maroon mb-4">Recent Attended Activities</h3>
         <!-- Desktop Table -->
@@ -70,11 +69,17 @@ $totalHours = array_sum(array_column($sanctionList, 'sanction_hours'));
                     </tr>
                 <?php else: ?>
                     <?php foreach ($attendanceRecord as $record): ?>
+                        <?php if (!is_array($record)): ?>
+                            <tr>
+                                <td colspan="4" class="py-3 px-4 text-center text-red-500">Invalid attendance record data.</td>
+                            </tr>
+                            <?php continue; ?>
+                        <?php endif; ?>
                         <tr class="border-t border-gray-200 hover:bg-gray-50">
-                            <td class="py-3 px-4 text-sm text-gray-600"><?= htmlspecialchars($record['Name']); ?></td>
-                            <td class="py-3 px-4 text-sm text-gray-600"><?= htmlspecialchars($record['event_name']); ?></td>
-                            <td class="py-3 px-4 text-sm text-gray-600"><?= htmlspecialchars($record['time_in']); ?></td>
-                            <td class="py-3 px-4 text-sm text-gray-600"><?= htmlspecialchars($record['time_out']); ?></td>
+                            <td class="py-3 px-4 text-sm text-gray-600"><?= htmlspecialchars($record['Name'] ?? 'N/A'); ?></td>
+                            <td class="py-3 px-4 text-sm text-gray-600"><?= htmlspecialchars($record['event_name'] ?? 'N/A'); ?></td>
+                            <td class="py-3 px-4 text-sm text-gray-600"><?= htmlspecialchars($record['time_in'] ?? 'N/A'); ?></td>
+                            <td class="py-3 px-4 text-sm text-gray-600"><?= htmlspecialchars($record['time_out'] ?? 'N/A'); ?></td>
                         </tr>
                     <?php endforeach; ?>
                 <?php endif; ?>
@@ -89,11 +94,17 @@ $totalHours = array_sum(array_column($sanctionList, 'sanction_hours'));
                 </div>
             <?php else: ?>
                 <?php foreach ($attendanceRecord as $record): ?>
+                    <?php if (!is_array($record)): ?>
+                        <div class="bg-white p-5 rounded-lg shadow-md border border-gray-200 text-center text-red-500">
+                            Invalid attendance record data.
+                        </div>
+                        <?php continue; ?>
+                    <?php endif; ?>
                     <div class="bg-white p-5 rounded-lg shadow-md border border-gray-200 hover:shadow-lg transition-shadow">
-                        <h4 class="text-sm font-semibold text-maroon"><?= htmlspecialchars($record['Name']); ?></h4>
-                        <p class="text-xs text-gray-600"><strong>Event:</strong> <?= htmlspecialchars($record['event_name']); ?></p>
-                        <p class="text-xs text-gray-600"><strong>Time In:</strong> <?= htmlspecialchars($record['time_in']); ?></p>
-                        <p class="text-xs text-gray-600"><strong>Time Out:</strong> <?= htmlspecialchars($record['time_out']); ?></p>
+                        <h4 class="text-sm font-semibold text-maroon"><?= htmlspecialchars($record['Name'] ?? 'N/A'); ?></h4>
+                        <p class="text-xs text-gray-600"><strong>Event:</strong> <?= htmlspecialchars($record['event_name'] ?? 'N/A'); ?></p>
+                        <p class="text-xs text-gray-600"><strong>Time In:</strong> <?= htmlspecialchars($record['time_in'] ?? 'N/A'); ?></p>
+                        <p class="text-xs text-gray-600"><strong>Time Out:</strong> <?= htmlspecialchars($record['time_out'] ?? 'N/A'); ?></p>
                     </div>
                 <?php endforeach; ?>
             <?php endif; ?>
