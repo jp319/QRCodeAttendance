@@ -103,7 +103,7 @@ $viewNotAttended = $_GET['view'] ?? '';
         <div class="space-x-3">
             <a href="<?php echo ROOT ?>adminHome?page=Attendance" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 no-print">Back</a>
 
-            <a href="<?php echo ROOT ?>adminHome?page=Absentees" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 no-print">
+            <a href="<?php echo ROOT ?>view_record2?id=<?php echo htmlspecialchars($_GET['id']) ?>&eventName=<?php echo htmlspecialchars($_GET['eventName']); ?>" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 no-print">
                 View Absentees
             </a>
 
