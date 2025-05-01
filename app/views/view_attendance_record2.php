@@ -36,9 +36,18 @@
     </div>
 </div>
 
-<div class="mb-4 no-print">
+<div class="flex flex-col md:flex-row gap-4 mb-4 no-print">
     <input type="text" id="searchInput" placeholder="Search by name or student ID..." class="w-full md:w-1/3 px-4 py-2 border rounded-lg shadow-sm" onkeyup="filterTable()">
+
+    <select id="programFilter" class="px-4 py-2 border rounded-lg shadow-sm" onchange="filterTable()">
+        <option value="">All Programs</option>
+    </select>
+
+    <select id="yearFilter" class="px-4 py-2 border rounded-lg shadow-sm" onchange="filterTable()">
+        <option value="">All Academic Years</option>
+    </select>
 </div>
+
 
 <div class="overflow-x-auto bg-white rounded-xl shadow-md">
     <table class="min-w-full divide-y divide-gray-200">
@@ -47,6 +56,9 @@
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Student ID</th>
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">First Name</th>
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Last Name</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Program</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Academic Year</th>
+
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Sanction Hours</th>
         </tr>
         </thead>
@@ -57,6 +69,9 @@
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo htmlspecialchars($student['student_id']); ?></td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo htmlspecialchars($student['f_name']); ?></td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo htmlspecialchars($student['l_name']); ?></td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo htmlspecialchars($student['program']); ?></td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo htmlspecialchars($student['acad_year']); ?></td>
+
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo htmlspecialchars($student['sanction_hours']); ?></td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo htmlspecialchars($student['sanction_reason']); ?></td>
                 </tr>
@@ -81,5 +96,54 @@
         });
     }
 </script>
+<script>
+    function filterTable() {
+        const search = document.getElementById("searchInput").value.toLowerCase();
+        const selectedProgram = document.getElementById("programFilter").value.toLowerCase();
+        const selectedYear = document.getElementById("yearFilter").value.toLowerCase();
+        const rows = document.querySelectorAll("#sanctionedTable tr");
+
+        rows.forEach(row => {
+            const text = row.innerText.toLowerCase();
+            const matchesSearch = text.includes(search);
+            const programCell = row.cells[4]?.innerText.toLowerCase() || ""; // adjust index if needed
+            const yearCell = row.cells[5]?.innerText.toLowerCase() || "";
+
+            const matchesProgram = !selectedProgram || programCell === selectedProgram;
+            const matchesYear = !selectedYear || yearCell === selectedYear;
+
+            row.style.display = (matchesSearch && matchesProgram && matchesYear) ? "" : "none";
+        });
+    }
+
+    // Populate filter dropdowns
+    window.addEventListener("DOMContentLoaded", () => {
+        const programSet = new Set();
+        const yearSet = new Set();
+        const rows = document.querySelectorAll("#sanctionedTable tr");
+
+        rows.forEach(row => {
+            const program = row.cells[4]?.innerText.trim();
+            const year = row.cells[5]?.innerText.trim();
+            if (program) programSet.add(program);
+            if (year) yearSet.add(year);
+        });
+
+        const programFilter = document.getElementById("programFilter");
+        [...programSet].sort().forEach(program => {
+            const option = document.createElement("option");
+            option.value = option.text = program;
+            programFilter.add(option);
+        });
+
+        const yearFilter = document.getElementById("yearFilter");
+        [...yearSet].sort().forEach(year => {
+            const option = document.createElement("option");
+            option.value = option.text = year;
+            yearFilter.add(option);
+        });
+    });
+</script>
+
 </body>
 </html>
