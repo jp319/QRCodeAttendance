@@ -76,7 +76,7 @@ global $imageSource, $imageSource2, $imageSource3, $programList, $selectedProgra
                 </div>
             <?php } else { ?>
                 <?php foreach ($attendanceList2 as $attendance) { ?>
-                    <a href=""
+                    <a href="<?php echo ROOT ?>view_records?id=<?php echo htmlspecialchars($attendance['atten_id']) ?>&eventName=<?php echo htmlspecialchars($attendance['event_name']); ?>"
                        class="flex items-center justify-between p-3 border-b border-gray-200 hover:bg-gray-50">
                         <div>
                             <p class="text-sm font-semibold text-maroon"><?php echo htmlspecialchars($attendance['event_name']); ?></p>
