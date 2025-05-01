@@ -164,7 +164,7 @@ class Attendances
         $stmt = $this->connect()->prepare($query);
         $stmt->bindParam(":student_id", $id);
         $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
 
