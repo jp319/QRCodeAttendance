@@ -20,7 +20,6 @@ class StudentReport extends \Controller
         $userID = $userSessions[0]['user_id']; // Get the first logged-in user
         $sanctionList = $sanction->getStudentSanctions($userID);
         $attendanceRecord = $attendance->StudentAttendanceRecord($userID);
-        print_r($attendanceRecord);
         $data = [
             'sanctionList' => $sanctionList,
             'attendanceRecord' => $attendanceRecord
