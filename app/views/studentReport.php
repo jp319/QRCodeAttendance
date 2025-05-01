@@ -58,6 +58,7 @@ $totalHours = array_sum(array_column($sanctionList, 'sanction_hours'));
                 <tr>
                     <th class="py-3 px-4 text-left text-sm font-semibold text-maroon">Student Name</th>
                     <th class="py-3 px-4 text-left text-sm font-semibold text-maroon">Event Name</th>
+                    <th class="py-3 px-4 text-left text-sm font-semibold text-maroon">Event Date</th>
                     <th class="py-3 px-4 text-left text-sm font-semibold text-maroon">Time In</th>
                     <th class="py-3 px-4 text-left text-sm font-semibold text-maroon">Time Out</th>
                 </tr>
