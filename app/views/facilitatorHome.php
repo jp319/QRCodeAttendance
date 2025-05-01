@@ -70,26 +70,34 @@ global $imageSource, $imageSource2, $imageSource3, $programList, $selectedProgra
         </form>
     </div>
 
-    <!-- Attendance Cards -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb 6">
-        <?php foreach ($attendanceList2 as $attendance) { ?>
-            <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow">
-                <h3 class="text-lg font-semibold text-maroon mb-2"><?php echo htmlspecialchars($attendance['event_name']); ?></h3>
-                <p class="text-sm text-gray-600 mb-2"><strong>Date Created:</strong> <?php echo htmlspecialchars($attendance['date_created']); ?></p>
-                <div class="flex justify-end">
-                    <a href=""
-                       class="text-maroon hover:text-maroon-hover" title="View Details">
-                        <i class="fas fa-eye"></i>
-                    </a>
-                </div>
-            </div>
-        <?php } ?>
-        <?php if (empty($attendanceList2)) { ?>
-            <div class="col-span-full text-center text-gray-500 py-4">
-                No attendance records found.
-            </div>
-        <?php } ?>
+    <!-- Attendance Dropdown -->
+    <div class="mb-6">
+        <select id="attendanceDropdown"
+                class="w-full p-3 border border-maroon rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-maroon bg-white shadow-md">
+            <?php if (empty($attendanceList2)) { ?>
+                <option value="" disabled selected>No attendance records found</option>
+            <?php } else { ?>
+                <option value="" disabled selected>Select an event...</option>
+                <?php foreach ($attendanceList2 as $attendance) { ?>
+                    <option value="<?php echo htmlspecialchars($attendance['event_id']); ?>"
+                            data-event-name="<?php echo htmlspecialchars($attendance['event_name']); ?>">
+                        <?php echo htmlspecialchars($attendance['event_name'] . ' - ' . $attendance['date_created']); ?>
+                    </option>
+                <?php } ?>
+            <?php } ?>
+        </select>
     </div>
+
+    <script>
+        document.getElementById('attendanceDropdown').addEventListener('change', function() {
+            const eventId = this.value;
+            const eventName = this.options[this.selectedIndex].getAttribute('data-event-name');
+            if (eventId && eventName) {
+                const url = '<?php echo ROOT ?>view_record2?id=' + encodeURIComponent(eventId) + '&eventName=' + encodeURIComponent(eventName);
+                window.location.href = url;
+            }
+        });
+    </script>
 
     <!-- Event Section -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
