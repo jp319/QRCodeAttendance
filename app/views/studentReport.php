@@ -69,12 +69,7 @@ $totalHours = array_sum(array_column($sanctionList, 'sanction_hours'));
                     </tr>
                 <?php else: ?>
                     <?php foreach ($attendanceRecord as $record): ?>
-                        <?php if (!is_array($record)): ?>
-                            <tr>
-                                <td colspan="4" class="py-3 px-4 text-center text-red-500">Invalid attendance record data.</td>
-                            </tr>
-                            <?php continue; ?>
-                        <?php endif; ?>
+
                         <tr class="border-t border-gray-200 hover:bg-gray-50">
                             <td class="py-3 px-4 text-sm text-gray-600"><?= htmlspecialchars($record['Name'] ?? 'N/A'); ?></td>
                             <td class="py-3 px-4 text-sm text-gray-600"><?= htmlspecialchars($record['event_name'] ?? 'N/A'); ?></td>
@@ -94,12 +89,7 @@ $totalHours = array_sum(array_column($sanctionList, 'sanction_hours'));
                 </div>
             <?php else: ?>
                 <?php foreach ($attendanceRecord as $record): ?>
-                    <?php if (!is_array($record)): ?>
-                        <div class="bg-white p-5 rounded-lg shadow-md border border-gray-200 text-center text-red-500">
-                            Invalid attendance record data.
-                        </div>
-                        <?php continue; ?>
-                    <?php endif; ?>
+
                     <div class="bg-white p-5 rounded-lg shadow-md border border-gray-200 hover:shadow-lg transition-shadow">
                         <h4 class="text-sm font-semibold text-maroon"><?= htmlspecialchars($record['Name'] ?? 'N/A'); ?></h4>
                         <p class="text-xs text-gray-600"><strong>Event:</strong> <?= htmlspecialchars($record['event_name'] ?? 'N/A'); ?></p>
