@@ -56,9 +56,8 @@
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Student ID</th>
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">First Name</th>
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Last Name</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Program</th>
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Academic Year</th>
-
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Program</th>
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Sanction Hours</th>
         </tr>
         </thead>
