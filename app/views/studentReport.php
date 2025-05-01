@@ -95,7 +95,7 @@ $totalHours = array_sum(array_column($sanctionList, 'sanction_hours'));
                     <div class="bg-white p-5 rounded-lg shadow-md border border-gray-200 hover:shadow-lg transition-shadow">
                         <h4 class="text-sm font-semibold text-maroon"><?= htmlspecialchars($record['Name'] ?? 'N/A'); ?></h4>
                         <p class="text-xs text-gray-600"><strong>Event:</strong> <?= htmlspecialchars($record['event_name'] ?? 'N/A'); ?></p>
-                        <p class="text-xs text-gray-600"><strong>Event:</strong> <?= htmlspecialchars($record['atten_started'] ?? 'N/A'); ?></p>
+                        <p class="text-xs text-gray-600"><strong>Event Date:</strong> <?= htmlspecialchars($record['atten_started'] ?? 'N/A'); ?></p>
                         <p class="text-xs text-gray-600"><strong>Time In:</strong> <?= htmlspecialchars($record['time_in'] ?? 'N/A'); ?></p>
                         <p class="text-xs text-gray-600"><strong>Time Out:</strong> <?= htmlspecialchars($record['time_out'] ?? 'N/A'); ?></p>
                     </div>
