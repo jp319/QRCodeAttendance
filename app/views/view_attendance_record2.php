@@ -25,13 +25,18 @@
     </style>
 </head>
 <body class="bg-gray-100 p-6">
-<div class="flex justify-between items-center mb-6">
-    <h1 class="text-3xl font-bold text-[var(--maroon)]">Sanctioned Students for Event: <span class="text-gray-700"><?php echo htmlspecialchars($_GET['eventName']); ?></span></h1>
-    <div class="space-x-3 no-print">
-        <button onclick="history.back()" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600">
+<div class="flex flex-col sm:flex-row justify-between items-center mb-6 space-y-4 sm:space-y-0">
+    <h1 class="text-2xl sm:text-3xl font-bold text-[var(--maroon)] text-center sm:text-left">
+        Sanctioned Students for Event:
+        <span class="text-gray-700"><?php echo htmlspecialchars($_GET['eventName']); ?></span>
+    </h1>
+    <div class="flex flex-wrap justify-center sm:justify-end space-x-2 sm:space-x-3 no-print">
+        <button onclick="history.back()" class="px-3 py-2 sm:px-4 sm:py-2 bg-gray-500 text-white text-sm sm:text-base rounded-lg hover:bg-gray-600">
             Back
         </button>
-        <button onclick="window.print()" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Print</button>
+        <button onclick="window.print()" class="px-3 py-2 sm:px-4 sm:py-2 bg-blue-600 text-white text-sm sm:text-base rounded-lg hover:bg-blue-700">
+            Print
+        </button>
     </div>
 </div>
 
