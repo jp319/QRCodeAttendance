@@ -83,7 +83,7 @@ $totalHours = array_sum(array_column($sanctionList, 'sanction_hours'));
         </div>
         <!-- Mobile Cards -->
         <div class="md:hidden space-y-4">
-            <?php if (empty($attendanceRecord)): ?>
+            <?php if (empty($attendanceRecord))?>
             <div class="bg-white p-5 rounded-lg shadow-md border border-gray-200 text-center text-gray-500">
                 No attendance records found.
             </div>
@@ -95,7 +95,7 @@ $totalHours = array_sum(array_column($sanctionList, 'sanction_hours'));
                 <p class="text-xs text-gray-600"><strong>Time In:</strong> <?= htmlspecialchars($record['time_in']); ?></p>
                 <p class="text-xs text-gray-600"><strong>Time Out:</strong> <?= htmlspecialchars($record['time_out']); ?></p>
             </div>
-            <?php endif; ?>
+            <?php endif?>
         </div>
     </div>
 </div>
