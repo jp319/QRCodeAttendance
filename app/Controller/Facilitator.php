@@ -20,6 +20,9 @@ class Facilitator extends \Controller
 {
     public function index($data): void
     {
+
+
+
         $this->loadViewWithData('facilitatorHome', $data);
     }
 }
@@ -114,7 +117,8 @@ $_SESSION['evnt_name'] = $EventName;
         }
     }
 
-
+$attendance = new Attendances();
+$attendanceList2 = $attendance->getAllAttendance();
 
 $data = [
     'attendanceList' => $attendanceList,
@@ -127,6 +131,7 @@ $data = [
     'selectedProgram' => $selectedProgram,
     'EventID' => $EventID,
     'activityLogList' => $activityLogList,
+    'attendanceList2' => $attendanceList2
 ];
 
 $facilitator = new Facilitator();

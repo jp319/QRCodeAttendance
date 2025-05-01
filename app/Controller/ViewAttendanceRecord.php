@@ -18,8 +18,9 @@ class ViewAttendanceRecord extends Controller
 }
 
 $user = new User();
+$userRole = ['admin','Facilitator'];
 $user_de = $user->checkSession('add_attendance');
-if ($user_de['role'] !== 'admin') {
+if (!in_array($user_de['role'],$userRole)) {
     $uri = str_replace('/view_records', '/404', $_SERVER['REQUEST_URI']);
     header('Location: ' . $uri);
 }
