@@ -106,7 +106,7 @@
             const text = row.innerText.toLowerCase();
             const matchesSearch = text.includes(search);
             const programCell = row.cells[4]?.innerText.toLowerCase() || ""; // adjust index if needed
-            const yearCell = row.cells[5]?.innerText.toLowerCase() || "";
+            const yearCell = row.cells[3]?.innerText.toLowerCase() || "";
 
             const matchesProgram = !selectedProgram || programCell === selectedProgram;
             const matchesYear = !selectedYear || yearCell === selectedYear;
@@ -123,7 +123,7 @@
 
         rows.forEach(row => {
             const program = row.cells[4]?.innerText.trim();
-            const year = row.cells[5]?.innerText.trim();
+            const year = row.cells[3]?.innerText.trim();
             if (program) programSet.add(program);
             if (year) yearSet.add(year);
         });
