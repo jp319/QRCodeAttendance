@@ -59,22 +59,13 @@ global $imageSource, $imageSource2, $imageSource3, $programList, $selectedProgra
         const fullActivityLog = <?php echo json_encode($activityLogList); ?>;
     </script>
 
-    <!-- Students Section -->
-    <!-- Search Form -->
-    <div class="mb-4">
-        <form action="<?php echo ROOT ?>facilitator" method="GET" class="flex flex-col md:flex-row gap-2">
-            <input type="text" name="student" placeholder="Search student..." class="w-full p-2 border border-maroon rounded-lg focus:outline-none focus:ring-2 focus:ring-maroon">
-            <button type="submit" class="bg-maroon hover:bg-maroon-hover text-white px-4 py-2 rounded-lg flex items-center gap-2">
-                <i class="fas fa-search"></i> Search
-            </button>
-        </form>
-    </div>
+
 
     <!-- Attendance Dropdown -->
     <div class="mb-6 relative">
         <button id="attendanceDropdownButton"
                 class="w-full sm:w-auto bg-maroon hover:bg-maroon-hover text-white px-4 py-2 rounded-lg flex items-center justify-between gap-2 shadow-md focus:outline-none">
-            <span>View Events</span>
+            <span>View Recent Events</span>
             <i class="fas fa-chevron-down" id="dropdownIcon"></i>
         </button>
         <div id="attendanceDropdownMenu"
