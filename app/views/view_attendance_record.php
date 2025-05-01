@@ -98,18 +98,19 @@ $viewNotAttended = $_GET['view'] ?? '';
     </div>
 
     <!-- BUTTONS -->
-    <div class="flex justify-between items-center mb-6">
-        <h2 class="text-2xl font-semibold text-gray-700">Event Attendance</h2>
-        <div class="space-x-3">
-            <a href="<?php echo ROOT ?>adminHome?page=Attendance" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 no-print">Back</a>
-
-            <a href="<?php echo ROOT ?>view_record2?id=<?php echo htmlspecialchars($_GET['id']) ?>&eventName=<?php echo htmlspecialchars($_GET['eventName']); ?>" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 no-print">
+    <div class="flex flex-col sm:flex-row justify-between items-center mb-6 space-y-4 sm:space-y-0">
+        <h2 class="text-xl sm:text-2xl font-semibold text-gray-700">Event Attendance</h2>
+        <div class="flex flex-wrap justify-center sm:justify-end space-x-2 sm:space-x-3">
+            <a href="<?php echo ROOT ?>adminHome?page=Attendance" class="px-3 py-2 sm:px-4 sm:py-2 bg-gray-500 text-white text-sm sm:text-base rounded-lg hover:bg-gray-600 no-print">
+                Back
+            </a>
+            <a href="<?php echo ROOT ?>view_record2?id=<?php echo htmlspecialchars($_GET['id']) ?>&eventName=<?php echo htmlspecialchars($_GET['eventName']); ?>" class="px-3 py-2 sm:px-4 sm:py-2 bg-red-600 text-white text-sm sm:text-base rounded-lg hover:bg-red-700 no-print">
                 View Sanctioned
             </a>
-
-            <button onclick="window.print()" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 no-print">Print</button>
+            <button onclick="window.print()" class="px-3 py-2 sm:px-4 sm:py-2 bg-blue-600 text-white text-sm sm:text-base rounded-lg hover:bg-blue-700 no-print">
+                Print
+            </button>
         </div>
-
     </div>
 
     <!-- FILTER FORM -->

@@ -31,18 +31,15 @@
         <button onclick="history.back()" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600">
             Back
         </button>
-
         <button onclick="window.print()" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Print</button>
     </div>
 </div>
 
 <div class="flex flex-col md:flex-row gap-4 mb-4 no-print">
     <input type="text" id="searchInput" placeholder="Search by name or student ID..." class="w-full md:w-1/3 px-4 py-2 border rounded-lg shadow-sm" onkeyup="filterTable()">
-
     <select id="programFilter" class="px-4 py-2 border rounded-lg shadow-sm" onchange="filterTable()">
         <option value="">All Programs</option>
     </select>
-
     <select id="yearFilter" class="px-4 py-2 border rounded-lg shadow-sm" onchange="filterTable()">
         <option value="">All Academic Years</option>
     </select>
