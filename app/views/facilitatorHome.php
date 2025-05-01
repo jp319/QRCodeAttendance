@@ -71,7 +71,7 @@ global $imageSource, $imageSource2, $imageSource3, $programList, $selectedProgra
     </div>
 
     <!-- Attendance Cards -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb 6">
         <?php foreach ($attendanceList2 as $attendance) { ?>
             <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow">
                 <h3 class="text-lg font-semibold text-maroon mb-2"><?php echo htmlspecialchars($attendance['event_name']); ?></h3>
