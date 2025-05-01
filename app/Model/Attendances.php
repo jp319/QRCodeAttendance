@@ -159,10 +159,10 @@ class Attendances
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function StudentAttendanceRecord($student_id){
+    public function StudentAttendanceRecord($id){
         $query = "CALL student_attendance_record(:student_id)";
         $stmt = $this->connect()->prepare($query);
-        $stmt->bindParam(":student_id", $student_id);
+        $stmt->bindParam(":student_id", $id);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
