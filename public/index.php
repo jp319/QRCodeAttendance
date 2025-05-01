@@ -62,6 +62,7 @@ $routes = [
     '/public/delete_attendance_record' => '../app/Controller/DeleteAttendanceRecord.php',
 
     '/public/view_records' => '../app/Controller/ViewAttendanceRecord.php',
+    '/public/view_record2' => '../app/Controller/ViewAttendanceRecord2.php',
 
 
 ];

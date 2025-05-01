@@ -101,9 +101,15 @@ $viewNotAttended = $_GET['view'] ?? '';
     <div class="flex justify-between items-center mb-6">
         <h2 class="text-2xl font-semibold text-gray-700">Event Attendance</h2>
         <div class="space-x-3">
-            <a href="<?php echo ROOT?>adminHome?page=Attendance" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 no-print">Back</a>
+            <a href="<?php echo ROOT ?>adminHome?page=Attendance" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 no-print">Back</a>
+
+            <a href="<?php echo ROOT ?>adminHome?page=Absentees" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 no-print">
+                View Absentees
+            </a>
+
             <button onclick="window.print()" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 no-print">Print</button>
         </div>
+
     </div>
 
     <!-- FILTER FORM -->
