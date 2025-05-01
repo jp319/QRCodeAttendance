@@ -101,7 +101,7 @@ $viewNotAttended = $_GET['view'] ?? '';
     <div class="flex flex-col sm:flex-row justify-between items-center mb-6 space-y-4 sm:space-y-0">
         <h2 class="text-xl sm:text-2xl font-semibold text-gray-700">Event Attendance</h2>
         <div class="flex flex-wrap justify-center sm:justify-end space-x-2 sm:space-x-3">
-            
+
             <a href="<?php echo ROOT ?>adminHome?page=Attendance" class="px-3 py-2 sm:px-4 sm:py-2 bg-red-600 text-white text-sm sm:text-base rounded-lg hover:bg-red-700 no-print">
                 Back
             </a>
