@@ -77,7 +77,7 @@ global $imageSource, $imageSource2, $imageSource3, $programList, $selectedProgra
                 <h3 class="text-lg font-semibold text-maroon mb-2"><?php echo htmlspecialchars($attendance['event_name']); ?></h3>
                 <p class="text-sm text-gray-600 mb-2"><strong>Date Created:</strong> <?php echo htmlspecialchars($attendance['date_created']); ?></p>
                 <div class="flex justify-end">
-                    <a href="<?php echo ROOT ?>view_record2?id=<?php echo htmlspecialchars($attendance['event_id']); ?>&eventName=<?php echo htmlspecialchars($attendance['event_name']); ?>"
+                    <a href=""
                        class="text-maroon hover:text-maroon-hover" title="View Details">
                         <i class="fas fa-eye"></i>
                     </a>
