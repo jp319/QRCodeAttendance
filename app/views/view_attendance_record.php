@@ -114,27 +114,28 @@ $viewNotAttended = $_GET['view'] ?? '';
 
     <!-- FILTER FORM -->
     <form action="" method="post" class="mb-6">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <select name="program" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg p-3" required>
-                <option value="">Select program</option>
-                <?php foreach ($programList as $program): ?>
-                    <option value="<?= $program['program']; ?>" <?= (isset($_POST['program']) && $_POST['program'] === $program['program']) ? 'selected' : ''; ?>>
-                        <?= $program['program']; ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
-
-            <select name="year" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg p-3" required>
-                <option value="">Select year</option>
-                <?php foreach ($year as $yr): ?>
-                    <option value="<?= $yr['acad_year']; ?>" <?= (isset($_POST['year']) && $_POST['year'] === $yr['acad_year']) ? 'selected' : ''; ?>>
-                        <?= $yr['acad_year']; ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
-
-            <button type="submit" class="px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 no-print">View</button>
+        <!-- TABLE FILTER CONTROLS (CLIENT-SIDE) -->
+        <div class="flex flex-col md:flex-row justify-between gap-4 mb-4 no-print">
+            <div>
+                <label for="filterProgram" class="block text-sm font-medium text-gray-700 mb-1">Filter by Program:</label>
+                <select id="filterProgram" class="border-gray-300 rounded-md shadow-sm p-2">
+                    <option value="all">All Programs</option>
+                    <?php foreach ($programList as $program): ?>
+                        <option value="<?= $program['program']; ?>"><?= $program['program']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div>
+                <label for="filterYear" class="block text-sm font-medium text-gray-700 mb-1">Filter by Year:</label>
+                <select id="filterYear" class="border-gray-300 rounded-md shadow-sm p-2">
+                    <option value="all">All Years</option>
+                    <?php foreach ($year as $yr): ?>
+                        <option value="<?= $yr['acad_year']; ?>"><?= $yr['acad_year']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
         </div>
+
     </form>
     <!-- SUMMARY -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 no-print">
@@ -169,8 +170,13 @@ $viewNotAttended = $_GET['view'] ?? '';
         <div class="overflow-x-auto">
             <table class="w-full border-collapse border border-gray-300 shadow-md rounded-lg">
                 <thead class="sticky top-0 z-10">
-                <tr class="bg-blue-600 text-white text-m">
-                    <th class="border border-gray-300 px-4 py-3">Student ID</th>
+                <tr
+                        class="odd:bg-gray-100 even:bg-white hover:bg-gray-200 transition"
+                        data-program="<?= $record['program']; ?>"
+                        data-year="<?= $record['acad_year']; ?>"
+                >
+
+                <th class="border border-gray-300 px-4 py-3">Student ID</th>
                     <th class="border border-gray-300 px-4 py-3">First Name</th>
                     <th class="border border-gray-300 px-4 py-3">Last Name</th>
                     <th class="border border-gray-300 px-4 py-3">Program</th>
@@ -186,8 +192,13 @@ $viewNotAttended = $_GET['view'] ?? '';
                 </thead>
                 <tbody>
                 <?php foreach ($attendanceList as $record): ?>
-                    <tr class="odd:bg-gray-100 even:bg-white hover:bg-gray-200 transition">
-                        <td class="border border-gray-300 px-4 py-3"><?= $record['student_id']; ?></td>
+                    <tr
+                            class="odd:bg-gray-100 even:bg-white hover:bg-gray-200 transition"
+                            data-program="<?= $record['program']; ?>"
+                            data-year="<?= $record['acad_year']; ?>"
+                    >
+
+                    <td class="border border-gray-300 px-4 py-3"><?= $record['student_id']; ?></td>
                         <td class="border border-gray-300 px-4 py-3"><?= $record['f_name']; ?></td>
                         <td class="border border-gray-300 px-4 py-3"><?= $record['l_name']; ?></td>
                         <td class="border border-gray-300 px-4 py-3"><?= $record['program']; ?></td>
@@ -274,5 +285,31 @@ $viewNotAttended = $_GET['view'] ?? '';
         });
     }
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const programFilter = document.getElementById('filterProgram');
+        const yearFilter = document.getElementById('filterYear');
+        const tableRows = document.querySelectorAll('tbody tr');
+
+        function filterTable() {
+            const selectedProgram = programFilter.value;
+            const selectedYear = yearFilter.value;
+
+            tableRows.forEach(row => {
+                const program = row.getAttribute('data-program');
+                const year = row.getAttribute('data-year');
+
+                const show = (selectedProgram === 'all' || program === selectedProgram) &&
+                    (selectedYear === 'all' || year === selectedYear);
+
+                row.style.display = show ? '' : 'none';
+            });
+        }
+
+        programFilter?.addEventListener('change', filterTable);
+        yearFilter?.addEventListener('change', filterTable);
+    });
+</script>
+
 </body>
 </html>
