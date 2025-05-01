@@ -148,9 +148,15 @@ class Attendances
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+    }
 
-
-
+    public function vwStudentSanctioned($event): array
+    {
+        $query = 'CALL vw_sanctioned(:event)';
+        $stmt = $this->connect()->prepare($query);
+        $stmt->bindParam(":event", $event);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
 

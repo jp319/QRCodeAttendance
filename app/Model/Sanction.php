@@ -18,6 +18,7 @@ class Sanction
         return $this->query2($sql, $params);
     }
 
+
     public function deleteSanction($sanction_id): bool|array
     {
         $sql = "CALL deleteSanction(?)";
