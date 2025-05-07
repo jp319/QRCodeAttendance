@@ -156,33 +156,47 @@ $allowed_pages = ['Dashboard', 'Students', 'Attendance', 'Users', 'ProfileAdmin'
     </main>
 
     <script>
+        const pageContent = document.getElementById('page-content');
+
+        function showLoading() {
+            pageContent.innerHTML = `
+            <div class="flex items-center justify-center h-64">
+                <div class="animate-spin rounded-full h-16 w-16 border-4 border-red-600 border-t-transparent"></div>
+            </div>
+        `;
+        }
+
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', function (e) {
                 e.preventDefault(); // Prevent full reload
                 const page = this.getAttribute('data-page');
 
-                // Load the content dynamically
-                fetch(`?page=${page}`)
+                // Show loading
+                showLoading();
+
+                // Load content dynamically from loadContent.php
+                fetch(`loadContent.php?page=${page}`)
                     .then(response => {
                         if (!response.ok) throw new Error("Page not found.");
                         return response.text();
                     })
                     .then(data => {
-                        document.getElementById('page-content').innerHTML = data;
+                        pageContent.innerHTML = data;
 
-                        // Optional: highlight the active menu item
+                        // Highlight active link
                         document.querySelectorAll('.nav-link').forEach(l => {
                             l.classList.remove('bg-red-800', 'text-white');
                         });
                         this.classList.add('bg-red-800', 'text-white');
                     })
                     .catch(err => {
-                        document.getElementById('page-content').innerHTML = "<p class='text-red-500'>Failed to load page.</p>";
+                        pageContent.innerHTML = "<p class='text-red-500'>Failed to load page.</p>";
                         console.error(err);
                     });
             });
         });
     </script>
+
 
 
 </div>
