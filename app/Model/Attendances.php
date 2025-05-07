@@ -125,7 +125,7 @@ class Attendances
 
     public function checkAttendanceOnGoing(): bool|array
     {
-        $sql = "CALL checkAttendanceOnGoing()";
+        $sql = "CALL sp_check_attendance_on_going()";
         return $this->query($sql);
     }
 
