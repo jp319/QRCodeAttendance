@@ -166,6 +166,7 @@ if (empty($_SESSION['csrf_token'])) {
         renderStudents(allStudents);
 
         document.getElementById('search-btn').addEventListener('click', function () {
+            console.log('Search clicked');
             filterAndSearch();
         });
 
@@ -181,10 +182,7 @@ if (empty($_SESSION['csrf_token'])) {
         });
     });
 
-    document.getElementById('search-btn').addEventListener('click', function () {
-        console.log('Search clicked');
-        filterAndSearch();
-    });
+
 
 
 </script>
