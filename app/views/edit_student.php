@@ -14,9 +14,20 @@ $totalSanctionHours = array_sum(array_column($sanctionList, 'sanction_hours'));
     <link rel="icon" type="image/x-icon" href="<?php echo ROOT?>assets/images/LOGO_QRCODE_v2.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Font Awesome CDN (for back button icon) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body class="bg-gray-100 p-6">
 <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+    <!-- Back Button -->
+    <div class="mb-6">
+        <a href="<?php echo htmlspecialchars(ROOT); ?>adminHome?page=Students"
+           class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+           aria-label="Back to Students">
+            <i class="fas fa-arrow-left mr-2"></i> Back to Students
+        </a>
+    </div>
+
     <!-- Student Profile -->
     <div class="flex flex-col items-center">
         <?php if (!empty($studentData['studentProfile'])): ?>
@@ -28,43 +39,43 @@ $totalSanctionHours = array_sum(array_column($sanctionList, 'sanction_hours'));
                  class="w-32 h-32 object-cover rounded-full border-4 border-gray-300 shadow-md"
                  alt="Default Profile">
         <?php endif; ?>
-        <h2 class="text-xl font-bold text-gray-800 mt-3"><?php echo $studentData['f_name'] . " " . $studentData['l_name'] ?></h2>
-        <p class="text-gray-600"><?php echo $studentData['program'] ?></p>
+        <h2 class="text-xl font-bold text-gray-800 mt-3"><?php echo htmlspecialchars($studentData['f_name'] . " " . $studentData['l_name']) ?></h2>
+        <p class="text-gray-600"><?php echo htmlspecialchars($studentData['program']) ?></p>
     </div>
 
     <h1 class="text-2xl font-bold text-gray-800 text-center my-6">Edit Student Details</h1>
 
-    <form id="studentForm" method="post" action="<?php echo ROOT;?>edit_student?id=<?php echo $_GET['id'] ?>">
+    <form id="studentForm" method="post" action="<?php echo htmlspecialchars(ROOT); ?>edit_student?id=<?php echo htmlspecialchars($_GET['id']) ?>">
         <!-- Student Details -->
         <input type="hidden" name="form_type" value="update_student">
 
         <div class="mb-4">
             <label class="block text-gray-700 font-semibold">Student ID</label>
             <input type="text" name="id" id="id" class="w-full border-gray-300 rounded-lg p-2.5 bg-gray-200 cursor-not-allowed"
-                   value="<?php echo $studentData['student_id']?>" readonly>
+                   value="<?php echo htmlspecialchars($studentData['student_id']) ?>" readonly>
         </div>
 
         <div class="grid grid-cols-2 gap-4">
             <div>
                 <label class="block text-gray-700 font-semibold">First Name</label>
                 <input type="text" name="f_name" id="f_name" class="w-full border-gray-300 rounded-lg p-2.5"
-                       value="<?php echo $studentData['f_name']?>">
+                       value="<?php echo htmlspecialchars($studentData['f_name']) ?>">
             </div>
             <div>
                 <label class="block text-gray-700 font-semibold">Last Name</label>
                 <input type="text" name="l_name" id="l_name" class="w-full border-gray-300 rounded-lg p-2.5"
-                       value="<?php echo $studentData['l_name']?>">
+                       value="<?php echo htmlspecialchars($studentData['l_name']) ?>">
             </div>
 
             <div>
                 <label class="block text-gray-700 font-semibold">Email</label>
                 <input type="email" name="email" id="email" class="w-full border-gray-300 rounded-lg p-2.5"
-                       value="<?php echo $studentData['email']?>">
+                       value="<?php echo htmlspecialchars($studentData['email']) ?>">
             </div>
             <div>
                 <label class="block text-gray-700 font-semibold">Phone No.</label>
                 <input type="text" name="contact_num" id="contact_num" class="w-full border-gray-300 rounded-lg p-2.5"
-                       value="<?php echo $studentData['contact_num']?>">
+                       value="<?php echo htmlspecialchars($studentData['contact_num']) ?>">
             </div>
         </div>
 
@@ -72,37 +83,32 @@ $totalSanctionHours = array_sum(array_column($sanctionList, 'sanction_hours'));
             <div>
                 <label class="block text-gray-700 font-semibold">Program</label>
                 <input class="w-full border-gray-300 rounded-lg p-2.5" name="program" id="program"
-                       value="<?php echo $studentData['program']?>">
+                       value="<?php echo htmlspecialchars($studentData['program']) ?>">
             </div>
             <div>
                 <label class="block text-gray-700 font-semibold">Year Level</label>
                 <input class="w-full border-gray-300 rounded-lg p-2.5" type="text" name="acad_year" id="acad_year"
-                       value="<?php echo $studentData['acad_year']?>" min="1">
+                       value="<?php echo htmlspecialchars($studentData['acad_year']) ?>" min="1">
             </div>
         </div>
 
         <!-- Student Account Section -->
         <div class="mt-6 bg-gray-100 p-4 rounded-lg border border-gray-300">
             <h2 class="text-lg font-semibold text-gray-800">Student Account</h2>
-            <p class="text-gray-700 mt-2"><strong>Username:</strong> <?php echo $studentData['email']; ?></p>
+            <p class="text-gray-700 mt-2"><strong>Username:</strong> <?php echo htmlspecialchars($studentData['email']); ?></p>
         </div>
-
 
         <!-- Submit Button -->
         <div class="mt-6 text-right">
             <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Save Changes</button>
         </div>
-
     </form>
 
-
     <!-- Separate Form for Sanctions -->
-    <form id="sanctionForm" method="post" action="" class="p-5 bg-white rounded-lg shadow-md">
+    <form id="sanctionForm" method="post" action="" class="p-5 bg-white rounded-lg shadow-md mt-6">
         <h2 class="text-lg font-semibold text-gray-800 mb-3">Apply Sanction</h2>
         <input type="hidden" name="form_type" value="apply_sanction">
-
-
-        <input type="hidden" name="id" value="<?php echo $studentData['student_id']; ?>">
+        <input type="hidden" name="id" value="<?php echo htmlspecialchars($studentData['student_id']); ?>">
 
         <!-- Sanction Hours Input -->
         <label for="sanctionHours" class="block text-gray-700 mb-1">Sanction Hours</label>
@@ -152,7 +158,6 @@ $totalSanctionHours = array_sum(array_column($sanctionList, 'sanction_hours'));
         }
     </script>
 
-
     <!-- Sanctions Section -->
     <div class="mt-8">
         <h2 class="text-xl font-bold text-gray-800 mb-4">Student Sanctions</h2>
@@ -168,8 +173,8 @@ $totalSanctionHours = array_sum(array_column($sanctionList, 'sanction_hours'));
                             <span class="text-red-500"><?= htmlspecialchars($sanction['sanction_hours']); ?></span>
                         </p>
                     </div>
-                    <a href="<?php echo ROOT?>remove_sanction?id=<?php echo htmlspecialchars($sanction['sanction_id']); ?>&studentID=<?php echo $_GET['id']?>"
-                            class="text-red-500 hover:text-red-700"
+                    <a href="<?php echo htmlspecialchars(ROOT); ?>}}}}remove_sanction?id=<?php echo htmlspecialchars($sanction['sanction_id']); ?>&studentID=<?php echo htmlspecialchars($_GET['id']); ?>"
+                       class="text-red-500 hover:text-red-700"
                        onclick="return confirmDelete(event, this.href);">
                         🗑️
                     </a>
@@ -204,62 +209,76 @@ $totalSanctionHours = array_sum(array_column($sanctionList, 'sanction_hours'));
         }
     </script>
 
+    <?php if (isset($_GET['removed']) && $_GET['removed'] == 1): ?>
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: 'Sanction removed successfully.',
+                confirmButtonColor: '#d33'
+            });
+        </script>
+    <?php endif; ?>
 
-</div>
-<?php if (isset($_GET['removed']) && $_GET['removed'] == 1): ?>
     <script>
-        Swal.fire({
-            icon: 'success',
-            title: 'Success!',
-            text: 'Sanction removed successfully.',
-            confirmButtonColor: '#d33'
+        document.getElementById('studentForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent form submission initially
+
+            let email = document.getElementById("email").value.trim();
+            let acadYear = document.getElementById("acad_year").value.trim();
+            let requiredFields = ["f_name", "l_name", "email", "contact_num", " behavioursprogram", "acad_year"];
+            let allFilled = true;
+
+            // Check if all required fields are filled
+            requiredFields.forEach(field => {
+                let input = document.getElementById(field);
+                if (input && input.value.trim() === "") {
+                    allFilled = false;
+                    input.classList.add("border-red-500");
+                } else if (input) {
+                    input.classList.remove("border-red-500");
+                }
+            });
+
+            // Check if email ends with "usep.edu.ph"
+            if (!email.endsWith("@usep.edu.ph")) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Invalid Email',
+                    text: 'Email must end with "@usep.edu.ph"',
+                    confirmButtonColor: '#d33'
+                });
+                return;
+            }
+
+            // Ensure all fields are filled before proceeding
+            if (!allFilled) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Missing Fields',
+                    text: 'All fields are required!',
+                    confirmButtonColor: '#d33'
+                });
+                return;
+            }
+
+            // Confirmation before submission
+            Swal.fire({
+                title: 'Confirm Update',
+                text: "Are you sure you want to update this student’s details?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, update',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.submit(); // Submit the form if confirmed
+                }
+            });
         });
     </script>
-<?php endif; ?>
-
-<script>
-    document.getElementById('studentForm').addEventListener('submit', function (event) {
-        event.preventDefault(); // Prevent form submission initially
-
-        let email = document.getElementById("email").value.trim();
-        let acadYear = document.getElementById("acad_year").value.trim();
-        let requiredFields = ["f_name", "l_name", "email", "contact_num", "program", "acad_year"];
-        let allFilled = true;
-
-        // Check if all required fields are filled
-        requiredFields.forEach(field => {
-            let input = document.getElementById(field);
-            if (input.value.trim() === "") {
-                allFilled = false;
-                input.classList.add("border-red-500");
-            } else {
-                input.classList.remove("border-red-500");
-            }
-        });
-
-        // Check if email ends with "usep.edu.ph"
-        if (!email.endsWith("@usep.edu.ph")) {
-            alert('Error: Email must end with "@usep.edu.ph"');
-            return;
-        }
-
-
-        // Ensure all fields are filled before proceeding
-        if (!allFilled) {
-            alert('Error: All fields are required!');
-            return;
-        }
-
-        // Confirmation before submission
-        let confirmUpdate = confirm("Are you sure you want to update this student’s details?");
-        if (confirmUpdate) {
-            document.getElementById("studentForm").submit(); // Submit the form if confirmed
-        }
-    });
-</script>
-
-
-
-
+</div>
 </body>
 </html>
