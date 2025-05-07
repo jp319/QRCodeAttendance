@@ -36,13 +36,11 @@ class Student
         // If no result is found, return null or an empty string
         return null; // or return '';
     }
-    public function getAllStudents($limit, $offset): array
+    public function getAllStudents(): array
     {
         // Fetch all students from the database
-        $query = "CALL getAllStudents(:limit, :offset)";
+        $query = "CALL sp_get_all_students()";
         $stmt = $this->connect()->prepare($query);
-        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
-        $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

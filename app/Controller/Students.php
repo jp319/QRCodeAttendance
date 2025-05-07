@@ -21,6 +21,7 @@ class Students extends \Controller
 
 $studentsInstance = new Students();
 $student = new Student();
+
 $programList = $student->getAllProgram();
 $yearList = $student->getAllYear();
 
@@ -31,7 +32,7 @@ $yearList = $student->getAllYear();
 //$totalUsers = $student->getUserCount();
 //$totalPages = ceil($totalUsers / $limit);
 //
-$studentsList = '';
+$studentsList = $student->getAllStudents();
 $numOfStudent  = $student->getUserCount();
 $isFiltered = !empty($_GET['search']) || !empty($_GET['program']) || !empty($_GET['year']);
 
