@@ -38,11 +38,11 @@ $allowed_pages = ['Dashboard', 'Students', 'Attendance', 'Users', 'ProfileAdmin'
                         <div class="ml-10 flex items-baseline space-x-4">
                             <nav>
                                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                                <a href="?page=Dashboard" data-page="Dashboard" style="padding: 10px 20px; font-size: 16px; font-weight: bold; color: #ccc;" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Dashboard</a>
-                                <a href="?page=Students" data-page="Students" style="padding: 10px 20px; font-size: 16px; font-weight: bold; color: #ccc;" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Students</a>
-                                <a href="?page=Attendance" data-page="Attendance" style="padding: 10px 20px; font-size: 16px; font-weight: bold; color: #ccc;" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Attendance</a>
-                                <a href="?page=Users" data-page="Users" style="padding: 10px 20px; font-size: 16px; font-weight: bold; color: #ccc;" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Accounts</a>
-                                <a href="?page=ProfileAdmin" data-page="Reports" style="padding: 10px 20px; font-size: 16px; font-weight: bold; color: #ccc;" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Profile</a>
+                                <a href="#" data-page="Dashboard" style="padding: 10px 20px; font-size: 16px; font-weight: bold; color: #ccc;" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Dashboard</a>
+                                <a href="#" data-page="Students" style="padding: 10px 20px; font-size: 16px; font-weight: bold; color: #ccc;" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Students</a>
+                                <a href="#" data-page="Attendance" style="padding: 10px 20px; font-size: 16px; font-weight: bold; color: #ccc;" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Attendance</a>
+                                <a href="#" data-page="Users" style="padding: 10px 20px; font-size: 16px; font-weight: bold; color: #ccc;" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Accounts</a>
+                                <a href="#" data-page="Reports" style="padding: 10px 20px; font-size: 16px; font-weight: bold; color: #ccc;" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Profile</a>
                             </nav>
                             <script>
                                 const links = document.querySelectorAll('.nav-link');
@@ -149,7 +149,9 @@ $allowed_pages = ['Dashboard', 'Students', 'Attendance', 'Users', 'ProfileAdmin'
     </nav>
     <main>
         <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8" id="page-content">
-          
+            <?php if (in_array($page, $allowed_pages)) {
+                require_once "../app/Controller/{$page}.php";
+            } ?>
         </div>
     </main>
 
