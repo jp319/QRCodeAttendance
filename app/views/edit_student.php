@@ -202,6 +202,16 @@ $totalSanctionHours = array_sum(array_column($sanctionList, 'sanction_hours'));
 
 
 </div>
+<?php if (isset($_GET['removed']) && $_GET['removed'] == 1): ?>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: 'Sanction removed successfully.',
+            confirmButtonColor: '#d33'
+        });
+    </script>
+<?php endif; ?>
 
 <script>
     document.getElementById('studentForm').addEventListener('submit', function (event) {
