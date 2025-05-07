@@ -175,8 +175,8 @@ $allowed_pages = ['Dashboard', 'Students', 'Attendance', 'Users', 'ProfileAdmin'
                 showLoading();
 
                 // Load content dynamically from loadContent.php
-                fetch(`adminHome?page=${page}`)
-                    .then(response => {
+                fetch(`loadContent.php?page=${page}`)
+                        .then(response => {
                         if (!response.ok) throw new Error("Page not found.");
                         return response.text();
                     })
