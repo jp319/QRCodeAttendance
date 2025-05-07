@@ -11,7 +11,7 @@ if (empty($_SESSION['csrf_token'])) {
     }
 }
 
-echo $studentsList;
+print_r($studentsList);
 ?>
 
 <!doctype html>
