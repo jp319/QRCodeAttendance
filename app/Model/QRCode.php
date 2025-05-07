@@ -128,7 +128,7 @@ class QRCode
         $date = new DateTime("now", new DateTimeZone('Asia/Manila'));
         $formattedTime = $date->format('h:i:s A'); // 12-hour format with AM/PM
 
-        $query = 'CALL insertAttendanceRecordTimeOut(?, ?, ?)';
+        $query = 'CALL sp_insert_attendance_record_TimeOut(?, ?, ?)';
         return $this->query($query, [$attenId, $studentId, $formattedTime]);
     }
 
