@@ -62,7 +62,7 @@ class Student
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     public function countFilteredStudents($program, $year) {
-        $query = "CALL countFilteredStudents(:program, :year)";
+        $query = "CALL sp_count_filtered_students(:program, :year)";
         $stmt = $this->connect()->prepare($query);
         $stmt->bindParam(':program', $program);
         $stmt->bindParam(':year', $year);
