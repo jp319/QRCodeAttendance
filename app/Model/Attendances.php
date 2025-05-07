@@ -53,7 +53,7 @@ class Attendances
     }
     public function getAttendanceDetails($id, $eventName): bool|array
     {
-        $query = "CALL getAttendanceDetails(:id, :event_name)";
+        $query = "CALL sp_get_attendance_details(:id, :event_name)";
         $stmt = $this->connect()->prepare($query);
         $stmt->bindParam(":id", $id);
         $stmt->bindParam(":event_name", $eventName);
