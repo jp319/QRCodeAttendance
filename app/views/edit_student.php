@@ -34,7 +34,7 @@ $totalSanctionHours = array_sum(array_column($sanctionList, 'sanction_hours'));
 
     <h1 class="text-2xl font-bold text-gray-800 text-center my-6">Edit Student Details</h1>
 
-    <form id="studentForm" method="post" action="">
+    <form id="studentForm" method="post" action="<?php echo ROOT;?>edit_student">
         <!-- Student Details -->
         <div class="mb-4">
             <label class="block text-gray-700 font-semibold">Student ID</label>
@@ -91,9 +91,6 @@ $totalSanctionHours = array_sum(array_column($sanctionList, 'sanction_hours'));
             <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Save Changes</button>
         </div>
 
-        <div class="mt-6 text-right">
-            <a href="<?php echo ROOT;?>adminHome?page=Students" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Back</a>
-        </div>
     </form>
 
 
