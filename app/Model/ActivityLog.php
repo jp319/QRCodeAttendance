@@ -32,7 +32,7 @@ class ActivityLog
 
     public function getActivityLogForFaci($userID, $evnt): array
     {
-        $query = 'CALL getUserActivityLog(:userID, :evnt)';
+        $query = 'CALL sp_get_user_activity_log(:userID, :evnt)';
         $stmt = $this->connect()->prepare($query);
         $stmt->bindParam(":userID",$userID);
         $stmt->bindParam(":evnt",$evnt);
