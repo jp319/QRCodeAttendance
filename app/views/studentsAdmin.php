@@ -89,24 +89,6 @@ if (empty($_SESSION['csrf_token'])) {
 <script>
     const allStudents = <?php echo json_encode($studentsList); ?>;
 
-    // Events for buttons (no forms)
-    document.getElementById('search-btn').addEventListener('click', function () {
-        filterAndSearch();
-    });
-
-    document.getElementById('filter-btn').addEventListener('click', function () {
-        filterAndSearch();
-    });
-
-    // Also listen to Enter key on search input
-    document.getElementById('search-input').addEventListener('keypress', function (e) {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            filterAndSearch();
-        }
-    });
-
-
     function confirmDelete(event, url) {
         event.preventDefault();
         Swal.fire({
@@ -179,20 +161,26 @@ if (empty($_SESSION['csrf_token'])) {
         renderStudents(filtered);
     }
 
-    document.getElementById('searchForm').addEventListener('submit', e => {
-        e.preventDefault();
-        filterAndSearch();
-    });
-
-    document.getElementById('filterForm').addEventListener('submit', e => {
-        e.preventDefault();
-        filterAndSearch();
-    });
 
     document.addEventListener('DOMContentLoaded', () => {
         renderStudents(allStudents);
     });
-</script>
+    // Events for buttons (no forms)
+    document.getElementById('search-btn').addEventListener('click', function () {
+        filterAndSearch();
+    });
 
+    document.getElementById('filter-btn').addEventListener('click', function () {
+        filterAndSearch();
+    });
+
+    // Also listen to Enter key on search input
+    document.getElementById('search-input').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            filterAndSearch();
+        }
+    });
+</script>
 </body>
 </html>
