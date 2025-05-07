@@ -14,7 +14,7 @@ class RemoveSanction extends Controller
         $sanction = new Sanction();
         $sanction->deleteSanction($_GET['id']);
         // Redirect back to the home page or list view
-        header("Location: " . ROOT . "edit_student?id=".$_GET['id']);
+        header("Location: " . ROOT . "edit_student");
 
     }
 }
