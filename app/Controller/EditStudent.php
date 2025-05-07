@@ -42,15 +42,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $date = new DateTime("now", new DateTimeZone('Asia/Manila'));
         $formattedTime = $date->format('Y-m-d H:i:s'); // FULL Date and Time
         $sanction->insertSanction($_POST['id'], $_POST['reason'], $_POST['sanctionH'], $formattedTime);
-        header("Location: " . ROOT . "adminHome?page=Students");
-        exit();
+
     }
 
         // Update Student Information
         $student->updateStudent($_POST['id'], $_POST['f_name'], $_POST['l_name'], $_POST['program'], $_POST['acad_year'], $_POST['email'], $_POST['contact_num']);
         $user->updateUser($_POST['id'], $_POST['email']);
-        header("Location:".ROOT ."adminHome?page=Students");
-        exit();
+
 
 }
 
