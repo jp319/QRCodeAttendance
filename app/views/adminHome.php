@@ -92,11 +92,11 @@ if (!in_array($page, $allowed_pages)) {
         <div class="md:hidden" id="mobile-menu">
             <div class="space-y-1 px-2 pt-2 pb-3 sm:px-3">
                 <nav class=" top-0 z-50">
-                    <a href="?page=Dashboard"  data-page="Dashboard" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Dashboard</a>
-                    <a href="?page=Students" data-page="Students" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Students</a>
-                    <a href="?page=Attendance" data-page="Attendance" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Attendance</a>
-                    <a href="?page=Users" data-page="Users" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Accounts</a>
-                    <a href="?page=ProfileAdmin" data-page="Reports" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Profile</a>
+                    <a href="#"  data-page="Dashboard" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Dashboard</a>
+                    <a href="#" data-page="Students" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Students</a>
+                    <a href="#" data-page="Attendance" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Attendance</a>
+                    <a href="#" data-page="Users" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Accounts</a>
+                    <a href="#" data-page="Reports" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Profile</a>
                 </nav>
                 <script>
                     const links = document.querySelectorAll('.nav-link');
@@ -150,10 +150,41 @@ if (!in_array($page, $allowed_pages)) {
         </div>
     </nav>
     <main>
-        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8" id="page-content">
             <?php require "../app/Controller/{$page}.php"; ?>
         </div>
     </main>
+
+    <script>
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault(); // Prevent full reload
+                const page = this.getAttribute('data-page');
+
+                // Load the content dynamically
+                fetch(`../app/Controller/${page}.php`)
+                    .then(response => {
+                        if (!response.ok) throw new Error("Page not found.");
+                        return response.text();
+                    })
+                    .then(data => {
+                        document.getElementById('page-content').innerHTML = data;
+
+                        // Optional: highlight the active menu item
+                        document.querySelectorAll('.nav-link').forEach(l => {
+                            l.classList.remove('bg-red-800', 'text-white');
+                        });
+                        this.classList.add('bg-red-800', 'text-white');
+                    })
+                    .catch(err => {
+                        document.getElementById('page-content').innerHTML = "<p class='text-red-500'>Failed to load page.</p>";
+                        console.error(err);
+                    });
+            });
+        });
+    </script>
+
+
 </div>
 </body>
 </html>
