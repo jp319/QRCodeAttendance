@@ -52,7 +52,7 @@ class Student
 
     public function getFilteredStudents($program, $year): array
     {
-        $query = "CALL filterStudents(:program, :year)";
+        $query = "CALL sp_filter_students(:program, :year)";
         $stmt = $this->connect()->prepare($query);
 
         $stmt->bindParam(':program', $program);
