@@ -1,43 +1,72 @@
-<!doctype html>
+<?php
+
+// Ensure data is set to avoid undefined variable errors
+$programList = $data['programList'] ?? [];
+$yearList = $data['yearList'] ?? [];
+$studentsList = $data['studentsList'] ?? [];
+$numOfStudent = $data['numOfStudent'] ?? 0;
+?>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?php echo ROOT ?>assets/css/students.css">
+    <title>Students Admin</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- SweetAlert2 CDN -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- jQuery CDN -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <title>Students</title>
 </head>
-<body class="bg-[#f8f9fa]">
+<body class="bg-gray-100 font-sans">
 
 <!-- Header -->
-<header class="bg-white shadow-sm p-6">
-    <div class="max-w-7xl mx-auto flex items-center space-x-2">
-        <i class="fas fa-user-graduate text-gray-900 text-2xl"></i>
-        <h1 class="text-3xl font-bold text-gray-900">Students</h1>
+<header class="bg-white shadow p-6">
+    <div class="max-w-7xl mx-auto flex items-center space-x-3">
+        <i class="fas fa-user-graduate text-gray-800 text-2xl"></i>
+        <h1 class="text-3xl font-bold text-gray-800">Students</h1>
     </div>
 </header>
 
-<div class="container mx-auto p-6">
-    <div class="search-bar">
-        <!-- Search Input -->
-        <div class="flex flex-col md:flex-row items-center gap-4 bg-white p-4 rounded-lg shadow-md w-full">
-            <div class="flex items-center w-full md:w-auto gap-2">
-                <input type="text" id="search-input" placeholder="Search by name or ID..."
-                       class="w-full md:w-80 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-maroon">
-                <button id="search-btn" class="bg-red-800 hover:bg-red-700 text-white px-4 py-2 rounded-lg flex items-center gap-2">
-                    <i class="fas fa-search text-white"></i> <!-- Fixed icon color -->
+<!-- Main Content -->
+<main class="max-w-7xl mx-auto p-6">
+    <!-- Search and Filter Section -->
+    <section class="bg-white rounded-lg shadow p-6 mb-6">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <!-- Search Input -->
+            <div class="flex items-center gap-2 w-full md:w-auto">
+                <input
+                        type="text"
+                        id="search-input"
+                        placeholder="Search by name or ID..."
+                        class="w-full md:w-80 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                        aria-label="Search students"
+                >
+                <button
+                        id="search-btn"
+                        class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg flex items-center gap-2"
+                        aria-label="Search"
+                >
+                    <i class="fas fa-search"></i>
                 </button>
             </div>
-            <div class="text-gray-600 text-sm">
-                Number of Students: <span class="font-bold" id="studentCount"><?php echo htmlspecialchars($numOfStudent); ?></span>
+            <!-- Student Count -->
+            <div class="text-gray-600">
+                Number of Students: <span id="student-count" class="font-bold"><?php echo htmlspecialchars($numOfStudent); ?></span>
             </div>
         </div>
 
-        <!-- Filter Container -->
-        <div class="filter-container mt-4 flex flex-col md:flex-row gap-4">
-            <select id="program-filter" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none">
+        <!-- Filters -->
+        <div class="mt-4 flex flex-col sm:flex-row gap-4">
+            <select
+                    id="program-filter"
+                    class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                    aria-label="Filter by program"
+            >
                 <option value="">All Programs</option>
                 <?php foreach ($programList as $program): ?>
                     <option value="<?php echo htmlspecialchars($program['program']); ?>">
@@ -46,7 +75,11 @@
                 <?php endforeach; ?>
             </select>
 
-            <select id="year-filter" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none">
+            <select
+                    id="year-filter"
+                    class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                    aria-label="Filter by year"
+            >
                 <option value="">All Years</option>
                 <?php foreach ($yearList as $year): ?>
                     <option value="<?php echo htmlspecialchars($year['acad_year']); ?>">
@@ -55,27 +88,34 @@
                 <?php endforeach; ?>
             </select>
 
-            <button id="filter-btn" class="px-4 py-2 bg-red-800 text-white rounded-lg shadow hover:bg-red-700 transition duration-200 ease-in-out">
-                <i class="fas fa-filter"></i> Apply Filter
+            <button
+                    id="filter-btn"
+                    class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg flex items-center gap-2"
+                    aria-label="Apply filters"
+            >
+                <i class="fas fa-filter"></i> Apply
             </button>
         </div>
 
         <!-- Add Student Button -->
-        <a href="<?php echo ROOT ?>add_student"
-           class="inline-block text-white bg-red-800 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-4">
-            <i class="fas fa-user-graduate"></i> Add Student
+        <a
+                href="<?php echo ROOT; ?>add_student"
+                class="mt-4 inline-block bg-red-600 hover:bg-red-700 text-white px-5 py-2.5 rounded-lg text-sm font-medium text-center"
+                aria-label="Add new student"
+        >
+            <i class="fas fa-user-plus mr-2"></i>Add Student
         </a>
-    </div>
+    </section>
 
-    <!-- Students Cards Container -->
-    <div id="studentsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-        <!-- Rendered by JS -->
-    </div>
-</div>
+    <!-- Students Cards -->
+    <section id="students-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Populated by JavaScript -->
+    </section>
+</main>
 
-<!-- JavaScript Data and Logic -->
+<!-- JavaScript -->
 <script>
-    // Initialize students data (ensure it's valid)
+    // Student data from PHP
     const allStudents = <?php echo json_encode($studentsList) ?: '[]'; ?>;
 
     // Debounce function to limit search/filter calls
@@ -87,21 +127,32 @@
         };
     }
 
-    // Render students to the DOM
-    function renderStudents(data) {
-        const container = document.getElementById('studentsContainer');
-        const count = document.getElementById('studentCount');
+    // Escape HTML to prevent XSS
+    function escapeHtml(str) {
+        return String(str).replace(/[&<>"']/g, match => ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;'
+        }[match]));
+    }
+
+    // Render students as cards
+    function renderStudents(students) {
+        const container = document.getElementById('students-container');
+        const count = document.getElementById('student-count');
 
         container.innerHTML = '';
-        if (!data || data.length === 0) {
-            container.innerHTML = `<p class="text-center text-gray-600 mt-6">No students found.</p>`;
+        if (!students || students.length === 0) {
+            container.innerHTML = '<p class="col-span-full text-center text-gray-600">No students found.</p>';
             count.textContent = '0';
             return;
         }
 
-        data.forEach(student => {
-            // Ensure all fields exist to prevent undefined errors
-            const fullName = `${student.f_name || ''} ${student.l_name || ''}`.trim();
+        students.forEach(student => {
+            // Handle missing fields
+            const fullName = `${student.f_name || ''} ${student.l_name || ''}`.trim() || 'N/A';
             const studentId = student.student_id || 'N/A';
             const program = student.program || 'N/A';
             const acadYear = student.acad_year || 'N/A';
@@ -109,24 +160,36 @@
             const contactNum = student.contact_num || 'N/A';
 
             container.insertAdjacentHTML('beforeend', `
-                <div class="bg-white rounded-lg shadow-md p-6 flex flex-col space-y-3 border border-gray-200 transition-transform hover:scale-105 hover:shadow-lg duration-300">
+                <div class="bg-white rounded-lg shadow-md p-6 flex flex-col space-y-3 hover:shadow-lg transition-shadow">
                     <div class="flex items-center space-x-3">
-                        <i class="fas fa-user-graduate text-red-800 text-2xl"></i>
-                        <h2 class="text-xl font-semibold text-gray-900">${escapeHtml(fullName)}</h2>
+                        <i class="fas fa-user-graduate text-red-600 text-xl"></i>
+                        <h2 class="text-lg font-semibold text-gray-800">${escapeHtml(fullName)}</h2>
                     </div>
-                    <p class="text-gray-700"><strong>ID:</strong> ${escapeHtml(studentId)}</p>
-                    <p class="text-gray-700"><strong>Program:</strong> ${escapeHtml(program)}</p>
-                    <p class="text-gray-700"><strong>Year:</strong> ${escapeHtml(acadYear)}</p>
-                    <p class="text-gray-700"><strong>Email:</strong> ${escapeHtml(email)}</p>
-                    <p class="text-gray-700"><strong>Contact No.:</strong> ${escapeHtml(contactNum)}</p>
+                    <p class="text-gray-600"><strong>ID:</strong> ${escapeHtml(studentId)}</p>
+                    <p class="text-gray-600"><strong>Program:</strong> ${escapeHtml(program)}</p>
+                    <p class="text-gray-600"><strong>Year:</strong> ${escapeHtml(acadYear)}</p>
+                    <p class="text-gray-600"><strong>Email:</strong> ${escapeHtml(email)}</p>
+                    <p class="text-gray-600"><strong>Contact:</strong> ${escapeHtml(contactNum)}</p>
                     <div class="flex justify-between mt-4">
-                        <a href="<?php echo ROOT ?>edit_student?id=${encodeURIComponent(studentId)}" class="text-blue-600 hover:text-blue-800 flex items-center gap-1">
+                        <a
+                            href="<?php echo ROOT; ?>edit_student?id=${encodeURIComponent(studentId)}"
+                            class="text-blue-600 hover:text-blue-700 flex items-center gap-1"
+                            aria-label="Edit student ${escapeHtml(fullName)}"
+                        >
                             <i class="fas fa-edit"></i> Edit
                         </a>
-                        <form action="<?php echo ROOT ?>delete_student" method="POST" class="delete-form">
+                        <form
+                            action="<?php echo ROOT; ?>delete_student"
+                            method="POST"
+                            class="delete-form"
+                            aria-label="Delete student ${escapeHtml(fullName)}"
+                        >
                             <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
                             <input type="hidden" name="id" value="${encodeURIComponent(studentId)}">
-                            <button type="submit" class="text-red-600 hover:text-red-800 flex items-center gap-1">
+                            <button
+                                type="submit"
+                                class="text-red-600 hover:text-red-700 flex items-center gap-1"
+                            >
                                 <i class="fas fa-trash"></i> Delete
                             </button>
                         </form>
@@ -135,18 +198,27 @@
             `);
         });
 
-        count.textContent = data.length;
-    }
+        count.textContent = students.length;
 
-    // Escape HTML to prevent XSS
-    function escapeHtml(str) {
-        return str.replace(/[&<>"']/g, match => ({
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            '"': '&quot;',
-            "'": '&#39;'
-        }[match]));
+        // Attach delete form listeners
+        document.querySelectorAll('.delete-form').forEach(form => {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "This action cannot be undone!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then(result => {
+                    if (result.isConfirmed) {
+                        this.submit();
+                    }
+                });
+            });
+        });
     }
 
     // Filter and search students
@@ -156,7 +228,6 @@
         const year = (document.getElementById('year-filter').value || '').toLowerCase();
 
         const filtered = allStudents.filter(student => {
-            // Ensure fields exist and are strings
             const fullName = `${student.f_name || ''} ${student.l_name || ''}`.toLowerCase().trim();
             const id = (student.student_id || '').toLowerCase();
             const studentProgram = (student.program || '').toLowerCase();
@@ -172,12 +243,12 @@
         renderStudents(filtered);
     }
 
-    // Initialize on page load
+    // Initialize
     document.addEventListener('DOMContentLoaded', () => {
-        // Render initial students
+        // Render all students initially
         renderStudents(allStudents);
 
-        // Debounced search/filter function
+        // Debounced search/filter
         const debouncedSearch = debounce(filterAndSearch, 300);
 
         // Event listeners
@@ -186,27 +257,8 @@
         document.getElementById('search-input').addEventListener('input', debouncedSearch);
         document.getElementById('program-filter').addEventListener('change', debouncedSearch);
         document.getElementById('year-filter').addEventListener('change', debouncedSearch);
-
-        // Handle delete form submissions
-        document.querySelectorAll('.delete-form').forEach(form => {
-            form.addEventListener('submit', function (e) {
-                e.preventDefault();
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#d33',
-                    cancelButtonColor: '#3085d6',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        this.submit();
-                    }
-                });
-            });
-        });
     });
 </script>
+
 </body>
 </html>
