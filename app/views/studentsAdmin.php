@@ -182,6 +182,11 @@ if (empty($_SESSION['csrf_token'])) {
         });
     });
 
+    console.log('All Students:', allStudents);
+    console.log('Program Filter:', document.getElementById('program-filter'));
+    console.log('Year Filter:', document.getElementById('year-filter'));
+
+
 
 
 
