@@ -125,10 +125,6 @@ if (empty($_SESSION['csrf_token'])) {
                         </div>
                     <?php endforeach; ?>
                 </div>
-            <?php elseif ($isFiltered): ?>
-                <p class="text-center text-gray-600 mt-6">No students found for the selected filters.</p>
-            <?php elseif(!$isFiltered):?>
-                <p class="text-center text-gray-600 mt-6">Student Information will be displayed here.</p>
             <?php endif; ?>
 
             </tbody>
