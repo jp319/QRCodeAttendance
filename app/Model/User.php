@@ -168,7 +168,7 @@ class User
 
     public function checkIfUserNameExists($id, $username){
         // Call the stored procedure to check if the username or ID exists
-        $stmt = $this->connect()->prepare("CALL checkIfUserNameExists(?, ?)");
+        $stmt = $this->connect()->prepare("CALL sp_check_if_user_name_exists(?, ?)");
         $stmt->execute([$username, $id]);
 
         // Fetch the result from the stored procedure
