@@ -40,7 +40,7 @@ class Sanction
 
     public function getStudentSanctions($student_id): array
     {
-        $sql = "CALL sp_view_sanctioned(:id)";
+        $sql = "CALL sp_get_student_sanctions(:id)";
         $stm = $this->connect()->prepare($sql);
         $stm->bindParam(":id", $student_id);
         $stm->execute();
