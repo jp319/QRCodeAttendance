@@ -42,7 +42,7 @@ class User
 
     public function searchUsers($searchQuery): array
     {
-        $query = "CALL vw_search_users(:searchQuery)";
+        $query = "CALL sp_search_users(:searchQuery)";
         $stmt = $this->connect()->prepare($query);
         $searchTerm = "%$searchQuery%";
         $stmt->bindParam(':searchQuery', $searchTerm);
