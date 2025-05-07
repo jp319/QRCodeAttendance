@@ -162,7 +162,7 @@ $allowed_pages = ['Dashboard', 'Students', 'Attendance', 'Users', 'ProfileAdmin'
                 const page = this.getAttribute('data-page');
 
                 // Load the content dynamically
-                fetch(`adminHome?page=${page}`)
+                fetch(`?page=${page}`)
                     .then(response => {
                         if (!response.ok) throw new Error("Page not found.");
                         return response.text();
