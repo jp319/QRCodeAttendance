@@ -93,7 +93,7 @@ Trait Model
     }
 
     public function checkSession($userID){
-        $query = 'CALL checkSession(:id)';
+        $query = 'CALL sp_check_session(:id)';
         $result = $this->query($query, ['id' => $userID]);
         return $result[0] ?? null;
     }

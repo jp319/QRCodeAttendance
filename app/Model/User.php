@@ -136,8 +136,7 @@ class User
 
                 // Query to check if token exists in user_sessions table
                 $stmt = $this->connect()->prepare("
-                SELECT user_id, role FROM user_sessions 
-                WHERE token = ?
+                CALL sp_check_session(?)
             ");
                 $stmt->execute([$token]);
                 $user = $stmt->fetch(PDO::FETCH_ASSOC);
