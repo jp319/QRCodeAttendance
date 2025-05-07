@@ -91,7 +91,7 @@ class Attendances
         }
 
         $sql = "CALL sp_get_student_attendance_record(?, ?, ?, ?, ?)";
-        $sql2 = "CALL getStudentAttendanceRecord2(?, ?, ?, ?)";
+        $sql2 = "CALL sp_get_student_attendance_record2(?, ?, ?, ?)";
 
         if (!in_array('AllStudents', $programs)) {
             $programList = json_encode($programs); // Ensure valid JSON for MySQL JSON functions
