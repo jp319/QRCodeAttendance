@@ -10,6 +10,8 @@ if (empty($_SESSION['csrf_token'])) {
         // Handle error or log it
     }
 }
+
+echo $studentsList;
 ?>
 
 <!doctype html>
