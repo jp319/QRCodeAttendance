@@ -181,6 +181,12 @@ if (empty($_SESSION['csrf_token'])) {
         });
     });
 
+    document.getElementById('search-btn').addEventListener('click', function () {
+        console.log('Search clicked');
+        filterAndSearch();
+    });
+
+
 </script>
 </body>
 </html>
