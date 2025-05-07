@@ -34,20 +34,9 @@ $yearList = $student->getAllYear();
 //
 $studentsList = $student->getAllStudents();
 $numOfStudent  = $student->getUserCount();
-//$isFiltered = !empty($_GET['search']) || !empty($_GET['program']) || !empty($_GET['year']);
 
-//searching stuff
 
-//    if (!empty($_GET['search'])) {
-//        $searchQuery = $_GET['search'];
-//        $studentsList = $student->searchStudents($searchQuery);
-//    } else if (!empty($_GET['program']) || !empty($_GET['year'])){
-//        $program = $_GET['program'] ?? null;
-//        $year = $_GET['year'] ?? null;
-//        $studentsList = $student->getFilteredStudents($program, $year);
-//        $numOfStudent =$student->countFilteredStudents($program, $year);
-//
-//    }
+
 
 $data = [
     'programList' => $programList,

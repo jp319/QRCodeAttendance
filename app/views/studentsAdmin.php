@@ -94,7 +94,7 @@ if (empty($_SESSION['csrf_token'])) {
             </thead>
             <tbody>
             <?php if (!empty($studentsList)): ?>
-                <div id="studentsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+                <div id="studentsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 hidden">
                     <?php foreach ($studentsList as $student): ?>
                         <div class="bg-white rounded-lg shadow-md p-6 flex flex-col space-y-3 border border-gray-200
                             transition-transform transform hover:scale-105 hover:shadow-lg duration-300">
@@ -172,8 +172,13 @@ if (empty($_SESSION['csrf_token'])) {
         container.innerHTML = '';
 
         if (data.length === 0) {
+            container.classList.remove("grid");
+            container.classList.add("block");
             container.innerHTML = `<p class="text-center text-gray-600 mt-6">No students found.</p>`;
         } else {
+            container.classList.remove("hidden", "block");
+            container.classList.add("grid");
+
             data.forEach(student => {
                 const studentCard = `
                 <div class="bg-white rounded-lg shadow-md p-6 flex flex-col space-y-3 border border-gray-200 transition-transform transform hover:scale-105 hover:shadow-lg duration-300">
@@ -202,6 +207,7 @@ if (empty($_SESSION['csrf_token'])) {
 
         count.textContent = data.length;
     }
+
 
     function filterAndSearch() {
         const search = document.getElementById('search-input').value.toLowerCase();
