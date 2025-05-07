@@ -71,7 +71,7 @@ class Student
     }
     public function searchStudents($searchQuery): array
     {
-        $query = "CALL searchStudents(:searchQuery)";
+        $query = "CALL sp_search_Students(:searchQuery)";
         $stmt = $this->connect()->prepare($query);
         $searchTerm = "%$searchQuery%";
         $stmt->bindParam(':searchQuery', $searchTerm);
