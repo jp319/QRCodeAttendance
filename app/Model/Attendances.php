@@ -130,7 +130,7 @@ class Attendances
     }
 
     public function searchAttendance($searchQuery): array{
-        $sql = "CALL searchAttendance(:searchQuery)";
+        $sql = "CALL sp_search_attendance(:searchQuery)";
         $search = '%'.$searchQuery.'%';
         $stmt = $this->connect()->prepare($sql);
         $stmt->bindParam(':searchQuery', $search);
