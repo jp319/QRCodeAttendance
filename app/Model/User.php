@@ -158,7 +158,7 @@ class User
 
     public function getUserData($id): array
     {
-        $sql = 'CALL getUserData(:id)';
+        $sql = 'CALL sp_get_user_data(:id)';
         $stmt = $this->connect()->prepare($sql);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
