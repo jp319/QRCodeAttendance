@@ -116,7 +116,7 @@ class Attendances
 
     public function AttendanceRecord2($atten_id): array
     {
-        $sql = 'CALL AttendanceRecord(:id)';
+        $sql = 'CALL sp_attendance_record(:id)';
         $stmt = $this->connect()->prepare($sql);
         $stmt->bindParam(":id", $atten_id);
         $stmt->execute();
