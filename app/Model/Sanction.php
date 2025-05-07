@@ -8,7 +8,7 @@ class Sanction
     use \Database;
     public function insertSanction($student_id, $reason, $hours, $date): bool|array
     {
-        $sql = "CALL insertSanction(?,?,?,?)";
+        $sql = "CALL sp_insert_sanction(?,?,?,?)";
         $params = [
             $student_id,
             $reason,
