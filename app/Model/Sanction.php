@@ -21,7 +21,7 @@ class Sanction
 
     public function deleteSanction($sanction_id): bool|array
     {
-        $sql = "CALL deleteSanction(?)";
+        $sql = "CALL sp_delete_sanction(?)";
         $stmt = $this->connect()->prepare($sql);
         $stmt->bindParam(1, $sanction_id);
         $stmt->execute();
