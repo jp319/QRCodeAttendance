@@ -62,7 +62,7 @@ class Attendances
     }
 
     public function countAttendanceRecord($eventID){
-        $qury = "CALL countStudentAttend(:eventID)";
+        $qury = "CALL sp_count_student_attend(:eventID)";
         $stmt = $this->connect()->prepare($qury);
         $stmt->bindParam(":eventID", $eventID);
         $stmt->execute();
