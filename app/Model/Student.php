@@ -88,7 +88,7 @@ class Student
     }
     public function getAllYear(): array
     {
-        $query = "CALL getAllYear()";
+        $query = "CALL sp_get_all_year()";
         $stmt = $this->connect()->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
