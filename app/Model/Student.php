@@ -141,7 +141,7 @@ class Student
 
     public function getStudentData($id): array
     {
-        $sql = "CALL getStudentData(:id)";
+        $sql = "CALL sp_get_student_data(:id)";
         $stmt = $this->connect()->prepare($sql);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
