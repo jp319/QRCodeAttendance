@@ -28,7 +28,7 @@ class User
     //pagination stuff
     public function getAllUsers(): array
     {
-        $stmt = $this->connect()->prepare("CALL GetUserDetails()");
+        $stmt = $this->connect()->prepare("CALL sp_get_user_detail()");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
