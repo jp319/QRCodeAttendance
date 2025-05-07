@@ -17,6 +17,15 @@ $totalSanctionHours = array_sum(array_column($sanctionList, 'sanction_hours'));
 </head>
 <body class="bg-gray-100 p-6">
 <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+
+    <div class="mb-6">
+        <a href="<?php echo htmlspecialchars(ROOT); ?>adminHome?page=Students"
+           class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+           aria-label="Back to Students">
+            <i class="fas fa-arrow-left mr-2"></i> Back to Students
+        </a>
+    </div>
+
     <!-- Student Profile -->
     <div class="flex flex-col items-center">
         <?php if (!empty($studentData['studentProfile'])): ?>
@@ -91,7 +100,6 @@ $totalSanctionHours = array_sum(array_column($sanctionList, 'sanction_hours'));
         <!-- Submit Button -->
         <div class="mt-6 text-right">
             <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Save Changes</button>
-        </div>
 
     </form>
 
