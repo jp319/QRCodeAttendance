@@ -1,7 +1,8 @@
 <?php
 
 namespace Controller;
-require "../app/core/Model.php";
+require_once "../app/core/Model.php";
+require_once '../app/core/Controller.php';
 use Controller;
 use Model;
 

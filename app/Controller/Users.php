@@ -3,6 +3,7 @@
 namespace Controller;
 require_once '../app/core/Model.php';
 require_once '../app/Model/User.php';
+require_once '../app/core/Controller.php';
 
 use Model\User;
 

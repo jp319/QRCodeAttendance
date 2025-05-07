@@ -42,7 +42,7 @@ $allowed_pages = ['Dashboard', 'Students', 'Attendance', 'Users', 'ProfileAdmin'
                                 <a href="#" data-page="Students" style="padding: 10px 20px; font-size: 16px; font-weight: bold; color: #ccc;" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Students</a>
                                 <a href="#" data-page="Attendance" style="padding: 10px 20px; font-size: 16px; font-weight: bold; color: #ccc;" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Attendance</a>
                                 <a href="#" data-page="Users" style="padding: 10px 20px; font-size: 16px; font-weight: bold; color: #ccc;" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Accounts</a>
-                                <a href="#" data-page="Reports" style="padding: 10px 20px; font-size: 16px; font-weight: bold; color: #ccc;" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Profile</a>
+                                <a href="#" data-page="ProfileAdmin" style="padding: 10px 20px; font-size: 16px; font-weight: bold; color: #ccc;" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Profile</a>
                             </nav>
                             <script>
                                 const links = document.querySelectorAll('.nav-link');
@@ -94,7 +94,7 @@ $allowed_pages = ['Dashboard', 'Students', 'Attendance', 'Users', 'ProfileAdmin'
                     <a href="#" data-page="Students" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Students</a>
                     <a href="#" data-page="Attendance" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Attendance</a>
                     <a href="#" data-page="Users" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Accounts</a>
-                    <a href="#" data-page="Reports" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Profile</a>
+                    <a href="#" data-page="ProfileAdmin" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Profile</a>
                 </nav>
                 <script>
                     const links = document.querySelectorAll('.nav-link');

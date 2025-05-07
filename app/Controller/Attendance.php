@@ -3,6 +3,7 @@
 namespace Controller;
 require "../app/core/Model.php";
 require "../app/Model/Attendances.php";
+require_once '../app/core/Controller.php';
 use Controller;
 use Model\Attendances;
 
