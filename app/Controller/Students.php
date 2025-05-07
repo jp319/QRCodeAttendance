@@ -2,13 +2,14 @@
 
 namespace Controller;
 require_once '../app/core/Model.php';
+require_once '../app/core/Controller.php';
 require_once '../app/Model/Student.php';
-use Controller;
+
 use Model;
 use Model\Student;
 use PDO;
 
-class Students extends Controller
+class Students extends \Controller
 {
     use Model;
     public function index($data){
