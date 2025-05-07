@@ -16,7 +16,7 @@ class RemoveSanction extends Controller
 
         // Redirect back to the previous page with a success flag
         $previous = $_SERVER['HTTP_REFERER'] ?? ROOT . 'history'; // fallback to history
-        header("Location: " . "edit_student?id=".$_GET['studentID'] . "?removed=1");
+        header("Location: " . "edit_student?id=".$_GET['studentID'] . "&removed=1");
         exit;
     }
 
