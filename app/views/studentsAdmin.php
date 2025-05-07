@@ -38,7 +38,7 @@ if (empty($_SESSION['csrf_token'])) {
             <div class="flex items-center w-full md:w-auto gap-2">
                 <input type="text" id="search-input" placeholder="Search..."
                        class="w-full md:w-80 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-maroon">
-                <button id="search-btn" class="bg-maroon hover:bg-maroon-hover text-white px-4 py-2 rounded-lg flex items-center gap-2">
+                <button id="search-btn" class="bg-red-800 hover:bg-red-700 text-white px-4 py-2 rounded-lg flex items-center gap-2">
                     <i class="fas fa-search" style="color: black"></i>
                 </button>
             </div>
@@ -164,23 +164,23 @@ if (empty($_SESSION['csrf_token'])) {
 
     document.addEventListener('DOMContentLoaded', () => {
         renderStudents(allStudents);
-    });
-    // Events for buttons (no forms)
-    document.getElementById('search-btn').addEventListener('click', function () {
-        filterAndSearch();
-    });
 
-    document.getElementById('filter-btn').addEventListener('click', function () {
-        filterAndSearch();
-    });
-
-    // Also listen to Enter key on search input
-    document.getElementById('search-input').addEventListener('keypress', function (e) {
-        if (e.key === 'Enter') {
-            e.preventDefault();
+        document.getElementById('search-btn').addEventListener('click', function () {
             filterAndSearch();
-        }
+        });
+
+        document.getElementById('filter-btn').addEventListener('click', function () {
+            filterAndSearch();
+        });
+
+        document.getElementById('search-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                filterAndSearch();
+            }
+        });
     });
+
 </script>
 </body>
 </html>
