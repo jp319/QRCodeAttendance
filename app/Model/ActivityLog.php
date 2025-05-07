@@ -42,7 +42,7 @@ class ActivityLog
 
     public function getActivityLogForUser($evnt): array
     {
-        $query = 'CALL getActivityLogOnAtten(:evnt)';
+        $query = 'CALL sp_get_activity_log_on_atten(:evnt)';
         $stmt = $this->connect()->prepare($query);
         $stmt->bindParam(":evnt",$evnt);
         $stmt->execute();
