@@ -32,26 +32,23 @@ if (empty($_SESSION['csrf_token'])) {
 </header>
 
 <div class="container">
-    <!-- Search and Filter Section -->
     <div class="search-bar">
-        <form id="searchForm" class="flex flex-col md:flex-row items-center gap-4 bg-white p-4 rounded-lg shadow-md w-full">
-            <input type="hidden" name="page" value="Students">
+        <!-- Search Input -->
+        <div class="flex flex-col md:flex-row items-center gap-4 bg-white p-4 rounded-lg shadow-md w-full">
             <div class="flex items-center w-full md:w-auto gap-2">
-                <input type="text" name="search" id="search-input" placeholder="Search..."
+                <input type="text" id="search-input" placeholder="Search..."
                        class="w-full md:w-80 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-maroon">
-                <button type="submit" id="search-btn" class="bg-maroon hover:bg-maroon-hover text-white px-4 py-2 rounded-lg flex items-center gap-2">
+                <button id="search-btn" class="bg-maroon hover:bg-maroon-hover text-white px-4 py-2 rounded-lg flex items-center gap-2">
                     <i class="fas fa-search" style="color: black"></i>
                 </button>
             </div>
             <div class="text-gray-600 text-sm">
                 Number of Students: <span class="font-bold" id="studentCount"><?php echo $numOfStudent ?></span>
             </div>
-        </form>
+        </div>
 
-        <!-- Filter Form -->
-        <form id="filterForm" class="filter-container mt-4 flex gap-4">
-            <input type="hidden" name="page" value="Students">
-            <select name="program" id="program-filter" class="p-2 border border-gray-300 rounded-lg">
+        <div class="filter-container mt-4">
+            <select id="program-filter" class="px-4 py-2 border border-gray-300 rounded-lg">
                 <option value="">Select Program</option>
                 <?php foreach ($programList as $program): ?>
                     <option value="<?php echo htmlspecialchars($program['program']); ?>">
@@ -60,7 +57,7 @@ if (empty($_SESSION['csrf_token'])) {
                 <?php endforeach ?>
             </select>
 
-            <select name="year" id="year-filter" class="p-2 border border-gray-300 rounded-lg">
+            <select id="year-filter" class="px-4 py-2 border border-gray-300 rounded-lg">
                 <option value="">Select Year</option>
                 <?php foreach ($yearList as $year): ?>
                     <option value="<?php echo htmlspecialchars($year['acad_year']); ?>">
@@ -69,17 +66,18 @@ if (empty($_SESSION['csrf_token'])) {
                 <?php endforeach; ?>
             </select>
 
-            <button type="submit" class="px-4 py-2 bg-red-800 text-white rounded-lg shadow hover:bg-red-700 transition duration-200 ease-in-out">
+            <button id="filter-btn" class="px-4 py-2 bg-red-800 text-white rounded-lg shadow hover:bg-red-700 transition duration-200 ease-in-out">
                 <i class="fas fa-filter"></i> Apply Filter
             </button>
-        </form>
+        </div>
 
         <!-- Add Student Button -->
         <a href="<?php echo ROOT ?>add_student"
-           class="block mt-4 text-white bg-red-800 hover:bg-red-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+           class="block text-white bg-red-800 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-4">
             <i class="fas fa-user-graduate"></i> Add Student
         </a>
     </div>
+
 
     <!-- Students Cards Container (moved out of <table>) -->
     <div id="studentsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
@@ -90,6 +88,24 @@ if (empty($_SESSION['csrf_token'])) {
 <!-- JavaScript Data and Logic -->
 <script>
     const allStudents = <?php echo json_encode($studentsList); ?>;
+
+    // Events for buttons (no forms)
+    document.getElementById('search-btn').addEventListener('click', function () {
+        filterAndSearch();
+    });
+
+    document.getElementById('filter-btn').addEventListener('click', function () {
+        filterAndSearch();
+    });
+
+    // Also listen to Enter key on search input
+    document.getElementById('search-input').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            filterAndSearch();
+        }
+    });
+
 
     function confirmDelete(event, url) {
         event.preventDefault();
