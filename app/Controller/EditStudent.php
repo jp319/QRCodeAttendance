@@ -36,25 +36,28 @@ $sanctionList = $sanction->getStudentSanctions($_GET['id']);
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (!empty($_POST['sanctionH']) && isset($_POST['reason'])) {
-        // Insert Sanction
-        $sanction = new Sanction();
-        $date = new DateTime("now", new DateTimeZone('Asia/Manila'));
-        $formattedTime = $date->format('Y-m-d H:i:s'); // FULL Date and Time
-        $sanction->insertSanction($_POST['id'], $_POST['reason'], $_POST['sanctionH'], $formattedTime);
+    $formType = $_POST['form_type'] ?? '';
 
+    if ($formType === 'apply_sanction') {
+        if (!empty($_POST['sanctionH']) && isset($_POST['reason'])) {
+            $date = new DateTime("now", new DateTimeZone('Asia/Manila'));
+            $formattedTime = $date->format('Y-m-d H:i:s');
+            $sanction->insertSanction($_POST['id'], $_POST['reason'], $_POST['sanctionH'], $formattedTime);
+        }
     }
 
-    if (!empty($_POST['id'])) {
-        // Update Student Information
-        $student->updateStudent($_POST['id'], $_POST['f_name'], $_POST['l_name'], $_POST['program'], $_POST['acad_year'], $_POST['email'], $_POST['contact_num']);
-        $user->updateUser($_POST['id'], $_POST['email']);
+    if ($formType === 'update_student') {
+        if (!empty($_POST['id'])) {
+            $student->updateStudent($_POST['id'], $_POST['f_name'], $_POST['l_name'], $_POST['program'], $_POST['acad_year'], $_POST['email'], $_POST['contact_num']);
+            $user->updateUser($_POST['id'], $_POST['email']);
+        }
     }
 
-
-
-
+    // Refresh the data
+    $studentData = $student->getStudentData($_GET['id']);
+    $sanctionList = $sanction->getStudentSanctions($_GET['id']);
 }
+
 
 $data = [
     'studentData' => $studentData,
