@@ -90,7 +90,7 @@ class Attendances
             return []; // Prevent errors if decoding fails
         }
 
-        $sql = "CALL getStudentAttendanceRecord(?, ?, ?, ?, ?)";
+        $sql = "CALL sp_get_student_attendance_record(?, ?, ?, ?, ?)";
         $sql2 = "CALL getStudentAttendanceRecord2(?, ?, ?, ?)";
 
         if (!in_array('AllStudents', $programs)) {
