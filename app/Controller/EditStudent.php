@@ -45,9 +45,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     }
 
+    if (!empty($_POST['id'])) {
         // Update Student Information
         $student->updateStudent($_POST['id'], $_POST['f_name'], $_POST['l_name'], $_POST['program'], $_POST['acad_year'], $_POST['email'], $_POST['contact_num']);
         $user->updateUser($_POST['id'], $_POST['email']);
+    }
+
+
 
 
 }
