@@ -135,6 +135,11 @@ if (empty($_SESSION['csrf_token'])) {
         </table>
     </div>
 
+    <script>
+        const allStudents = <?php echo json_encode($studentsList); ?>;
+    </script>
+
+
 
 
     <script>
@@ -170,10 +175,10 @@ if (empty($_SESSION['csrf_token'])) {
 
         container.innerHTML = '';
 
-        if (data.studentsList.length === 0) {
-            container.innerHTML = `<p class="text-center text-gray-600 mt-6">No students found for the selected filters.</p>`;
+        if (data.length === 0) {
+            container.innerHTML = `<p class="text-center text-gray-600 mt-6">No students found.</p>`;
         } else {
-            data.studentsList.forEach(student => {
+            data.forEach(student => {
                 const studentCard = `
                 <div class="bg-white rounded-lg shadow-md p-6 flex flex-col space-y-3 border border-gray-200 transition-transform transform hover:scale-105 hover:shadow-lg duration-300">
                     <div class="flex items-center space-x-3">
@@ -194,40 +199,44 @@ if (empty($_SESSION['csrf_token'])) {
                         </a>
                     </div>
                 </div>
-                `;
+            `;
                 container.insertAdjacentHTML('beforeend', studentCard);
             });
         }
 
-        count.textContent = data.numOfStudent;
+        count.textContent = data.length;
+    }
+
+    function filterAndSearch() {
+        const search = document.getElementById('search-input').value.toLowerCase();
+        const program = document.getElementById('program-filter').value.toLowerCase();
+        const year = document.getElementById('year-filter').value.toLowerCase();
+
+        const filtered = allStudents.filter(student => {
+            const matchesSearch = `${student.f_name} ${student.l_name} ${student.student_id}`.toLowerCase().includes(search);
+            const matchesProgram = program === "" || student.program.toLowerCase() === program;
+            const matchesYear = year === "" || student.acad_year.toLowerCase() === year;
+            return matchesSearch && matchesProgram && matchesYear;
+        });
+
+        renderStudents(filtered);
     }
 
     document.getElementById('searchForm').addEventListener('submit', function (e) {
         e.preventDefault();
-        const search = document.getElementById('search-input').value;
-
-        fetch(`<?php echo ROOT ?>adminHome?page=Students&search=${encodeURIComponent(search)}`, {
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest'
-            }
-        })
-            .then(response => response.json())
-            .then(data => renderStudents(data));
+        filterAndSearch();
     });
 
     document.getElementById('filterForm').addEventListener('submit', function (e) {
         e.preventDefault();
-        const program = document.getElementById('program-filter').value;
-        const year = document.getElementById('year-filter').value;
-
-        fetch(`<?php echo ROOT ?>adminHome?page=Students&program=${encodeURIComponent(program)}&year=${encodeURIComponent(year)}`, {
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest'
-            }
-        })
-            .then(response => response.json())
-            .then(data => renderStudents(data));
+        filterAndSearch();
     });
+
+    // Render all students on initial load
+    document.addEventListener('DOMContentLoaded', () => {
+        renderStudents(allStudents);
+    });
+
 </script>
 
 </body>
