@@ -81,7 +81,7 @@ class Student
 
     public function getAllProgram(): array
     {
-        $query = "CALL getAllProgram()";
+        $query = "CALL sp_get_all_program()";
         $stmt = $this->connect()->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
