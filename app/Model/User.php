@@ -83,7 +83,7 @@ class User
         return $this->query($query, $params);
     }
     public function password_verify($current_password, $id) {
-        $query = 'CALL verify_pass(?,?)';
+        $query = 'CALL sp_verify_pass(?,?)';
         $stmt = $this->connect()->prepare($query);
         $stmt->execute([$current_password, $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
