@@ -34,7 +34,7 @@ $totalSanctionHours = array_sum(array_column($sanctionList, 'sanction_hours'));
 
     <h1 class="text-2xl font-bold text-gray-800 text-center my-6">Edit Student Details</h1>
 
-    <form id="studentForm" method="post" action="">
+    <form id="studentForm" method="post" action="<?php echo ROOT;?>edit_student?id=<?php echo $_GET['id'] ?>">
         <!-- Student Details -->
         <div class="mb-4">
             <label class="block text-gray-700 font-semibold">Student ID</label>
