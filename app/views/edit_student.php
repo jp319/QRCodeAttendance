@@ -14,6 +14,7 @@ $totalSanctionHours = array_sum(array_column($sanctionList, 'sanction_hours'));
     <link rel="icon" type="image/x-icon" href="<?php echo ROOT?>assets/images/LOGO_QRCODE_v2.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body class="bg-gray-100 p-6">
 <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-lg">
