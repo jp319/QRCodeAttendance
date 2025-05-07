@@ -8,9 +8,7 @@ $page = $_GET['page'] ?? 'Dashboard'; // Default to 'dashboard'
 $allowed_pages = ['Dashboard', 'Students', 'Attendance', 'Users', 'ProfileAdmin'];
 
 
-if (in_array($page, $allowed_pages)) {
-    require "../app/Controller/{$page}.php";
-}
+
 
 ?>
 
@@ -151,7 +149,9 @@ if (in_array($page, $allowed_pages)) {
     </nav>
     <main>
         <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8" id="page-content">
-            <?php require "../app/Controller/{$page}.php"; ?>
+            <?php if (in_array($page, $allowed_pages)) {
+                require_once "../app/Controller/{$page}.php";
+            } ?>
         </div>
     </main>
 
