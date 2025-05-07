@@ -7,8 +7,10 @@ require_once "../app/core/imageConfig.php";
 $page = $_GET['page'] ?? 'Dashboard'; // Default to 'dashboard'
 $allowed_pages = ['Dashboard', 'Students', 'Attendance', 'Users', 'ProfileAdmin'];
 
-
-
+// Prevent loading invalid files
+if (!in_array($page, $allowed_pages)) {
+    $page = 'Dashboard'; // Fallback to default
+}
 
 ?>
 
@@ -38,11 +40,11 @@ $allowed_pages = ['Dashboard', 'Students', 'Attendance', 'Users', 'ProfileAdmin'
                         <div class="ml-10 flex items-baseline space-x-4">
                             <nav>
                                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                                <a href="#" data-page="Dashboard" style="padding: 10px 20px; font-size: 16px; font-weight: bold; color: #ccc;" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Dashboard</a>
-                                <a href="#" data-page="Students" style="padding: 10px 20px; font-size: 16px; font-weight: bold; color: #ccc;" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Students</a>
-                                <a href="#" data-page="Attendance" style="padding: 10px 20px; font-size: 16px; font-weight: bold; color: #ccc;" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Attendance</a>
-                                <a href="#" data-page="Users" style="padding: 10px 20px; font-size: 16px; font-weight: bold; color: #ccc;" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Accounts</a>
-                                <a href="#" data-page="ProfileAdmin" style="padding: 10px 20px; font-size: 16px; font-weight: bold; color: #ccc;" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Profile</a>
+                                <a href="?page=Dashboard" data-page="Dashboard" style="padding: 10px 20px; font-size: 16px; font-weight: bold; color: #ccc;" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Dashboard</a>
+                                <a href="?page=Students" data-page="Students" style="padding: 10px 20px; font-size: 16px; font-weight: bold; color: #ccc;" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Students</a>
+                                <a href="?page=Attendance" data-page="Attendance" style="padding: 10px 20px; font-size: 16px; font-weight: bold; color: #ccc;" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Attendance</a>
+                                <a href="?page=Users" data-page="Users" style="padding: 10px 20px; font-size: 16px; font-weight: bold; color: #ccc;" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Accounts</a>
+                                <a href="?page=ProfileAdmin" data-page="Reports" style="padding: 10px 20px; font-size: 16px; font-weight: bold; color: #ccc;" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Profile</a>
                             </nav>
                             <script>
                                 const links = document.querySelectorAll('.nav-link');
@@ -90,11 +92,11 @@ $allowed_pages = ['Dashboard', 'Students', 'Attendance', 'Users', 'ProfileAdmin'
         <div class="md:hidden" id="mobile-menu">
             <div class="space-y-1 px-2 pt-2 pb-3 sm:px-3">
                 <nav class=" top-0 z-50">
-                    <a href="#"  data-page="Dashboard" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Dashboard</a>
-                    <a href="#" data-page="Students" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Students</a>
-                    <a href="#" data-page="Attendance" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Attendance</a>
-                    <a href="#" data-page="Users" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Accounts</a>
-                    <a href="#" data-page="ProfileAdmin" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Profile</a>
+                    <a href="?page=Dashboard"  data-page="Dashboard" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Dashboard</a>
+                    <a href="?page=Students" data-page="Students" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Students</a>
+                    <a href="?page=Attendance" data-page="Attendance" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Attendance</a>
+                    <a href="?page=Users" data-page="Users" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Accounts</a>
+                    <a href="?page=ProfileAdmin" data-page="Reports" class="nav-link rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-red-800 hover:text-gray-200">Profile</a>
                 </nav>
                 <script>
                     const links = document.querySelectorAll('.nav-link');
@@ -148,57 +150,10 @@ $allowed_pages = ['Dashboard', 'Students', 'Attendance', 'Users', 'ProfileAdmin'
         </div>
     </nav>
     <main>
-        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8" id="page-content">
-            <?php if (in_array($page, $allowed_pages)) {
-                require_once "../app/Controller/{$page}.php";
-            } ?>
+        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+            <?php require "../app/Controller/{$page}.php"; ?>
         </div>
     </main>
-
-    <script>
-        const pageContent = document.getElementById('page-content');
-
-        function showLoading() {
-            pageContent.innerHTML = `
-            <div class="flex items-center justify-center h-64">
-                <div class="animate-spin rounded-full h-16 w-16 border-4 border-red-600 border-t-transparent"></div>
-            </div>
-        `;
-        }
-
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function (e) {
-                e.preventDefault(); // Prevent full reload
-                const page = this.getAttribute('data-page');
-
-                // Show loading
-                showLoading();
-
-                // Load content dynamically from loadContent.php
-                fetch(`loadContent.php?page=${page}`)
-                        .then(response => {
-                        if (!response.ok) throw new Error("Page not found.");
-                        return response.text();
-                    })
-                    .then(data => {
-                        pageContent.innerHTML = data;
-
-                        // Highlight active link
-                        document.querySelectorAll('.nav-link').forEach(l => {
-                            l.classList.remove('bg-red-800', 'text-white');
-                        });
-                        this.classList.add('bg-red-800', 'text-white');
-                    })
-                    .catch(err => {
-                        pageContent.innerHTML = "<p class='text-red-500'>Failed to load page.</p>";
-                        console.error(err);
-                    });
-            });
-        });
-    </script>
-
-
-
 </div>
 </body>
 </html>
