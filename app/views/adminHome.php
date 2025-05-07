@@ -7,9 +7,9 @@ require_once "../app/core/imageConfig.php";
 $page = $_GET['page'] ?? 'Dashboard'; // Default to 'dashboard'
 $allowed_pages = ['Dashboard', 'Students', 'Attendance', 'Users', 'ProfileAdmin'];
 
-// Prevent loading invalid files
-if (!in_array($page, $allowed_pages)) {
-    $page = 'Dashboard'; // Fallback to default
+
+if (in_array($page, $allowed_pages)) {
+    require "../app/Controller/{$page}.php";
 }
 
 ?>
@@ -162,7 +162,7 @@ if (!in_array($page, $allowed_pages)) {
                 const page = this.getAttribute('data-page');
 
                 // Load the content dynamically
-                fetch(`../app/Controller/${page}.php`)
+                fetch(`adminHome?page=${page}`)
                     .then(response => {
                         if (!response.ok) throw new Error("Page not found.");
                         return response.text();
