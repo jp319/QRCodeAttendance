@@ -168,7 +168,7 @@ $totalSanctionHours = array_sum(array_column($sanctionList, 'sanction_hours'));
                             <span class="text-red-500"><?= htmlspecialchars($sanction['sanction_hours']); ?></span>
                         </p>
                     </div>
-                    <a href="<?php echo ROOT?>remove_sanction?id=<?php echo htmlspecialchars($sanction['sanction_id']); ?>"
+                    <a href="<?php echo ROOT?>remove_sanction?id=<?php echo htmlspecialchars($sanction['sanction_id']); ?>&studentID=<?php echo $_GET['id']?>"
                             class="text-red-500 hover:text-red-700"
                        onclick="return confirmDelete(event, this.href);">
                         🗑️
