@@ -52,7 +52,6 @@ $numOfStudent  = $student->getUserCount();
 $data = [
     'programList' => $programList,
     'yearList' => $yearList,
-    'isFiltered' => $isFiltered,
     'studentsList' => $studentsList,
     'numOfStudent' => $numOfStudent
 ];
