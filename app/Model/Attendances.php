@@ -18,7 +18,7 @@ class Attendances
         $yearJson = json_encode($year);
         $requiredAttendanceRecordJson = json_encode($requiredAttendanceRecord);
 
-        $query = "CALL InsertAttendance(:name, :status, :requiredAttendees, :year, :sanction,:requiredAttendanceRecord)";
+        $query = "CALL sp_insert_attendance(:name, :status, :requiredAttendees, :year, :sanction,:requiredAttendanceRecord)";
         $params = [
             ':name' => $name,
             ':status' => $status,
