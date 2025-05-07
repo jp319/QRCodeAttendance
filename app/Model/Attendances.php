@@ -140,7 +140,7 @@ class Attendances
 
     public function getStudentsWhoDidNotAttend($eventID, $program, $year): array
     {
-        $query = "CALL getStudentNotAttended(:eventID,:program,:year)";
+        $query = "CALL sp_get_student_not_attended(:eventID,:program,:year)";
         $stmt = $this->connect()->prepare($query);
         $stmt->bindParam(":eventID", $eventID);
         $stmt->bindParam(":program", $program);
