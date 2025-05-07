@@ -71,7 +71,7 @@ class Attendances
 
     public function AttendanceRecord($program,$year,$atten_id): bool|array
     {
-        $query = "CALL getAttendanceRecord(?,?,?)";
+        $query = "CALL sp_get_attendance_record(?,?,?)";
         return $this->query($query,[$program,$year,$atten_id]);
     }
 
