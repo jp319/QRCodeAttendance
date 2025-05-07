@@ -14,10 +14,12 @@ class RemoveSanction extends Controller
         $sanction = new Sanction();
         $sanction->deleteSanction($_GET['id']);
 
-        // Redirect to history page with a success flag
-        header("Location: " . ROOT . "history?removed=1");
+        // Redirect back to the previous page with a success flag
+        $previous = $_SERVER['HTTP_REFERER'] ?? ROOT . 'history'; // fallback to history
+        header("Location: " . $previous . "?removed=1");
         exit;
     }
+
 
 }
 $removeSanction = new RemoveSanction();
