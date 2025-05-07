@@ -152,7 +152,7 @@ class Attendances
 
     public function vwStudentSanctioned($event): array
     {
-        $query = 'CALL vw_sanctioned(:event)';
+        $query = 'CALL sp_view_sanctioned(:event)';
         $stmt = $this->connect()->prepare($query);
         $stmt->bindParam(":event", $event);
         $stmt->execute();
