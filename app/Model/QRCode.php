@@ -116,7 +116,7 @@ class QRCode
         $date = new DateTime("now", new DateTimeZone('Asia/Manila'));
         $formattedTime = $date->format('h:i:s A'); // 12-hour format with AM/PM
 
-        $query = 'CALL insertAttendanceRecord(?, ?, ?)';
+        $query = 'CALL sp_insert_attendance_record(?, ?, ?)';
         return $this->query($query, [$attenId, $studentId, $formattedTime]);
     }
 
