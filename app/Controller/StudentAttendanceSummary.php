@@ -31,7 +31,7 @@ class StudentAttendanceSummary extends \Controller
     }
     
 }
-$user = new User();
+$user = new Users();
 $userData = $user->checkSession('sanctions_summary');
 if (!$userData || !isset($userData['role']) || $userData['role'] !== 'admin') {
     $uri = str_replace('/sanctions_summary', '/login', $_SERVER['REQUEST_URI']);
