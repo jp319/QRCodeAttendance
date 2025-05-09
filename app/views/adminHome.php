@@ -34,30 +34,83 @@ if (!in_array($page, $allowed_pages)) {
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             display: none;
             justify-content: center;
             align-items: center;
             z-index: 9999;
+            backdrop-filter: blur(5px);
+        }
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
         }
         .loading-spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid #840307;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
+            position: relative;
+            width: 80px;
+            height: 80px;
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .loading-spinner:before,
+        .loading-spinner:after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            animation: pulse 1.5s linear infinite;
+        }
+        .loading-spinner:before {
+            width: 100%;
+            height: 100%;
+            background: rgba(132, 3, 7, 0.2);
+            animation-delay: -0.5s;
+        }
+        .loading-spinner:after {
+            width: 75%;
+            height: 75%;
+            background: #840307;
+            top: 12.5%;
+            left: 12.5%;
+            animation-delay: -1s;
+        }
+        .loading-text {
+            color: #840307;
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            animation: fadeInOut 1.5s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(0.8);
+                opacity: 0.5;
+            }
+        }
+        @keyframes fadeInOut {
+            0%, 100% {
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 1;
+            }
         }
     </style>
 </head>
 <body>
 <!-- Loading Overlay -->
 <div id="loadingOverlay" class="loading-overlay">
-    <div class="loading-spinner"></div>
+    <div class="loading-container">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Loading...</div>
+    </div>
 </div>
 
 <div class="min-h-full">
