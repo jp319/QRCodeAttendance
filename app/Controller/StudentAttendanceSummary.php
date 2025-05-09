@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Controller;
+namespace Controller;
 require_once '../app/Model/Sanction.php';
 require_once '../app/Model/Attendances.php';
-require_once '../app/Model/Users.php';
+require_once '../app/Model/User.php';
 
-use Sanction;
-use Attendances;
-use Users;
+use Model\Sanction;
+use Model\Attendances;
+use Model\User;
 
 class StudentAttendanceSummary extends \Controller
 {
@@ -31,7 +31,7 @@ class StudentAttendanceSummary extends \Controller
     }
     
 }
-$user = new Users();
+$user = new User();
 $userData = $user->checkSession('sanctions_summary');
 if (!$userData || !isset($userData['role']) || $userData['role'] !== 'admin') {
     $uri = str_replace('/sanctions_summary', '/login', $_SERVER['REQUEST_URI']);
