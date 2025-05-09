@@ -21,7 +21,7 @@ class Student
     }
     public function getStudentId($id): ?string
     {
-        $query = "SELECT * FROM students WHERE student_id = :id";
+        $query = "SELECT * FROM vw_students WHERE student_id = :id";
         $params = [
             ':id' => $id
         ];

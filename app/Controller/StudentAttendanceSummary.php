@@ -4,10 +4,12 @@ namespace Controller;
 require_once '../app/Model/Sanction.php';
 require_once '../app/Model/Attendances.php';
 require_once '../app/Model/User.php';
+require_once '../app/Model/Student.php';
 
 use Model\Sanction;
 use Model\Attendances;
 use Model\User;
+use Model\Student;
 
 class StudentAttendanceSummary extends \Controller
 {
@@ -17,6 +19,7 @@ class StudentAttendanceSummary extends \Controller
     {
         $sanction = new Sanction();
         $attendance = new Attendances();
+        $student = new Student();
     
     
         $userID = $_GET['student_id'];
