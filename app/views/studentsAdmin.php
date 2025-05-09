@@ -101,7 +101,7 @@ if (empty($_SESSION['csrf_token'])) {
 <div id="searchLoadingOverlay" class="search-loading-overlay">
     <div class="search-loading-container">
         <div class="search-loading-spinner"></div>
-        <div class="search-loading-text">Searching Students...</div>
+        <div class="search-loading-text">Hang on tight...</div>
     </div>
 </div>
 
