@@ -27,7 +27,7 @@ class StudentAttendanceSummary extends \Controller
             'sanctionList' => $sanctionList,
             'attendanceRecord' => $attendanceRecord
         ];
-        $this->loadViewWithData('studentReport', $data);
+        $this->loadViewWithData('student_attendance_summary', $data);
     }
     
 }
