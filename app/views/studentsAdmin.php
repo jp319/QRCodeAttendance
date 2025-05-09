@@ -18,9 +18,93 @@ if (empty($_SESSION['csrf_token'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Students</title>
-
+    <style>
+        /* Search Loading Overlay */
+        .search-loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            backdrop-filter: blur(5px);
+        }
+        .search-loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        .search-loading-spinner {
+            position: relative;
+            width: 60px;
+            height: 60px;
+        }
+        .search-loading-spinner:before,
+        .search-loading-spinner:after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            animation: searchPulse 1.5s linear infinite;
+        }
+        .search-loading-spinner:before {
+            width: 100%;
+            height: 100%;
+            background: rgba(220, 38, 38, 0.2);
+            animation-delay: -0.5s;
+        }
+        .search-loading-spinner:after {
+            width: 75%;
+            height: 75%;
+            background: #dc2626;
+            top: 12.5%;
+            left: 12.5%;
+            animation-delay: -1s;
+        }
+        .search-loading-text {
+            color: #dc2626;
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            animation: searchFadeInOut 1.5s ease-in-out infinite;
+        }
+        @keyframes searchPulse {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(0.8);
+                opacity: 0.5;
+            }
+        }
+        @keyframes searchFadeInOut {
+            0%, 100% {
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+    </style>
 </head>
 <body class="bg-[#f8f9fa]">
+<!-- Search Loading Overlay -->
+<div id="searchLoadingOverlay" class="search-loading-overlay">
+    <div class="search-loading-container">
+        <div class="search-loading-spinner"></div>
+        <div class="search-loading-text">Searching Students...</div>
+    </div>
+</div>
+
 <header class="bg-white shadow-sm p-6">
     <div class="max-w-7xl mx-auto flex items-center space-x-2">
         <i class="fas fa-user-graduate text-gray-900 text-2xl"></i>
@@ -161,6 +245,26 @@ if (empty($_SESSION['csrf_token'])) {
                 }
             });
         }
+
+        // Add loading screen functionality for search and filter
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchLoadingOverlay = document.getElementById('searchLoadingOverlay');
+            
+            // Show loading for search form
+            document.querySelector('form[action*="adminHome"]').addEventListener('submit', function() {
+                searchLoadingOverlay.style.display = 'flex';
+            });
+
+            // Show loading for filter form
+            document.querySelector('.filter-container').addEventListener('submit', function() {
+                searchLoadingOverlay.style.display = 'flex';
+            });
+
+            // Hide loading when page is fully loaded
+            window.addEventListener('load', function() {
+                searchLoadingOverlay.style.display = 'none';
+            });
+        });
     </script>
 </div>
 </body>
