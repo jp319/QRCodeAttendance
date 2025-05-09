@@ -53,7 +53,7 @@ global $numberOfStudents, $numberOfAttendance, $numberOfFaci, $listOfAttendance,
 </div>
 
 <!-- Details Section -->
-<div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 p-6">
+<div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-5 p-5">
 
     <!-- Facilitators Status -->
     <div class="bg-white rounded-2xl shadow-lg p-6">
