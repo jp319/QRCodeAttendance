@@ -25,8 +25,8 @@ class StudentAttendanceSummary extends \Controller
         $userID = $_GET['student_id'];
         $sanctionList = $sanction->getStudentSanctions($userID);
         $attendanceRecord = $attendance->StudentAttendanceRecord($userID);
-        $studentInfo = $student->getStudentId($userID);
-        print_r($studentInfo);
+        $studentInfo = $student->getStudentData($userID);
+
         $data = [
             'sanctionList' => $sanctionList,
             'attendanceRecord' => $attendanceRecord,
