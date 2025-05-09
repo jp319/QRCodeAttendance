@@ -16,15 +16,15 @@ global $imageSource, $imageSource2, $imageSource4;
         /* Loading overlay styles */
         .loading-overlay {
             position: fixed;
-            top: 0;
+            top: 120px; /* Adjusted to start below the header and search bar */
             left: 0;
             width: 100%;
-            height: 100%;
+            height: calc(100% - 120px); /* Adjusted height to account for the top offset */
             background: rgba(255, 255, 255, 0.95);
             display: none;
             justify-content: center;
             align-items: center;
-            z-index: 9999;
+            z-index: 40; /* Lower z-index to stay below search bar */
             backdrop-filter: blur(5px);
         }
         .loading-container {
