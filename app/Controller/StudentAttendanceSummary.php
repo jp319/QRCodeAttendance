@@ -5,12 +5,11 @@ require_once '../app/Model/Sanction.php';
 require_once '../app/Model/Attendances.php';
 require_once '../app/Model/User.php';
 
-use App\Core\Controller;
-use Model\Sanction;
-use Model\Attendances;
-use Model\User;
+use Sanction;
+use Attendances;
+use User;
 
-class StudentAttendanceSummary extends Controller
+class StudentAttendanceSummary extends \Controller
 {
   
 
