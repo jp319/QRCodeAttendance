@@ -138,7 +138,7 @@ global $imageSource, $imageSource2, $imageSource4;
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                     <span class="px-3 py-1 rounded-full text-sm font-semibold <?php echo $sanction['hours'] > 0 ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'; ?>">
-                                        <?php echo htmlspecialchars($sanction['sanction_hours']); ?> hours
+                                        <?php echo htmlspecialchars($sanction['hours']); ?> hours
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
