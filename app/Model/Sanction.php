@@ -47,4 +47,12 @@ class Sanction
         return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getSanctionSummary(): array
+    {
+        $sql = "CALL sp_get_sanctions_summary()";
+        $stm = $this->connect()->prepare($sql);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }

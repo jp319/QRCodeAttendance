@@ -46,6 +46,7 @@ $routes = [
     '/public/edit_user' => '../app/Controller/EditUser.php',
     '/public/add_user' => '../app/Controller/AddUser.php',
 
+    '/public/sanctions_summary' => '../app/Controller/SanctionSummary.php',
     '/public/remove_sanction' => '../app/Controller/RemoveSanction.php',
 
     '/public/facilitator' => '../app/Controller/Facilitator.php',

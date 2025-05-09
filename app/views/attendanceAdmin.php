@@ -30,9 +30,14 @@
             </form>
         </div>
 
-
-
-        <a class="btn" id="add-attendance" href="<?php echo ROOT ?>add_attendance">Add Attendance</a>
+        <div class="flex gap-4">
+            <a class="btn" id="add-attendance" href="<?php echo ROOT ?>add_attendance">
+                <i class="fas fa-plus mr-2"></i>Add Attendance
+            </a>
+            <a class="btn bg-red-600 hover:bg-red-700" href="<?php echo ROOT ?>sanctions_summary">
+                <i class="fas fa-exclamation-triangle mr-2"></i>View Sanctions
+            </a>
+        </div>
     </div>
 
     <div class="event-list-header">
