@@ -94,7 +94,7 @@ global $imageSource, $imageSource2, $imageSource4;
         </div>
     </header>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-[95%] mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Search Bar -->
         <div class="mb-6">
             <div class="relative">
@@ -113,35 +113,45 @@ global $imageSource, $imageSource2, $imageSource4;
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student ID</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Program</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Year</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Sanction Hours</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            <th class="px-8 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student ID</th>
+                            <th class="px-8 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                            <th class="px-8 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Program</th>
+                            <th class="px-8 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Year</th>
+                            <th class="px-8 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Sanction Hours</th>
+                            <th class="px-8 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200" id="sanctionsTableBody">
-                        <?php foreach ($data['sanctionSummary'] as $sanction): ?>
+                        <?php 
+                        $itemsPerPage = 10;
+                        $currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+                        $totalItems = count($data['sanctionSummary']);
+                        $totalPages = ceil($totalItems / $itemsPerPage);
+                        $startIndex = ($currentPage - 1) * $itemsPerPage;
+                        $endIndex = min($startIndex + $itemsPerPage, $totalItems);
+                        
+                        for ($i = $startIndex; $i < $endIndex; $i++): 
+                            $sanction = $data['sanctionSummary'][$i];
+                        ?>
                             <tr class="hover:bg-gray-50 transition-colors duration-200">
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                <td class="px-8 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                     <?php echo htmlspecialchars($sanction['student_id']); ?>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                <td class="px-8 py-4 whitespace-nowrap text-sm text-gray-900">
                                     <?php echo htmlspecialchars($sanction['f_name'] . ' ' . $sanction['l_name']); ?>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                <td class="px-8 py-4 whitespace-nowrap text-sm text-gray-900">
                                     <?php echo htmlspecialchars($sanction['program']); ?>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                <td class="px-8 py-4 whitespace-nowrap text-sm text-gray-900">
                                     <?php echo htmlspecialchars($sanction['acad_year']); ?>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                <td class="px-8 py-4 whitespace-nowrap text-sm text-gray-900">
                                     <span class="px-3 py-1 rounded-full text-sm font-semibold <?php echo $sanction['hours'] > 0 ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'; ?>">
                                         <?php echo htmlspecialchars($sanction['hours']); ?> hours
                                     </span>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                <td class="px-8 py-4 whitespace-nowrap text-sm text-gray-900">
                                     <a href="?page=Attendance&student_id=<?php echo htmlspecialchars($sanction['student_id']); ?>" 
                                        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-200">
                                         <i class="fas fa-calendar-alt mr-2"></i>
@@ -149,10 +159,66 @@ global $imageSource, $imageSource2, $imageSource4;
                                     </a>
                                 </td>
                             </tr>
-                        <?php endforeach; ?>
+                        <?php endfor; ?>
                     </tbody>
                 </table>
             </div>
+
+            <!-- Pagination -->
+            <?php if ($totalPages > 1): ?>
+            <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+                <div class="flex-1 flex justify-between sm:hidden">
+                    <?php if ($currentPage > 1): ?>
+                        <a href="?page=<?php echo $currentPage - 1; ?>" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                            Previous
+                        </a>
+                    <?php endif; ?>
+                    <?php if ($currentPage < $totalPages): ?>
+                        <a href="?page=<?php echo $currentPage + 1; ?>" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                            Next
+                        </a>
+                    <?php endif; ?>
+                </div>
+                <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                    <div>
+                        <p class="text-sm text-gray-700">
+                            Showing <span class="font-medium"><?php echo $startIndex + 1; ?></span> to 
+                            <span class="font-medium"><?php echo $endIndex; ?></span> of 
+                            <span class="font-medium"><?php echo $totalItems; ?></span> results
+                        </p>
+                    </div>
+                    <div>
+                        <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                            <?php if ($currentPage > 1): ?>
+                                <a href="?page=<?php echo $currentPage - 1; ?>" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                    <span class="sr-only">Previous</span>
+                                    <i class="fas fa-chevron-left"></i>
+                                </a>
+                            <?php endif; ?>
+
+                            <?php
+                            $startPage = max(1, $currentPage - 2);
+                            $endPage = min($totalPages, $currentPage + 2);
+
+                            for ($i = $startPage; $i <= $endPage; $i++):
+                            ?>
+                                <a href="?page=<?php echo $i; ?>" 
+                                   class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium <?php echo $i === $currentPage ? 'text-red-600 bg-red-50' : 'text-gray-700 hover:bg-gray-50'; ?>">
+                                    <?php echo $i; ?>
+                                </a>
+                            <?php endfor; ?>
+
+                            <?php if ($currentPage < $totalPages): ?>
+                                <a href="?page=<?php echo $currentPage + 1; ?>" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                    <span class="sr-only">Next</span>
+                                    <i class="fas fa-chevron-right"></i>
+                                </a>
+                            <?php endif; ?>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <?php endif; ?>
         </div>
     </div>
 
