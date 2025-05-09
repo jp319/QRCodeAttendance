@@ -23,7 +23,7 @@ if (!$userData || !isset($userData['role']) || $userData['role'] !== 'admin') {
     header('Location: '. $uri);
     exit();
 }
-
+$summary = new SanctionSummary();
 $sanction = new Sanction();
 $sanctionSummary = $sanction->getSanctionSummary();
 
@@ -31,4 +31,4 @@ $data = [
     'sanctionSummary' => $sanctionSummary
 ];
 
-$sanctionSummary->index($data);
+$summary->index($data);
