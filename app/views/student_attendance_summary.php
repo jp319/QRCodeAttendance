@@ -40,9 +40,9 @@ require "../app/core/imageConfig.php";
                 </div>
                 <div>
                     <h2 class="text-xl font-semibold text-gray-900">
-                        <?php echo htmlspecialchars($data['attendanceRecord']['Name']); ?>
+                        <?php echo htmlspecialchars($attendanceRecord[0]['Name']); ?>
                     </h2>
-                    <p class="text-gray-600">Student ID: <?php echo htmlspecialchars($data['attendanceRecord']['student_id']); ?></p>
+                    <p class="text-gray-600">Student ID: <?php echo htmlspecialchars($attendanceRecord[0]['student_id']); ?></p>
                 </div>
             </div>
         </div>
