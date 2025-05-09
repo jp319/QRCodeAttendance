@@ -26,8 +26,40 @@ if (!in_array($page, $allowed_pages)) {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="icon" type="image/x-icon" href="<?php echo $imageSource ?>">
     <title>Attendance System • Admin </title>
+    <style>
+        /* Loading overlay styles */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #840307;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 </head>
 <body>
+<!-- Loading Overlay -->
+<div id="loadingOverlay" class="loading-overlay">
+    <div class="loading-spinner"></div>
+</div>
+
 <div class="min-h-full">
     <nav class="bg-[#840307] shadow-lg sticky top-0 z-50 border-b-8 border-[#691212]">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -155,5 +187,24 @@ if (!in_array($page, $allowed_pages)) {
         </div>
     </main>
 </div>
+
+<script>
+    // Add this to your existing script section
+    document.addEventListener('DOMContentLoaded', function() {
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        
+        // Show loading overlay when clicking on navigation links
+        document.querySelectorAll('a[href^="?page="]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                loadingOverlay.style.display = 'flex';
+            });
+        });
+        
+        // Hide loading overlay when page is fully loaded
+        window.addEventListener('load', function() {
+            loadingOverlay.style.display = 'none';
+        });
+    });
+</script>
 </body>
 </html>
