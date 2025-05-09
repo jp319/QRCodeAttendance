@@ -88,9 +88,16 @@ global $imageSource, $imageSource2, $imageSource4;
 
     <!-- Header -->
     <header class="bg-white shadow-sm p-6 mb-6">
-        <div class="max-w-7xl mx-auto flex items-center space-x-3">
-            <i class="fas fa-exclamation-triangle text-red-600 text-3xl"></i>
-            <h1 class="text-3xl font-bold text-gray-900">Sanctions Summary</h1>
+        <div class="max-w-[95%] mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <i class="fas fa-exclamation-triangle text-red-600 text-3xl"></i>
+                <h1 class="text-3xl font-bold text-gray-900">Sanctions Summary</h1>
+            </div>
+            <a href="<?php echo ROOT ?>adminHome?page=Attendance" 
+               class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-200">
+                <i class="fas fa-arrow-left mr-2"></i>
+                Back to Attendance
+            </a>
         </div>
     </header>
 
