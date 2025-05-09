@@ -2,9 +2,13 @@
 
 namespace Controller;
 
+require_once '../app/Model/Sanction.php';
+require_once '../app/Model/User.php';
 
+use Model\Sanction;
+use Model\User;
 
-class SanctionSummary extends Controller
+class SanctionSummary extends \Controller
 {
     public function index($data)
     {
