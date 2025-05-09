@@ -102,6 +102,7 @@ require "../app/core/imageConfig.php";
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date Applied</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Reason</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Hours</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
@@ -118,6 +119,13 @@ require "../app/core/imageConfig.php";
                                             <?php echo htmlspecialchars($sanction['sanction_hours']); ?> hours
                                         </span>
                                     </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        <a href="<?php echo htmlspecialchars(ROOT); ?>remove_sanction?id=<?php echo htmlspecialchars($sanction['sanction_id']); ?>&studentID=<?php echo htmlspecialchars($_GET['student_id']); ?>"
+                                           class="text-red-500 hover:text-red-700 transition-colors duration-200"
+                                           onclick="return confirmDelete(event, this.href);">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -126,5 +134,15 @@ require "../app/core/imageConfig.php";
             </div>
         </div>
     </div>
+
+    <script>
+        function confirmDelete(event, href) {
+            event.preventDefault();
+            if (confirm('Are you sure you want to remove this sanction?')) {
+                window.location.href = href;
+            }
+            return false;
+        }
+    </script>
 </body>
 </html>
