@@ -25,10 +25,12 @@ class StudentAttendanceSummary extends \Controller
         $userID = $_GET['student_id'];
         $sanctionList = $sanction->getStudentSanctions($userID);
         $attendanceRecord = $attendance->StudentAttendanceRecord($userID);
-    
+        $studentInfo = $student->getStudentId($userID);
+        print_r($studentInfo);
         $data = [
             'sanctionList' => $sanctionList,
-            'attendanceRecord' => $attendanceRecord
+            'attendanceRecord' => $attendanceRecord,
+            'studentInfo' => $studentInfo
         ];
         $this->loadViewWithData('student_attendance_summary', $data);
     }
