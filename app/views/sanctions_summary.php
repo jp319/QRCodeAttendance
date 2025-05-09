@@ -16,7 +16,7 @@ global $imageSource, $imageSource2, $imageSource4;
         /* Loading overlay styles */
         .loading-overlay {
             position: fixed;
-            top: 140px; /* Adjusted to start below the header and search bar */
+            top: 160px; /* Adjusted to start below the header and search bar */
             left: 0;
             width: 100%;
             height: calc(100% - 120px); /* Adjusted height to account for the top offset */
