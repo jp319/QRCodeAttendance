@@ -125,13 +125,26 @@ global $imageSource, $imageSource2, $imageSource4;
                         <?php 
                         $itemsPerPage = 10;
                         $currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-                        $totalItems = count($data['sanctionSummary']);
+                        $searchTerm = isset($_GET['search']) ? strtolower($_GET['search']) : '';
+                        
+                        // Filter data based on search term
+                        $filteredData = $data['sanctionSummary'];
+                        if ($searchTerm) {
+                            $filteredData = array_filter($data['sanctionSummary'], function($item) use ($searchTerm) {
+                                return strpos(strtolower($item['student_id']), $searchTerm) !== false ||
+                                       strpos(strtolower($item['f_name'] . ' ' . $item['l_name']), $searchTerm) !== false ||
+                                       strpos(strtolower($item['program']), $searchTerm) !== false;
+                            });
+                        }
+                        
+                        $totalItems = count($filteredData);
                         $totalPages = ceil($totalItems / $itemsPerPage);
                         $startIndex = ($currentPage - 1) * $itemsPerPage;
                         $endIndex = min($startIndex + $itemsPerPage, $totalItems);
                         
-                        for ($i = $startIndex; $i < $endIndex; $i++): 
-                            $sanction = $data['sanctionSummary'][$i];
+                        $displayData = array_slice($filteredData, $startIndex, $itemsPerPage);
+                        
+                        foreach ($displayData as $sanction): 
                         ?>
                             <tr class="hover:bg-gray-50 transition-colors duration-200">
                                 <td class="px-8 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
@@ -159,7 +172,7 @@ global $imageSource, $imageSource2, $imageSource4;
                                     </a>
                                 </td>
                             </tr>
-                        <?php endfor; ?>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
@@ -169,12 +182,14 @@ global $imageSource, $imageSource2, $imageSource4;
             <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
                 <div class="flex-1 flex justify-between sm:hidden">
                     <?php if ($currentPage > 1): ?>
-                        <a href="?page=<?php echo $currentPage - 1; ?>" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                        <a href="?page=<?php echo $currentPage - 1; ?><?php echo $searchTerm ? '&search=' . urlencode($searchTerm) : ''; ?>" 
+                           class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
                             Previous
                         </a>
                     <?php endif; ?>
                     <?php if ($currentPage < $totalPages): ?>
-                        <a href="?page=<?php echo $currentPage + 1; ?>" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                        <a href="?page=<?php echo $currentPage + 1; ?><?php echo $searchTerm ? '&search=' . urlencode($searchTerm) : ''; ?>" 
+                           class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
                             Next
                         </a>
                     <?php endif; ?>
@@ -190,7 +205,8 @@ global $imageSource, $imageSource2, $imageSource4;
                     <div>
                         <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
                             <?php if ($currentPage > 1): ?>
-                                <a href="?page=<?php echo $currentPage - 1; ?>" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                <a href="?page=<?php echo $currentPage - 1; ?><?php echo $searchTerm ? '&search=' . urlencode($searchTerm) : ''; ?>" 
+                                   class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
                                     <span class="sr-only">Previous</span>
                                     <i class="fas fa-chevron-left"></i>
                                 </a>
@@ -202,14 +218,15 @@ global $imageSource, $imageSource2, $imageSource4;
 
                             for ($i = $startPage; $i <= $endPage; $i++):
                             ?>
-                                <a href="?page=<?php echo $i; ?>" 
+                                <a href="?page=<?php echo $i; ?><?php echo $searchTerm ? '&search=' . urlencode($searchTerm) : ''; ?>" 
                                    class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium <?php echo $i === $currentPage ? 'text-red-600 bg-red-50' : 'text-gray-700 hover:bg-gray-50'; ?>">
                                     <?php echo $i; ?>
                                 </a>
                             <?php endfor; ?>
 
                             <?php if ($currentPage < $totalPages): ?>
-                                <a href="?page=<?php echo $currentPage + 1; ?>" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                <a href="?page=<?php echo $currentPage + 1; ?><?php echo $searchTerm ? '&search=' . urlencode($searchTerm) : ''; ?>" 
+                                   class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
                                     <span class="sr-only">Next</span>
                                     <i class="fas fa-chevron-right"></i>
                                 </a>
@@ -228,19 +245,53 @@ global $imageSource, $imageSource2, $imageSource4;
             const tableBody = document.getElementById('sanctionsTableBody');
             const rows = tableBody.getElementsByTagName('tr');
             const loadingOverlay = document.getElementById('loadingOverlay');
+            const paginationLinks = document.querySelectorAll('nav a');
 
+            // Get current search term from URL if it exists
+            const urlParams = new URLSearchParams(window.location.search);
+            const currentSearch = urlParams.get('search') || '';
+            searchInput.value = currentSearch;
+
+            // Function to update URL with search term
+            function updateURL(searchTerm) {
+                const url = new URL(window.location.href);
+                if (searchTerm) {
+                    url.searchParams.set('search', searchTerm);
+                } else {
+                    url.searchParams.delete('search');
+                }
+                url.searchParams.set('page', '1'); // Reset to first page on new search
+                window.location.href = url.toString();
+            }
+
+            // Add search parameter to all pagination links
+            paginationLinks.forEach(link => {
+                const href = new URL(link.href);
+                if (currentSearch) {
+                    href.searchParams.set('search', currentSearch);
+                    link.href = href.toString();
+                }
+            });
+
+            // Handle search input
+            let searchTimeout;
             searchInput.addEventListener('input', function() {
+                clearTimeout(searchTimeout);
                 const searchTerm = this.value.toLowerCase();
                 loadingOverlay.style.display = 'flex';
 
-                setTimeout(() => {
-                    Array.from(rows).forEach(row => {
-                        const text = row.textContent.toLowerCase();
-                        row.style.display = text.includes(searchTerm) ? '' : 'none';
-                    });
-                    loadingOverlay.style.display = 'none';
-                }, 300);
+                searchTimeout = setTimeout(() => {
+                    updateURL(searchTerm);
+                }, 500);
             });
+
+            // Initial search if there's a search term
+            if (currentSearch) {
+                Array.from(rows).forEach(row => {
+                    const text = row.textContent.toLowerCase();
+                    row.style.display = text.includes(currentSearch.toLowerCase()) ? '' : 'none';
+                });
+            }
         });
     </script>
 </body>
