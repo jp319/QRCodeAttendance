@@ -40,7 +40,7 @@ require "../app/core/imageConfig.php";
                 </div>
                 <div>
                     <h2 class="text-xl font-semibold text-gray-900">
-                        <?php echo htmlspecialchars($attendanceRecord['f_name'] . ' ' . $attendanceRecord['l_name']); ?>
+                        <?php echo htmlspecialchars($attendanceRecord['Name']); ?>
                     </h2>
                     <p class="text-gray-600">Student ID: <?php echo htmlspecialchars($attendanceRecord['student_id']); ?></p>
                 </div>
