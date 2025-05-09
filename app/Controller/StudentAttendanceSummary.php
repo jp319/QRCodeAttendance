@@ -3,11 +3,11 @@
 namespace App\Controller;
 require_once '../app/Model/Sanction.php';
 require_once '../app/Model/Attendances.php';
-require_once '../app/Model/User.php';
+require_once '../app/Model/Users.php';
 
 use Sanction;
 use Attendances;
-use User;
+use Users;
 
 class StudentAttendanceSummary extends \Controller
 {
