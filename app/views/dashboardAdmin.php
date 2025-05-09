@@ -73,7 +73,7 @@ global $numberOfStudents, $numberOfAttendance, $numberOfFaci, $listOfAttendance,
     <!-- Recent Attendance -->
     <div class="bg-white rounded-2xl shadow-lg p-6">
         <h2 class="text-3xl font-bold text-[#9e1e1e]">Recent Attendance</h2>
-        <div class="mt-4 space-y-4">
+        <div class="mt-4 space-y-4 max-h-64 overflow-y-auto hide-scrollbar">
             <?php foreach ($data['listOfAttendance'] as $attendance):?>
                 <div class="bg-gray-100 p-4 rounded-lg shadow-md flex justify-between items-center">
                     <span class="text-lg font-semibold"><?php echo htmlspecialchars($attendance[1])?></span>
