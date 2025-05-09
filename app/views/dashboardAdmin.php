@@ -81,7 +81,7 @@ global $numberOfStudents, $numberOfAttendance, $numberOfFaci, $listOfAttendance,
                 </div>
             <?php endforeach?>
         </div>
-        <div class="flex justify-center mt-6">
+        <div class="flex justify-center mt-4">
             <a href="?page=Attendance" class="bg-[#9e1e1e] text-white px-6 py-3 rounded-2xl text-lg font-medium shadow-md hover:bg-[#7a1818] transition-colors duration-300">
                 View More
             </a>
