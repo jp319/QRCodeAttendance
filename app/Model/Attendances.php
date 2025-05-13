@@ -18,7 +18,12 @@ class Attendances
         $yearJson = json_encode($year);
         $requiredAttendanceRecordJson = json_encode($requiredAttendanceRecord);
 
-        $query = "CALL sp_insert_attendance(:name, :status, :requiredAttendees, :year, :sanction,:requiredAttendanceRecord)";
+        // Ensure the years array is properly formatted
+        if (empty($yearJson) || $yearJson === '[]') {
+            $yearJson = '[]';  // Set to empty JSON array if no years selected
+        }
+
+        $query = "CALL sp_insert_attendance(:name, :status, :requiredAttendees, :year, :sanction, :requiredAttendanceRecord)";
         $params = [
             ':name' => $name,
             ':status' => $status,

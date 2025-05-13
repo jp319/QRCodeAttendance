@@ -159,9 +159,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `GetUserDetails` ()   BEGIN
     SELECT * FROM users WHERE roles != 'Admin' AND roles = 'Facilitator';
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertAttendance` (IN `eventName` VARCHAR(255), IN `a_status` VARCHAR(255), IN `requiredAttendees` VARCHAR(255), IN `acadYear` VARCHAR(20), IN `sanction` VARCHAR(255), IN `requireAttndanceRecord` VARCHAR(255))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insert_attendance` (IN `eventName` VARCHAR(255), IN `a_status` VARCHAR(255), IN `requiredAttendees` JSON, IN `acadYear` JSON, IN `sanction` VARCHAR(255), IN `requireAttndanceRecord` JSON)   BEGIN
     INSERT INTO attendance (event_name, date_created, atten_status, atten_OnTimeCheck, required_attendees, acad_year, required_AttenRecord, sanction) 
-    VALUES (eventName, NOW(), a_status, 0, requiredAttendees, acadYear,requireAttndanceRecord, sanction);
+    VALUES (eventName, NOW(), a_status, 0, requiredAttendees, acadYear, requireAttndanceRecord, sanction);
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertAttendanceRecord` (IN `attenID` INT(11), IN `studentID` VARCHAR(255), IN `TimeIn` VARCHAR(50))   BEGIN

@@ -40,7 +40,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $years = $_POST['year'] ?? [];
         $requiredAttendanceRecord = $_POST['required_attendance'] ?? [];
 
-        $attendance->insertAttendance($_POST['eventName'],$programs,$years, $requiredAttendanceRecord, $_POST['sanction']);
+        // Filter out empty year values and ensure they are properly formatted
+        $years = array_filter($years, function($year) {
+            return !empty($year) && $year !== '';
+        });
+
+        // If no years are selected, set a default empty array
+        if (empty($years)) {
+            $years = [];
+        }
+
+        // Ensure programs and years arrays are aligned
+        if (count($programs) > count($years)) {
+            // Pad years array with empty strings to match programs length
+            $years = array_pad($years, count($programs), '');
+        }
+
+        $attendance->insertAttendance($_POST['eventName'], $programs, $years, $requiredAttendanceRecord, $_POST['sanction']);
         $_SESSION['success_message'] = 'Attendance successfully added!';
     }else{
         echo "<script>alert('Invalid event name. Event already exists!');</script>";
