@@ -55,6 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             // Pad years array with empty strings to match programs length
             $years = array_pad($years, count($programs), '');
         }
+        print_r($years);
 
         $attendance->insertAttendance($_POST['eventName'], $programs, $years, $requiredAttendanceRecord, $_POST['sanction']);
         $_SESSION['success_message'] = 'Attendance successfully added!';
