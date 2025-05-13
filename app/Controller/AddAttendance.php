@@ -45,6 +45,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             return !empty($year) && $year !== '';
         });
 
+        // Remove duplicate years and reindex array
+        $years = array_values(array_unique($years));
+
         // If no years are selected, set a default empty array
         if (empty($years)) {
             $years = [];
@@ -55,7 +58,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             // Pad years array with empty strings to match programs length
             $years = array_pad($years, count($programs), '');
         }
-        print_r($years);
 
         $attendance->insertAttendance($_POST['eventName'], $programs, $years, $requiredAttendanceRecord, $_POST['sanction']);
         $_SESSION['success_message'] = 'Attendance successfully added!';

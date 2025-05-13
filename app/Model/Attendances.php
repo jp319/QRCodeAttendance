@@ -15,7 +15,11 @@ class Attendances
 
         // Convert arrays to JSON format
         $requiredAttendeesJson = json_encode($requiredAttendees);
+        
+        // Ensure years array is properly formatted and unique
+        $year = array_values(array_unique($year));
         $yearJson = json_encode($year);
+        
         $requiredAttendanceRecordJson = json_encode($requiredAttendanceRecord);
 
         // Ensure the years array is properly formatted
