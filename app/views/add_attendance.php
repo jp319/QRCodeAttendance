@@ -47,7 +47,6 @@ require_once '../app/core/config.php';
                         <label for="program" class="block mb-2 text-sm font-medium text-gray-700">Program</label>
                         <select name="program[]" class="program-select bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
                             <option value="">Select program</option>
-                            <option value="AllStudents">All Students</option>
                             <?php foreach ($programs as $program): ?>
                                 <option value="<?php echo htmlspecialchars($program['program']); ?>">
                                     <?php echo htmlspecialchars($program['program']); ?>
@@ -161,10 +160,10 @@ require_once '../app/core/config.php';
         let programSelect = document.createElement("select");
         programSelect.name = "program[]";
         programSelect.className = "program-select bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5";
+        programSelect.required = true;
 
         // Populate Program dropdown
-        let programOptions = `<option value="">Select program</option>
-                              <option value="AllStudents">All Students</option>`;
+        let programOptions = `<option value="">Select program</option>`;
         programs.forEach(program => {
             programOptions += `<option value="${program.program}">${program.program}</option>`;
         });
@@ -182,6 +181,7 @@ require_once '../app/core/config.php';
         let yearSelect = document.createElement("select");
         yearSelect.name = "year[]";
         yearSelect.className = "year-select bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5";
+        yearSelect.required = true;
 
         // Populate Year dropdown
         let yearOptions = `<option value="">Select year</option>`;

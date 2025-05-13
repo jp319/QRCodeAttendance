@@ -94,7 +94,7 @@ class QRScanner extends Controller
 
 
                     // Check program requirement
-                    if (in_array('AllStudents',$RequiredProgram)){
+                    if (in_array('',$RequiredProgram)){
                         try {
                             if ($onTimeCheck == 0){
                                 $qrcode->recordAttendance($attenId, $studentId,);
