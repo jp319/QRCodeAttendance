@@ -13,15 +13,7 @@ class VerifyOTP extends \Controller
     {
        
 
-        // Check if OTP has expired
-        if (time() > $_SESSION['reset_expiry']) {
-            unset($_SESSION['reset_otp']);
-            unset($_SESSION['reset_user_id']);
-            unset($_SESSION['reset_expiry']);
-            $_SESSION['error'] = "OTP has expired. Please request a new one.";
-            header('Location: ' . ROOT . 'forgot-password');
-            exit();
-        }
+  
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (isset($_POST['otp']) && isset($_POST['new_password']) && isset($_POST['confirm_password'])) {
