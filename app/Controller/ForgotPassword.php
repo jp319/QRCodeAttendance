@@ -2,7 +2,7 @@
 
 namespace Controller;
 require_once '../app/core/config.php';
-require_once '../app/core/Model.php';
+require_once '../app/core/Database.php';
 require_once '../app/Model/User.php';
 require_once '../vendor/autoload.php';
 
@@ -12,7 +12,7 @@ use Random\RandomException;
 
 class ForgotPassword extends \Controller
 {
-    use Model;
+    use \Database;
 
     public function index(): void
     {
