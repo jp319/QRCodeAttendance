@@ -5,9 +5,9 @@ require_once '../app/core/config.php';
 require_once '../app/core/Model.php';
 require_once '../app/Model/User.php';
 
-class VerifyOTP extends Controller
+class VerifyOTP extends \Controller
 {
-    use Model;
+    use \Database;
 
     public function index(): void
     {
