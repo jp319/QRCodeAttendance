@@ -129,6 +129,8 @@ global $imageSource, $imageSource2, $imageSource4;
 
             <div class="w-full mb-6">
                 <a href="javascript:void(0);" onclick="showIssueForm()" class="text-[#a31d1d] text-lg font-normal hover:underline">Need help?</a>
+                <span class="mx-2 text-[#515050]">|</span>
+                <a href="<?php echo ROOT;?>forgot-password" class="text-[#a31d1d] text-lg font-normal hover:underline">Forgot Password?</a>
             </div>
             <div class="w-full flex space-x-4">
                 <button type="submit" class="w-1/2 h-12 bg-[#a31d1d] text-white text-xl font-bold rounded-lg">LOGIN</button>

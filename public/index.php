@@ -65,6 +65,9 @@ $routes = [
 
     '/public/view_records' => '../app/Controller/ViewAttendanceRecord.php',
     '/public/view_record2' => '../app/Controller/ViewAttendanceRecord2.php',
+    '/public/forgot-password' => '../app/Controller/ForgotPassword.php',
+    '/public/verify-otp' => '../app/Controller/VerifyOTP.php',
+    
 
 
 ];
