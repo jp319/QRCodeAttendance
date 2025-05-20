@@ -7,6 +7,7 @@ require_once '../app/Model/User.php';
 require_once '../vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 use Random\RandomException;
 
@@ -39,6 +40,7 @@ class ForgotPassword extends \Controller
 
                     try {
                         // Server settings
+                        $mail->SMTPDebug = SMTP::DEBUG_OFF;
                         $mail->isSMTP();
                         $mail->Host = 'smtp.gmail.com';
                         $mail->SMTPAuth = true;
