@@ -36,7 +36,7 @@ class ForgotPassword extends \Controller
                     $_SESSION['reset_expiry'] = time() + (15 * 60); // 15 minutes expiry
 
                     // Send OTP via email
-                    $mail = new \PHPMailer(true);
+                    $mail = new \PHPMailer\PHPMailer\PHPMailer(true);
 
                     try {
                         // Server settings
