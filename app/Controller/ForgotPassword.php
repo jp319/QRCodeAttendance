@@ -10,7 +10,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use Random\RandomException;
 
-class ForgotPassword extends Controller
+class ForgotPassword extends \Controller
 {
     use Model;
 
