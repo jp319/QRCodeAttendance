@@ -11,10 +11,7 @@ class VerifyOTP extends \Controller
 
     public function index(): void
     {
-        if (!isset($_SESSION['reset_user_id']) || !isset($_SESSION['reset_otp']) || !isset($_SESSION['reset_expiry'])) {
-            header('Location: ' . ROOT . 'forgot-password');
-            exit();
-        }
+       
 
         // Check if OTP has expired
         if (time() > $_SESSION['reset_expiry']) {
