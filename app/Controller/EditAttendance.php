@@ -46,6 +46,8 @@ $attendanceDetails = $attendances->getAttendanceDetails($_GET['id'], $_GET['even
 $activityLog = new ActivityLog();
 $activityListLog = $activityLog->getActivityLogForUser($_GET['eventName']);
 
+echo $_GET['eventName'];
+
 
 $buttonLabel = '';
 $buttonClass = '';
