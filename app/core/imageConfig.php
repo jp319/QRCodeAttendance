@@ -10,7 +10,7 @@ $imagePath = ROOT."assets/Images/LOGO_QRCODE_v2.png";
 $imageData = base64_encode(file_get_contents($imagePath));
 $imageSource = 'data:image/png;base64,' . $imageData;
 
-$imagePath4 = ROOT."assets/Images/LOGO_QRCODE_v1.png";
+$imagePath4 = ROOT."assets/Images/QR.png";
 $imageData4 = base64_encode(file_get_contents($imagePath4));
 $imageSource4 = 'data:image/png;base64,' . $imageData4;
 

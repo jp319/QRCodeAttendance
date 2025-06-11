@@ -52,7 +52,7 @@ class LoginPage extends Controller
 
             // Proceed with login validation
             $validate = $this->validateLogIn(trim($_POST['username']), trim($_POST['password']));
-
+        
 
             if ($validate) {
                 $role = $validate['roles'];

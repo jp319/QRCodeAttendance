@@ -67,6 +67,41 @@ $routes = [
     '/public/view_record2' => '../app/Controller/ViewAttendanceRecord2.php',
     '/public/forgot-password' => '../app/Controller/ForgotPassword.php',
     '/public/verify-otp' => '../app/Controller/VerifyOTP.php',
+
+    // localhost
+    '/QRCodeAttendance/QRCodeAttendance/public/login' => '../app/Controller/LoginPage.php',
+    '/QRCodeAttendance/QRCodeAttendance/public/logout' => '../app/Controller/Logout.php',
+    '/QRCodeAttendance/QRCodeAttendance/public/logout2' => '../app/Controller/Logout2.php',
+    '/QRCodeAttendance/QRCodeAttendance/public/adminHome' => '../app/Controller/AdminHome.php',
+    '/QRCodeAttendance/QRCodeAttendance/public/delete_student' => '../app/Controller/DeleteStudent.php',
+    '/QRCodeAttendance/QRCodeAttendance/public/edit_attendance' => '../app/Controller/EditAttendance.php',
+    '/QRCodeAttendance/QRCodeAttendance/public/update_attendance' => '../app/Controller/UpdateAttendance.php',
+    '/QRCodeAttendance/QRCodeAttendance/public/add_student' => '../app/Controller/AddStudent.php',
+    '/QRCodeAttendance/QRCodeAttendance/public/edit_student' => '../app/Controller/EditStudent.php',
+    '/QRCodeAttendance/QRCodeAttendance/public/edit_user' => '../app/Controller/EditUser.php',
+    '/QRCodeAttendance/QRCodeAttendance/public/add_user' => '../app/Controller/AddUser.php',
+
+    '/QRCodeAttendance/QRCodeAttendance/public/sanctions_summary' => '../app/Controller/SanctionSummary.php',
+    '/QRCodeAttendance/QRCodeAttendance/public/student_attendance_summary' => '../app/Controller/StudentAttendanceSummary.php',
+    '/QRCodeAttendance/QRCodeAttendance/public/remove_sanction' => '../app/Controller/RemoveSanction.php',
+
+    '/QRCodeAttendance/QRCodeAttendance/public/facilitator' => '../app/Controller/Facilitator.php',
+    '/QRCodeAttendance/QRCodeAttendance/public/scanner' => '../app/Controller/QRScanner.php',
+    '/QRCodeAttendance/QRCodeAttendance/public/upload_file' => '../app/Controller/UploadFile.php',
+    '/QRCodeAttendance/QRCodeAttendance/public/student' => '../app/Controller/StudentHome.php',
+    '/QRCodeAttendance/QRCodeAttendance/public/qr_code' => '../app/Controller/StudentQRCode.php',
+
+    '/QRCodeAttendance/QRCodeAttendance/public/choose_attendance' => '../app/Controller/ChooseAttendance.php',
+
+    '/QRCodeAttendance/QRCodeAttendance/public/add_attendance' => '../app/Controller/AddAttendance.php',
+    '/QRCodeAttendance/QRCodeAttendance/public/create_attendance_for_student' => '../app/Controller/AttendanceSpecificStudents.php',
+    '/QRCodeAttendance/QRCodeAttendance/public/delete_attendance' => '../app/Controller/DeleteAttendance.php',
+    '/QRCodeAttendance/QRCodeAttendance/public/delete_attendance_record' => '../app/Controller/DeleteAttendanceRecord.php',
+
+    '/QRCodeAttendance/QRCodeAttendance/public/view_records' => '../app/Controller/ViewAttendanceRecord.php',
+    '/QRCodeAttendance/QRCodeAttendance/public/view_record2' => '../app/Controller/ViewAttendanceRecord2.php',
+    '/QRCodeAttendance/QRCodeAttendance/public/forgot-password' => '../app/Controller/ForgotPassword.php',
+    '/QRCodeAttendance/QRCodeAttendance/public/verify-otp' => '../app/Controller/VerifyOTP.php',
     
 
 

@@ -89,7 +89,7 @@ Trait Model
     public function validateLogIn($username, $password){
         $query = 'CALL sp_validate_user(:username, :password)';
         $result = $this->query($query, ['username' => $username, 'password' => $password]);
-        return $result[0] ?? null;
+        return $result[0];
     }
 
     public function checkSession($userID){
