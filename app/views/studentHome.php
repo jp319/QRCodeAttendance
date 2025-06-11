@@ -67,7 +67,7 @@ if (!in_array($page, $allowed_pages)) {
                         <img class="h-16 w-auto" src="<?php echo $imageSource4 ?>" alt="Logo" />
                         <div class="hidden md:flex items-center gap-1">
                             <span class="text-white text-4xl font-extrabold font-['Poppins'] text-stroke-2 [text-shadow:_0px_4px_0px_rgb(0_0_0_/_1.00)]">CONGRATS SA WALAY</span>
-                            <span class="text-red-800 text-4xl font-extrabold font-['Poppins'] text-stroke-2 [text-shadow:_0px_4px_0px_rgb(0_0_0_/_1.00)]">SANCTIONS!</span>
+                            <span class="text-red-800 text-4xl font-extrabold font-['Poppins'] text-stroke-2 [text-shadow:_0px_4px_0px_rgb(0_0_0_/_1.00)]">SANCTIONS! 🥳🍆</span>
                         </div>
                     </div>
                     
