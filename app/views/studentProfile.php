@@ -8,315 +8,280 @@ require_once '../app/core/imageConfig.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Profile</title>
+    <title>Student Profile • USep Attendance System</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-image: 
+                radial-gradient(circle at 1px 1px, #e2e8f0 1px, transparent 0),
+                linear-gradient(to right, rgba(255,255,255,0.2), rgba(255,255,255,0.2));
+            background-size: 24px 24px;
+            background-color: #f8f9fa;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .popup {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #10B981;
+            color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            display: none;
+            font-weight: 600;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
-<style>
-    /* Custom Popup Notification */
-    .popup {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: green;
-        color: white;
-        padding: 10px 20px;
-        border-radius: 5px;
-        display: none;
-        font-weight: bold;
-    }
-</style>
-<body class="bg-gray-100">
-<div class="container mx-auto p-4">
-    <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
+<body class="p-4 md:p-6">
+    <div class="max-w-5xl mx-auto space-y-8">
+        <!-- Profile Section -->
+        <div>
+            <h3 class="text-2xl font-bold text-[#a31d1d] mb-6 [text-shadow:_0px_1px_0px_rgb(0_0_0_/_0.1)]">
+                Student Profile
+            </h3>
 
-        <!-- Profile Picture Section -->
-        <div class="flex flex-col items-center">
-            <h1 class="text-2xl font-semibold text-gray-700 mb-4">Your Profile</h1>
+            <!-- Profile Picture Card -->
+            <div class="glass-card p-8 rounded-2xl shadow-[0px_4px_0px_1px_rgba(0,0,0,1)] outline outline-1 outline-black space-y-6">
+                <div class="flex flex-col items-center">
+                    <div class="w-40 h-40 rounded-full overflow-hidden border-4 border-[#a31d1d] shadow-lg">
+                        <?php if (!empty($studentInfo['studentProfile'])): ?>
+                            <img id="profile-img"
+                                 src="data:image/jpeg;base64,<?= base64_encode($studentInfo['studentProfile']) ?>"
+                                 class="w-full h-full object-cover"
+                                 alt="Profile Picture">
+                        <?php else: ?>
+                            <img id="profile-img"
+                                 src="<?php echo ROOT ?>assets/images/Default.png"
+                                 class="w-full h-full object-cover"
+                                 alt="Default Profile">
+                        <?php endif; ?>
+                    </div>
 
-            <!-- Display Profile Picture -->
-            <div class="w-40 h-40 rounded-full overflow-hidden border-4 border-gray-300">
-                <?php if (!empty($studentInfo['studentProfile'])): ?>
-                    <img id="profile-img"
-                         src="data:image/jpeg;base64,<?= base64_encode($studentInfo['studentProfile']) ?>"
-                         class="w-full h-full object-cover"
-                         alt="Profile Picture">
-                <?php else: ?>
-                    <img id="profile-img"
-                         src="<?php echo ROOT ?>assets/images/Default.png"
-                         class="w-full h-full object-cover"
-                         alt="Default Profile">
-                <?php endif; ?>
+                    <!-- Upload Form -->
+                    <form id="profile-form" class="mt-6 flex flex-col items-center gap-4">
+                        <label for="file-upload"
+                               class="cursor-pointer bg-white text-[#515050] px-6 py-2 rounded-xl font-semibold shadow-[0px_4px_0px_1px_rgba(0,0,0,1)] outline outline-1 outline-black hover:bg-[#a31d1d] hover:text-white transition-all duration-200">
+                            Choose File
+                        </label>
+                        <input type="file" id="file-upload" accept="image/*" class="hidden">
+                        <button type="button" id="upload-button" 
+                                class="bg-[#a31d1d] text-white px-6 py-2 rounded-xl font-semibold shadow-[0px_4px_0px_1px_rgba(0,0,0,1)] outline outline-1 outline-black hover:bg-[#8a1818] transition-all duration-200 hidden">
+                            Upload
+                        </button>
+                        <p id="file-name" class="text-gray-500 text-sm hidden"></p>
+                    </form>
+                </div>
             </div>
 
+            <!-- Personal Information Card -->
+            <?php if (!empty($studentInfo)): ?>
+                <div class="mt-8 glass-card p-8 rounded-2xl shadow-[0px_4px_0px_1px_rgba(0,0,0,1)] outline outline-1 outline-black">
+                    <h4 class="text-xl font-bold text-[#a31d1d] mb-6">Personal Information</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <p class="text-gray-500 font-medium">Full Name</p>
+                            <p class="text-gray-800 text-lg"><?php echo htmlspecialchars($studentInfo['f_name'].' '.$studentInfo['l_name'] ?? 'N/A'); ?></p>
+                        </div>
+                        <div class="space-y-2">
+                            <p class="text-gray-500 font-medium">Email</p>
+                            <p class="text-gray-800 text-lg"><?php echo htmlspecialchars($studentInfo['email'] ?? 'N/A'); ?></p>
+                        </div>
+                        <div class="space-y-2">
+                            <p class="text-gray-500 font-medium">Student ID</p>
+                            <p class="text-gray-800 text-lg"><?php echo htmlspecialchars($studentInfo['student_id'] ?? 'N/A'); ?></p>
+                        </div>
+                        <div class="space-y-2">
+                            <p class="text-gray-500 font-medium">Contact</p>
+                            <p class="text-gray-800 text-lg"><?php echo htmlspecialchars($studentInfo['contact_num'] ?? 'N/A'); ?></p>
+                        </div>
+                        <div class="space-y-2">
+                            <p class="text-gray-500 font-medium">Program</p>
+                            <p class="text-gray-800 text-lg"><?php echo htmlspecialchars($studentInfo['program'] ?? 'N/A'); ?></p>
+                        </div>
+                        <div class="space-y-2">
+                            <p class="text-gray-500 font-medium">Section</p>
+                            <p class="text-gray-800 text-lg"><?php echo htmlspecialchars($studentInfo['section'] ?? 'N/A'); ?></p>
+                        </div>
+                        <div class="space-y-2">
+                            <p class="text-gray-500 font-medium">Year</p>
+                            <p class="text-gray-800 text-lg"><?php echo htmlspecialchars($studentInfo['acad_year'] ?? 'N/A'); ?></p>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
 
-            <!-- Profile Picture Upload Form -->
-            <form id="profile-form" method="post" enctype="multipart/form-data" class="mt-4 text-center">
-                <!-- File Input -->
-                <label for="file-upload"
-                       class="cursor-pointer bg-gray-200 hover:bg-gray-300 text-gray-700 py-2 px-4 rounded-lg shadow-md inline-block">
-                    Choose File
-                </label>
-                <input type="file" id="file-upload" accept="image/*" class="hidden">
+            <!-- Change Password Card -->
+            <div class="mt-8 glass-card p-8 rounded-2xl shadow-[0px_4px_0px_1px_rgba(0,0,0,1)] outline outline-1 outline-black">
+                <h4 class="text-xl font-bold text-[#a31d1d] mb-6">Change Password</h4>
+                <form method="POST" class="space-y-4">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="text-gray-500 font-medium">Current Password</label>
+                            <input type="password" name="current_password" required 
+                                   class="w-full mt-1 p-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#a31d1d]">
+                        </div>
+                        <div>
+                            <label class="text-gray-500 font-medium">New Password</label>
+                            <input type="password" name="new_password" required 
+                                   class="w-full mt-1 p-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#a31d1d]">
+                        </div>
+                        <div>
+                            <label class="text-gray-500 font-medium">Confirm New Password</label>
+                            <input type="password" name="confirm_password" required 
+                                   class="w-full mt-1 p-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#a31d1d]">
+                        </div>
+                    </div>
+                    <button type="submit" name="change_password" 
+                            class="bg-[#a31d1d] text-white px-6 py-2 rounded-xl font-semibold shadow-[0px_4px_0px_1px_rgba(0,0,0,1)] outline outline-1 outline-black hover:bg-[#8a1818] transition-all duration-200">
+                        Update Password
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
 
-                <!-- Upload Button -->
-                <button type="button" id="upload-button" class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md ml-2 hover:bg-blue-600 hidden">
-                    Upload
-                </button>
+    <div id="popup" class="popup"></div>
 
-                <!-- Display File Name -->
-                <p id="file-name" class="text-gray-500 mt-2 hidden"></p>
-            </form>
+    <!-- JavaScript: Show Preview & Success Popup -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const fileInput = document.getElementById('file-upload');
+            const uploadButton = document.getElementById('upload-button');
+            const fileNameDisplay = document.getElementById('file-name');
+            const previewImg = document.getElementById('profile-img');
+            let resizedBlob = null; // To store resized Blob
 
+            fileInput.addEventListener("change", function (event) {
+                const file = event.target.files[0];
 
+                if (file) {
+                    if (file.size > 2 * 1024 * 1024) {
+                        alert("❌ File is too large. Maximum allowed size is 2MB.");
+                        fileInput.value = "";
+                        uploadButton.classList.add("hidden");
+                        fileNameDisplay.classList.add("hidden");
+                        return;
+                    }
 
-            <!-- Success Popup -->
-            <div id="popup" class="popup">✅ Profile picture uploaded successfully!</div>
+                    fileNameDisplay.textContent = "Selected: " + file.name;
+                    fileNameDisplay.classList.remove("hidden");
+                    uploadButton.classList.remove("hidden");
 
-            <!-- JavaScript: Show Preview & Success Popup -->
-            <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    const fileInput = document.getElementById('file-upload');
-                    const uploadButton = document.getElementById('upload-button');
-                    const fileNameDisplay = document.getElementById('file-name');
-                    const previewImg = document.getElementById('profile-img');
-                    let resizedBlob = null; // To store resized Blob
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        const img = new Image();
+                        img.onload = function () {
+                            const canvas = document.createElement("canvas");
+                            const ctx = canvas.getContext("2d");
 
-                    fileInput.addEventListener("change", function (event) {
-                        const file = event.target.files[0];
+                            const maxWidth = 300;
+                            const maxHeight = 300;
+                            let width = img.width;
+                            let height = img.height;
 
-                        if (file) {
-                            if (file.size > 2 * 1024 * 1024) {
-                                alert("❌ File is too large. Maximum allowed size is 2MB.");
-                                fileInput.value = "";
-                                uploadButton.classList.add("hidden");
-                                fileNameDisplay.classList.add("hidden");
-                                return;
+                            if (width > height) {
+                                if (width > maxWidth) {
+                                    height *= maxWidth / width;
+                                    width = maxWidth;
+                                }
+                            } else {
+                                if (height > maxHeight) {
+                                    width *= maxHeight / height;
+                                    height = maxHeight;
+                                }
                             }
 
-                            fileNameDisplay.textContent = "Selected: " + file.name;
-                            fileNameDisplay.classList.remove("hidden");
-                            uploadButton.classList.remove("hidden");
+                            canvas.width = width;
+                            canvas.height = height;
+                            ctx.drawImage(img, 0, 0, width, height);
 
-                            const reader = new FileReader();
-                            reader.onload = function (e) {
-                                const img = new Image();
-                                img.onload = function () {
-                                    const canvas = document.createElement("canvas");
-                                    const ctx = canvas.getContext("2d");
+                            const compressedBase64 = canvas.toDataURL("image/jpeg", 0.7);
 
-                                    const maxWidth = 300;
-                                    const maxHeight = 300;
-                                    let width = img.width;
-                                    let height = img.height;
+                            if (previewImg) {
+                                previewImg.src = compressedBase64;
+                            }
 
-                                    if (width > height) {
-                                        if (width > maxWidth) {
-                                            height *= maxWidth / width;
-                                            width = maxWidth;
-                                        }
-                                    } else {
-                                        if (height > maxHeight) {
-                                            width *= maxHeight / height;
-                                            height = maxHeight;
-                                        }
-                                    }
+                            resizedBlob = dataURLtoBlob(compressedBase64);
+                        };
+                        img.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    uploadButton.classList.add("hidden");
+                    fileNameDisplay.classList.add("hidden");
+                }
+            });
 
-                                    canvas.width = width;
-                                    canvas.height = height;
-                                    ctx.drawImage(img, 0, 0, width, height);
+            // Convert Base64 to Blob
+            function dataURLtoBlob(dataurl) {
+                const arr = dataurl.split(',');
+                const mime = arr[0].match(/:(.*?);/)[1];
+                const bstr = atob(arr[1]);
+                let n = bstr.length;
+                const u8arr = new Uint8Array(n);
 
-                                    const compressedBase64 = canvas.toDataURL("image/jpeg", 0.7);
+                while (n--) {
+                    u8arr[n] = bstr.charCodeAt(n);
+                }
 
-                                    if (previewImg) {
-                                        previewImg.src = compressedBase64;
-                                    }
+                return new Blob([u8arr], { type: mime });
+            }
 
-                                    resizedBlob = dataURLtoBlob(compressedBase64);
-                                };
-                                img.src = e.target.result;
-                            };
-                            reader.readAsDataURL(file);
-                        } else {
-                            uploadButton.classList.add("hidden");
-                            fileNameDisplay.classList.add("hidden");
-                        }
-                    });
+            // Handle Upload Button Click
+            uploadButton.addEventListener("click", function () {
+                if (!resizedBlob) {
+                    alert("No resized image available!");
+                    return;
+                }
 
-                    // Convert Base64 to Blob
-                    function dataURLtoBlob(dataurl) {
-                        const arr = dataurl.split(',');
-                        const mime = arr[0].match(/:(.*?);/)[1];
-                        const bstr = atob(arr[1]);
-                        let n = bstr.length;
-                        const u8arr = new Uint8Array(n);
+                const formData = new FormData();
+                formData.append("profile_picture", resizedBlob, "profile.jpg");
 
-                        while (n--) {
-                            u8arr[n] = bstr.charCodeAt(n);
-                        }
-
-                        return new Blob([u8arr], { type: mime });
-                    }
-
-                    // Handle Upload Button Click
-                    uploadButton.addEventListener("click", function () {
-                        if (!resizedBlob) {
-                            alert("No resized image available!");
-                            return;
-                        }
-
-                        const formData = new FormData();
-                        formData.append("profile_picture", resizedBlob, "profile.jpg");
-
-                        fetch("<?php echo ROOT ?>student", {
-                            method: "POST",
-                            body: formData
-                        })
-                            .then(response => response.text())
-                            .then(data => {
-                                console.log(data);
-                                showPopup("✅ Profile picture uploaded successfully!");
-                                uploadButton.classList.add("hidden");
-                            })
-                            .catch(error => {
-                                console.error(error);
-                                alert("Upload failed.");
-                            });
-                    });
-
-                    function showPopup(message) {
-                        const popup = document.getElementById('popup');
-                        popup.textContent = message;
-                        popup.style.display = 'block';
-                        setTimeout(() => {
-                            popup.style.display = 'none';
-                        }, 3000);
-                    }
-                });
-            </script>
-        </div>
-
-        <div class="p-6">
-            <?php if (!empty($studentInfo)): ?>
-                <h1 class="text-2xl font-semibold text-gray-700 mb-6">Personal Information</h1>
-
-                <!-- Grid Container -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Name -->
-                    <div>
-                        <label class="block text-gray-600 text-sm font-medium mb-1">Name</label>
-                        <p class="text-gray-800 text-lg"><?php echo htmlspecialchars($studentInfo['f_name'].' '.$studentInfo['l_name'] ?? 'N/A'); ?></p>
-                    </div>
-
-                    <!-- Email -->
-                    <div>
-                        <label class="block text-gray-600 text-sm font-medium mb-1">Email</label>
-                        <p class="text-gray-800 text-lg"><?php echo htmlspecialchars($studentInfo['email'] ?? 'N/A'); ?></p>
-                    </div>
-
-                    <!-- Student ID -->
-                    <div>
-                        <label class="block text-gray-600 text-sm font-medium mb-1">Student ID</label>
-                        <p class="text-gray-800 text-lg"><?php echo htmlspecialchars($studentInfo['student_id'] ?? 'N/A'); ?></p>
-                    </div>
-
-                    <!-- Contact -->
-                    <div>
-                        <label class="block text-gray-600 text-sm font-medium mb-1">Contact</label>
-                        <p class="text-gray-800 text-lg"><?php echo htmlspecialchars($studentInfo['contact_num'] ?? 'N/A'); ?></p>
-                    </div>
-
-                    <!-- Program -->
-                    <div>
-                        <label class="block text-gray-600 text-sm font-medium mb-1">Program</label>
-                        <p class="text-gray-800 text-lg"><?php echo htmlspecialchars($studentInfo['program'] ?? 'N/A'); ?></p>
-                    </div>
-
-                    <!-- Section -->
-                    <div>
-                        <label class="block text-gray-600 text-sm font-medium mb-1">Section</label>
-                        <p class="text-gray-800 text-lg"><?php echo htmlspecialchars($studentInfo['section'] ?? 'N/A'); ?></p>
-                    </div>
-
-                    <!-- Year -->
-                    <div>
-                        <label class="block text-gray-600 text-sm font-medium mb-1">Year</label>
-                        <p class="text-gray-800 text-lg"><?php echo htmlspecialchars($studentInfo['acad_year'] ?? 'N/A'); ?></p>
-                    </div>
-                </div>
-            <?php else: ?>
-                <h1 class="text-2xl font-semibold text-gray-700 mb-6">No student information found.</h1>
-            <?php endif; ?>
-
-        </div>
-
-        <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-md overflow-hidden p-6">
-            <h1 class="text-2xl font-semibold text-gray-700 mb-4">Change Password</h1>
-
-            <?php if (!empty($Message)): ?>
-                <div id="messageBox" class="fixed top-10 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-800 text-white px-6 py-3 rounded-lg shadow-lg opacity-100 transition-opacity duration-1000">
-                    <?php echo htmlspecialchars($Message); ?>
-                </div>
-
-                <script>
-                    // Make the message fade out after 3 seconds
-                    setTimeout(() => {
-                        let messageBox = document.getElementById("messageBox");
-                        messageBox.classList.add("opacity-0");
-                        setTimeout(() => messageBox.remove(), 1000); // Remove after fading out
-                    }, 3000);
-                </script>
-            <?php endif; ?>
-
-
-            <form method="POST" class="space-y-4">
-                <div>
-                    <label class="block text-gray-600 text-sm font-medium mb-1">Current Password</label>
-                    <input type="password" name="current_password" required class="w-full p-2 border border-gray-300 rounded-lg">
-                </div>
-                <div>
-                    <label class="block text-gray-600 text-sm font-medium mb-1">New Password</label>
-                    <input type="password" name="new_password" required class="w-full p-2 border border-gray-300 rounded-lg">
-                </div>
-                <div>
-                    <label class="block text-gray-600 text-sm font-medium mb-1">Confirm New Password</label>
-                    <input type="password" name="confirm_password" required class="w-full p-2 border border-gray-300 rounded-lg">
-                </div>
-                <button type="submit" name="change_password" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
-                    Update Password
-                </button>
-            </form>
-
-
-        </div>
-        <script>
-            document.getElementById("changePasswordForm").addEventListener("submit", function(event) {
-                event.preventDefault(); // Prevent form submission
-
-                let formData = new FormData(this);
-
-                fetch("", {
+                fetch("<?php echo ROOT ?>student", {
                     method: "POST",
                     body: formData
                 })
-                    .then(response => response.json())
+                    .then(response => response.text())
                     .then(data => {
-                        let messageBox = document.getElementById("passwordMessage");
-                        messageBox.textContent = data.message;
-                        messageBox.classList.remove("hidden");
-                        messageBox.classList.add(data.success ? "bg-green-500" : "bg-red-500");
-
-                        if (data.success) {
-                            // Clear the input fields on success
-                            document.getElementById("current_password").value = "";
-                            document.getElementById("new_password").value = "";
-                            document.getElementById("confirm_password").value = "";
-                        }
+                        console.log(data);
+                        showPopup("✅ Profile picture uploaded successfully!");
+                        uploadButton.classList.add("hidden");
                     })
-                    .catch(error => console.error("Error:", error));
+                    .catch(error => {
+                        console.error(error);
+                        alert("Upload failed.");
+                    });
             });
-        </script>
 
-    </div>
-</div>
+            function showPopup(message) {
+                const popup = document.getElementById('popup');
+                popup.textContent = message;
+                popup.style.display = 'block';
+                setTimeout(() => {
+                    popup.style.display = 'none';
+                }, 3000);
+            }
+        });
+    </script>
 </body>
 </html>

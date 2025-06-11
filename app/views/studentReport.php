@@ -11,6 +11,33 @@ $totalHours = array_sum(array_column($sanctionList, 'sanction_hours'));
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-image: 
+                radial-gradient(circle at 1px 1px, #e2e8f0 1px, transparent 0),
+                linear-gradient(to right, rgba(255,255,255,0.2), rgba(255,255,255,0.2));
+            background-size: 24px 24px;
+            background-color: #f8f9fa;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
         /* Custom Maroon Dark Red */
         .bg-maroon { background-color: #800000; }
         .hover\:bg-maroon-hover:hover { background-color: #660000; }
@@ -19,90 +46,117 @@ $totalHours = array_sum(array_column($sanctionList, 'sanction_hours'));
         .focus\:ring-maroon:focus { --tw-ring-color: #800000; }
     </style>
 </head>
-<body class="bg-gray-100 p-6 font-sans">
-<div class="max-w-5xl mx-auto">
-
-    <!-- Sanctions Section -->
-    <div class="mb-8">
-        <h3 class="text-xl font-bold text-maroon mb-4">Sanctions</h3>
-        <div class="space-y-4">
-            <?php if (empty($sanctionList)): ?>
-                <div class="bg-white p-5 rounded-lg shadow-md border border-gray-200 text-center text-gray-500">
-                    No sanctions found.
-                </div>
-            <?php else: ?>
-                <?php foreach ($sanctionList as $sanction): ?>
-                    <div class="bg-white p-5 rounded-lg shadow-md border border-gray-200 hover:shadow-lg transition-shadow">
-                        <p class="text-gray-500 text-sm"><?= htmlspecialchars($sanction['date_applied']); ?></p>
-                        <h4 class="text-lg font-semibold text-gray-700"><?= htmlspecialchars($sanction['sanction_reason']); ?></h4>
-                        <p class="text-gray-800 font-medium">
-                            Sanction Hours:
-                            <span class="text-red-500"><?= htmlspecialchars($sanction['sanction_hours']); ?></span>
-                        </p>
+<body class="p-4 md:p-6">
+    <div class="max-w-5xl mx-auto space-y-8">
+        <!-- Sanctions Section -->
+        <div>
+            <h3 class="text-2xl font-bold text-[#a31d1d] mb-6 [text-shadow:_0px_1px_0px_rgb(0_0_0_/_0.1)]">
+                Sanctions Overview
+            </h3>
+            <div class="space-y-4">
+                <?php if (empty($sanctionList)): ?>
+                    <div class="glass-card p-6 rounded-2xl text-center text-gray-500 shadow-[0px_4px_0px_1px_rgba(0,0,0,1)] outline outline-1 outline-black">
+                        No sanctions found.
                     </div>
-                <?php endforeach; ?>
-            <?php endif; ?>
-        </div>
-        <!-- Total Hours Card -->
-        <div class="mt-4 bg-maroon text-white text-lg font-semibold p-4 rounded-lg shadow-md text-center">
-            Total Sanction Hours: <span><?= htmlspecialchars($totalHours); ?></span>
-        </div>
-    </div>
-
-    <div class="mb-8">
-        <h3 class="text-xl font-bold text-maroon mb-4">Recent Attended Activities</h3>
-        <!-- Desktop Table -->
-        <div class="overflow-x-auto hidden md:block">
-            <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
-                <thead class="bg-gray-100">
-                <tr>
-                    <th class="py-3 px-4 text-left text-sm font-semibold text-maroon">Student Name</th>
-                    <th class="py-3 px-4 text-left text-sm font-semibold text-maroon">Event Name</th>
-                    <th class="py-3 px-4 text-left text-sm font-semibold text-maroon">Event Date</th>
-                    <th class="py-3 px-4 text-left text-sm font-semibold text-maroon">Time In</th>
-                    <th class="py-3 px-4 text-left text-sm font-semibold text-maroon">Time Out</th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php if (empty($attendanceRecord)): ?>
-                    <tr>
-                        <td colspan="4" class="py-3 px-4 text-center text-gray-500">No attendance records found.</td>
-                    </tr>
                 <?php else: ?>
-                    <?php foreach ($attendanceRecord as $record): ?>
-
-                        <tr class="border-t border-gray-200 hover:bg-gray-50">
-                            <td class="py-3 px-4 text-sm text-gray-600"><?= htmlspecialchars($record['Name'] ?? 'N/A'); ?></td>
-                            <td class="py-3 px-4 text-sm text-gray-600"><?= htmlspecialchars($record['event_name'] ?? 'N/A'); ?></td>
-                            <td class="py-3 px-4 text-sm text-gray-600"><?= htmlspecialchars($record['atten_started'] ?? 'N/A'); ?></td>
-                            <td class="py-3 px-4 text-sm text-gray-600"><?= htmlspecialchars($record['time_in'] ?? 'N/A'); ?></td>
-                            <td class="py-3 px-4 text-sm text-gray-600"><?= htmlspecialchars($record['time_out'] ?? 'N/A'); ?></td>
-                        </tr>
+                    <?php foreach ($sanctionList as $sanction): ?>
+                        <div class="glass-card p-6 rounded-2xl shadow-[0px_4px_0px_1px_rgba(0,0,0,1)] outline outline-1 outline-black hover:shadow-lg transition-all duration-300">
+                            <div class="flex justify-between items-start mb-2">
+                                <p class="text-sm font-medium text-[#a31d1d]">
+                                    <?= date('F j, Y', strtotime($sanction['date_applied'])); ?>
+                                </p>
+                                <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm font-semibold">
+                                    <?= htmlspecialchars($sanction['sanction_hours']); ?> Hours
+                                </span>
+                            </div>
+                            <h4 class="text-lg font-semibold text-gray-800 mb-2">
+                                <?= htmlspecialchars($sanction['sanction_reason']); ?>
+                            </h4>
+                        </div>
                     <?php endforeach; ?>
                 <?php endif; ?>
-                </tbody>
-            </table>
+            </div>
+            <!-- Total Hours Card -->
+            <div class="mt-6 glass-card bg-[#a31d1d] text-lg font-bold p-6 rounded-2xl shadow-[0px_4px_0px_1px_rgba(0,0,0,1)] outline outline-1 outline-black text-center floating">
+                Total Sanction Hours: <span class="text-2xl ml-2"><?= htmlspecialchars($totalHours); ?></span>
+            </div>
         </div>
-        <!-- Mobile Cards -->
-        <div class="md:hidden space-y-4">
-            <?php if (empty($attendanceRecord)): ?>
-                <div class="bg-white p-5 rounded-lg shadow-md border border-gray-200 text-center text-gray-500">
-                    No attendance records found.
-                </div>
-            <?php else: ?>
-                <?php foreach ($attendanceRecord as $record): ?>
 
-                    <div class="bg-white p-5 rounded-lg shadow-md border border-gray-200 hover:shadow-lg transition-shadow">
-                        <h4 class="text-sm font-semibold text-maroon"><?= htmlspecialchars($record['Name'] ?? 'N/A'); ?></h4>
-                        <p class="text-xs text-gray-600"><strong>Event:</strong> <?= htmlspecialchars($record['event_name'] ?? 'N/A'); ?></p>
-                        <p class="text-xs text-gray-600"><strong>Event Date:</strong> <?= htmlspecialchars($record['atten_started'] ?? 'N/A'); ?></p>
-                        <p class="text-xs text-gray-600"><strong>Time In:</strong> <?= htmlspecialchars($record['time_in'] ?? 'N/A'); ?></p>
-                        <p class="text-xs text-gray-600"><strong>Time Out:</strong> <?= htmlspecialchars($record['time_out'] ?? 'N/A'); ?></p>
+        <!-- Recent Attended Activities -->
+        <div>
+            <h3 class="text-2xl font-bold text-[#a31d1d] mb-6 [text-shadow:_0px_1px_0px_rgb(0_0_0_/_0.1)]">
+                Recent Attended Activities
+            </h3>
+            
+            <!-- Desktop Table -->
+            <div class="hidden md:block overflow-hidden rounded-2xl shadow-[0px_4px_0px_1px_rgba(0,0,0,1)] outline outline-1 outline-black">
+                <div class="overflow-x-auto glass-card">
+                    <table class="min-w-full">
+                        <thead class="bg-gray-50/50">
+                            <tr>
+                                <th class="py-4 px-6 text-left text-sm font-bold text-[#a31d1d]">Event Name</th>
+                                <th class="py-4 px-6 text-left text-sm font-bold text-[#a31d1d]">Date</th>
+                                <th class="py-4 px-6 text-left text-sm font-bold text-[#a31d1d]">Time In</th>
+                                <th class="py-4 px-6 text-left text-sm font-bold text-[#a31d1d]">Time Out</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <?php if (empty($attendanceRecord)): ?>
+                                <tr>
+                                    <td colspan="4" class="py-4 px-6 text-center text-gray-500">No attendance records found.</td>
+                                </tr>
+                            <?php else: ?>
+                                <?php foreach ($attendanceRecord as $record): ?>
+                                    <tr class="hover:bg-gray-50/50 transition-colors">
+                                        <td class="py-4 px-6 text-sm text-gray-800 font-medium"><?= htmlspecialchars($record['event_name'] ?? 'N/A'); ?></td>
+                                        <td class="py-4 px-6 text-sm text-gray-600"><?= date('M j, Y', strtotime($record['atten_started'] ?? 'N/A')); ?></td>
+                                        <td class="py-4 px-6 text-sm text-gray-600"><?= date('g:i A', strtotime($record['time_in'] ?? 'N/A')); ?></td>
+                                        <td class="py-4 px-6 text-sm text-gray-600"><?= date('g:i A', strtotime($record['time_out'] ?? 'N/A')); ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Mobile Cards -->
+            <div class="md:hidden space-y-4">
+                <?php if (empty($attendanceRecord)): ?>
+                    <div class="glass-card p-6 rounded-2xl text-center text-gray-500 shadow-[0px_4px_0px_1px_rgba(0,0,0,1)] outline outline-1 outline-black">
+                        No attendance records found.
                     </div>
-                <?php endforeach; ?>
-            <?php endif; ?>
+                <?php else: ?>
+                    <?php foreach ($attendanceRecord as $record): ?>
+                        <div class="glass-card p-6 rounded-2xl shadow-[0px_4px_0px_1px_rgba(0,0,0,1)] outline outline-1 outline-black space-y-3">
+                            <h4 class="text-lg font-bold text-[#a31d1d]">
+                                <?= htmlspecialchars($record['event_name'] ?? 'N/A'); ?>
+                            </h4>
+                            <div class="grid grid-cols-2 gap-4 text-sm">
+                                <div>
+                                    <p class="text-gray-500 font-medium">Date</p>
+                                    <p class="text-gray-800"><?= date('F j, Y', strtotime($record['atten_started'] ?? 'N/A')); ?></p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-gray-500 font-medium">Status</p>
+                                    <span class="inline-block px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold">
+                                        Present
+                                    </span>
+                                </div>
+                                <div>
+                                    <p class="text-gray-500 font-medium">Time In</p>
+                                    <p class="text-gray-800"><?= date('g:i A', strtotime($record['time_in'] ?? 'N/A')); ?></p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-500 font-medium">Time Out</p>
+                                    <p class="text-gray-800"><?= date('g:i A', strtotime($record['time_out'] ?? 'N/A')); ?></p>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
         </div>
     </div>
-</div>
 </body>
 </html>

@@ -23,84 +23,128 @@ if (!in_array($page, $allowed_pages)) {
     <link rel="icon" type="image/x-icon" href="<?php echo $imageSource ?>">
     <title>Student Home • QRCode Attendance System</title>
     <style>
-        /* Maroon Color Theme */
-        .maroon {
-            background-color: #800000;
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+        
+        body {
+            background-image: 
+                radial-gradient(circle at 1px 1px, #e2e8f0 1px, transparent 0),
+                linear-gradient(to right, rgba(255,255,255,0.2), rgba(255,255,255,0.2));
+            background-size: 24px 24px;
+            background-color: #f8f9fa;
+            font-family: 'Poppins', Arial, Helvetica, sans-serif !important;
         }
-        .maroon-light {
-            background-color: #a52a2a;
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
         }
-        .maroon-hover:hover {
-            background-color: #660000;
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
-        .text-maroon {
-            color: #800000;
+
+        .text-stroke-2 {
+            -webkit-text-stroke: 2px black;
+            text-stroke: 2px black;
         }
-        .text-maroon-hover:hover {
-            color: #660000;
+        .text-stroke-1 {
+            -webkit-text-stroke: 1px black;
+            text-stroke: 1px black;
         }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body class="bg-[#f8f9fa]">
 
 <!-- Container -->
 <div class="min-h-screen flex flex-col">
+    <!-- Header Section with QR CODE text -->
+    <div class="sticky top-0 z-50">
+        <header class="bg-white/80 backdrop-blur-sm shadow-lg w-full">
+            <div class="max-w-7xl mx-auto p-4">
+                <div class="w-full flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <img class="h-16 w-auto" src="<?php echo $imageSource4 ?>" alt="Logo" />
+                        <div class="hidden md:flex items-center gap-1">
+                            <span class="text-white text-4xl font-extrabold font-['Poppins'] text-stroke-2 [text-shadow:_0px_4px_0px_rgb(0_0_0_/_1.00)]">CONGRATS SA WALAY</span>
+                            <span class="text-red-800 text-4xl font-extrabold font-['Poppins'] text-stroke-2 [text-shadow:_0px_4px_0px_rgb(0_0_0_/_1.00)]">SANCTIONS!</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Mobile Menu Button -->
+                    <button id="menuBtn" class="md:hidden text-[#515050] hover:text-[#a31d1d] transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
 
-    <!-- Header Section -->
-    <header class="bg-white shadow-md w-full">
-        <div class="max-w-7xl mx-auto p-4 flex flex-col md:flex-row items-center justify-between">
-            <img class="h-20 w-auto mb-2 md:mb-0" src="<?php echo $imageSource4 ?>" alt="Logo" />
-
-        </div>
-    </header>
-
-    <!-- Navigation Section -->
-    <nav class="w-full bg-white shadow-md">
-        <div class="max-w-7xl mx-auto p-4 flex flex-col md:flex-row justify-center space-y-2 md:space-y-0 md:space-x-4">
-            <a href="?page=studentProfile"
-               class="px-6 py-2 rounded-full text-lg font-semibold transition
-                  <?php echo $page === 'studentProfile' ? 'maroon text-white' : 'bg-gray-200 text-gray-700'; ?>
-                  hover:maroon-hover hover:text-white">
-                Profile
-            </a>
-            <a href="?page=StudentQRCode"
-               class="px-6 py-2 rounded-full text-lg font-semibold transition
-                  <?php echo $page === 'StudentQRCode' ? 'maroon text-white' : 'bg-gray-200 text-gray-700'; ?>
-                  hover:maroon-hover hover:text-white">
-                QR Code
-            </a>
-            <a href="?page=StudentReport"
-               class="px-6 py-2 rounded-full text-lg font-semibold transition
-                  <?php echo $page === 'StudentReport' ? 'maroon text-white' : 'bg-gray-200 text-gray-700'; ?>
-                  hover:maroon-hover hover:text-white">
-                Reports
-            </a>
-            <a href="<?php echo ROOT ?>logout"
-               class="px-6 py-2 rounded-full text-lg font-semibold transition bg-red-600 text-white hover:bg-red-800">
-                Logout
-            </a>
-        </div>
-    </nav>
+        <!-- Navigation Section -->
+        <nav id="navMenu" class="w-full bg-white/80 backdrop-blur-sm shadow-lg transition-all duration-300 ease-in-out">
+            <div class="max-w-7xl mx-auto p-4">
+                <div class="flex flex-col md:flex-row justify-center items-center gap-4">
+                    <a href="?page=studentProfile"
+                       class="w-full md:w-auto px-6 py-2 rounded-xl text-lg font-semibold text-center transition-all duration-200
+                          <?php echo $page === 'studentProfile' 
+                            ? 'bg-[#a31d1d] text-white shadow-[0px_4px_0px_1px_rgba(0,0,0,1)] outline outline-1 outline-black' 
+                            : 'bg-white text-[#515050] hover:bg-[#a31d1d] hover:text-white shadow-[0px_4px_0px_1px_rgba(0,0,0,1)] outline outline-1 outline-black'; ?>">
+                    Profile
+                    </a>
+                    <a href="?page=StudentQRCode"
+                       class="w-full md:w-auto px-6 py-2 rounded-xl text-lg font-semibold text-center transition-all duration-200
+                          <?php echo $page === 'StudentQRCode' 
+                            ? 'bg-[#a31d1d] text-white shadow-[0px_4px_0px_1px_rgba(0,0,0,1)] outline outline-1 outline-black' 
+                            : 'bg-white text-[#515050] hover:bg-[#a31d1d] hover:text-white shadow-[0px_4px_0px_1px_rgba(0,0,0,1)] outline outline-1 outline-black'; ?>">
+                    QR Code
+                    </a>
+                    <a href="?page=StudentReport"
+                       class="w-full md:w-auto px-6 py-2 rounded-xl text-lg font-semibold text-center transition-all duration-200
+                          <?php echo $page === 'StudentReport' 
+                            ? 'bg-[#a31d1d] text-white shadow-[0px_4px_0px_1px_rgba(0,0,0,1)] outline outline-1 outline-black' 
+                            : 'bg-white text-[#515050] hover:bg-[#a31d1d] hover:text-white shadow-[0px_4px_0px_1px_rgba(0,0,0,1)] outline outline-1 outline-black'; ?>">
+                    Reports
+                    </a>
+                    <a href="<?php echo ROOT ?>logout"
+                       class="w-full md:w-auto px-6 py-2 rounded-xl text-lg font-semibold text-center transition-all duration-200 bg-white text-[#515050] hover:bg-[#a31d1d] hover:text-white shadow-[0px_4px_0px_1px_rgba(0,0,0,1)] outline outline-1 outline-black">
+                    Logout
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>
 
     <!-- Main Content -->
-    <main class="flex-1 flex justify-center items-center p-4">
-        <div class="bg-white shadow-lg rounded-lg w-full max-w-4xl p-6">
-            <?php require "../app/Controller/{$page}.php"; ?>
+    <main class="flex-1 container mx-auto px-4 mb-8">
+        <div class="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-[0_8px_32px_-4px_rgba(0,0,0,0.1)] hover:shadow-[0_12px_48px_-8px_rgba(0,0,0,0.2)] transition-all duration-300 relative overflow-hidden">
+            <!-- Background Illustration -->
+            <img 
+                class="absolute inset-0 w-full h-full object-contain opacity-20 pointer-events-none select-none z-0 scale-125"
+                src="<?php echo $imageSource2?>" 
+                alt="Illustration" 
+                style="filter: blur(0.5px);" 
+            />
+            
+            <!-- Content -->
+            <div class="relative z-10">
+                <?php require "../app/Controller/{$page}.php"; ?>
+            </div>
         </div>
     </main>
 
-    <!-- Footer Section (Sticky) -->
-    <footer class="maroon text-white py-4 w-full flex-shrink-0">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center">
-            <div class="text-sm">
-                &copy; <?php echo date('Y'); ?> QRCode Attendance System. All rights reserved.
+    <!-- Footer -->
+    <footer class="bg-white/80 backdrop-blur-sm shadow-lg w-full py-6">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="text-[#515050] text-lg font-normal">Copyright © <?php echo date('Y'); ?>. All Rights Reserved.</div>
+            <div class="flex justify-center space-x-4 mt-2">
+                <a href="#" class="text-[#515050] text-lg font-bold hover:text-[#a31d1d] transition-colors">Terms of Service</a>
+                <div class="w-px h-6 bg-[#515050]"></div>
+                <a href="https://www.usep.edu.ph/usep-data-privacy-statement/" target="_blank" class="text-[#515050] text-lg font-bold hover:text-[#a31d1d] transition-colors">Privacy Policy</a>
             </div>
-
         </div>
     </footer>
 </div>
-
-</body>
 
 <script>
     // Disable right-click
@@ -116,7 +160,39 @@ if (!in_array($page, $allowed_pages)) {
             e.preventDefault();
         }
     });
+
+    const menuBtn = document.getElementById('menuBtn');
+    const navMenu = document.getElementById('navMenu');
+    let isMenuOpen = false;
+
+    // Initially hide menu on mobile
+    if (window.innerWidth < 768) {
+        navMenu.style.maxHeight = '0';
+        navMenu.style.overflow = 'hidden';
+    }
+
+    menuBtn.addEventListener('click', () => {
+        isMenuOpen = !isMenuOpen;
+        if (isMenuOpen) {
+            navMenu.style.maxHeight = navMenu.scrollHeight + 'px';
+            navMenu.style.overflow = 'visible';
+        } else {
+            navMenu.style.maxHeight = '0';
+            navMenu.style.overflow = 'hidden';
+        }
+    });
+
+    // Handle resize events
+    window.addEventListener('resize', () => {
+        if (window.innerWidth >= 768) {
+            navMenu.style.maxHeight = 'none';
+            navMenu.style.overflow = 'visible';
+        } else if (!isMenuOpen) {
+            navMenu.style.maxHeight = '0';
+            navMenu.style.overflow = 'hidden';
+        }
+    });
 </script>
 
-
+</body>
 </html>
