@@ -13,111 +13,122 @@ $l_name = htmlspecialchars($studentData['l_name'] ?? 'N/A');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student QR Code</title>
+    <title>Student QR Code • USep Attendance System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
     <style>
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            margin-top: 50px;
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-image: 
+                radial-gradient(circle at 1px 1px, #e2e8f0 1px, transparent 0),
+                linear-gradient(to right, rgba(255,255,255,0.2), rgba(255,255,255,0.2));
+            background-size: 24px 24px;
+            background-color: #f8f9fa;
         }
 
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 20px;
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .student-info {
-            font-size: 1rem;
-            font-weight: bold;
-            color: #555;
-            background: #eaf2ff;
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+        .floating {
+            animation: floating 3s ease-in-out infinite;
         }
-
-        #qrcode {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        #qrcode img {
-            width: 250px;
-            height: 250px;
-            border-radius: 10px;
-            border: 1px solid #ddd;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        #downloadBtn {
-            display: none;
-            padding: 12px 18px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-top: 10px;
-        }
-
-        #downloadBtn:hover {
-            background-color: #0056b3;
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
     </style>
 </head>
-<body>
+<body class="p-4 md:p-6">
+    <div class="max-w-5xl mx-auto space-y-8">
+        <!-- QR Code Section -->
+        <div>
+            <h3 class="text-2xl font-bold text-[#a31d1d] mb-6 [text-shadow:_0px_1px_0px_rgb(0_0_0_/_0.1)]">
+                Student QR Code
+            </h3>
 
-<div class="container">
-    <h1>Student QR Code</h1>
-    <?php if ($checker) {?>
-        <div class="student-info">
-            <?= "Name: $f_name $l_name" ?><br>
-            <?= "Student ID: $student_id" ?>
+            <?php if ($checker): ?>
+                <!-- QR Code Card -->
+                <div class="glass-card p-8 rounded-2xl shadow-[0px_4px_0px_1px_rgba(0,0,0,1)] outline outline-1 outline-black space-y-6">
+                    <div class="flex flex-col items-center">
+                        <!-- Student Info -->
+                        <div class="bg-white/80 backdrop-blur-sm px-6 py-3 rounded-xl shadow-[0px_4px_0px_1px_rgba(0,0,0,1)] outline outline-1 outline-black mb-8 w-full md:w-auto">
+                            <p class="text-lg font-bold text-gray-800">
+                                <?= "Name: $f_name $l_name" ?>
+                            </p>
+                            <p class="text-lg font-bold text-gray-800">
+                                <?= "Student ID: $student_id" ?>
+                            </p>
+                        </div>
+
+                        <!-- QR Code Container -->
+                        <div id="qrcode" class="p-4 bg-white rounded-2xl shadow-lg floating"></div>
+
+                        <!-- Download Button -->
+                        <button id="downloadBtn" 
+                                class="mt-8 hidden bg-[#a31d1d] text-white px-6 py-2 rounded-xl font-semibold shadow-[0px_4px_0px_1px_rgba(0,0,0,1)] outline outline-1 outline-black hover:bg-[#8a1818] transition-all duration-200">
+                            Download QR Code
+                        </button>
+                    </div>
+                </div>
+            <?php else: ?>
+                <!-- Warning Message -->
+                <div class="glass-card p-8 rounded-2xl shadow-[0px_4px_0px_1px_rgba(0,0,0,1)] outline outline-1 outline-black">
+                    <div class="flex items-center justify-center gap-3 text-red-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                        <span class="text-lg font-semibold">Please upload a profile picture to view your QR Code.</span>
+                    </div>
+                </div>
+            <?php endif; ?>
         </div>
+    </div>
 
-        <div id="qrcode"></div>
-        <button id="downloadBtn">Download QR Code</button>
-    <?php } else { ?>
-        <p style="color: #d9534f; font-size: 1.1rem;">⚠ Please upload a profile picture to view your QR Code.</p>
-    <?php } ?>
-</div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const qrValue = <?php echo json_encode($qr_value, JSON_HEX_TAG); ?>;
+            const qrCodeContainer = document.getElementById('qrcode');
+            const downloadBtn = document.getElementById('downloadBtn');
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const qrValue = <?php echo json_encode($qr_value, JSON_HEX_TAG); ?>;
-        const qrCodeContainer = document.getElementById('qrcode');
-        const downloadBtn = document.getElementById('downloadBtn');
+            if (qrValue) {
+                const options = {
+                    width: 250,
+                    height: 250,
+                    margin: 1,
+                    color: {
+                        dark: "#000000",
+                        light: "#FFFFFF"
+                    }
+                };
 
-        if (qrValue) {
-            QRCode.toDataURL(qrValue, { width: 250 })
-                .then(url => {
-                    const img = document.createElement('img');
-                    img.src = url;
-                    img.alt = "QR Code";
-                    qrCodeContainer.appendChild(img);
+                QRCode.toDataURL(qrValue, options)
+                    .then(url => {
+                        const img = document.createElement('img');
+                        img.src = url;
+                        img.alt = "QR Code";
+                        img.classList.add('rounded-xl', 'shadow-lg');
+                        qrCodeContainer.appendChild(img);
 
-                    // Show Download Button
-                    downloadBtn.style.display = "inline-block";
-                    downloadBtn.addEventListener("click", function () {
-                        const a = document.createElement('a');
-                        a.href = url;
-                        a.download = "Student_QRCode.png";
-                        document.body.appendChild(a);
-                        a.click();
-                        document.body.removeChild(a);
-                    });
-                })
-                .catch(error => console.error("QR Code generation error:", error));
-        }
-    });
-</script>
-
+                        downloadBtn.style.display = "inline-block";
+                        downloadBtn.addEventListener("click", function () {
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = "Student_QRCode.png";
+                            document.body.appendChild(a);
+                            a.click();
+                            document.body.removeChild(a);
+                        });
+                    })
+                    .catch(error => console.error("QR Code generation error:", error));
+            }
+        });
+    </script>
 </body>
 </html>
