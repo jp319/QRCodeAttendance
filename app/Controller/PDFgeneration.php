@@ -16,6 +16,9 @@ class PDFgeneration extends \Controller
     public function generatePDF(): void
     {
         try {
+            // Set timezone to Asia/Manila
+            date_default_timezone_set('Asia/Manila');
+
             $userSessions = json_decode($_COOKIE['user_data'], true);
             $userID = $userSessions[0]['user_id']; // Get the first logged-in user
             $attendanceModel = new Attendances();
@@ -49,6 +52,9 @@ class PDFgeneration extends \Controller
 
     private function generatePDFContent($studentInfo, $attendanceRecord)
     {
+        // Set timezone to Asia/Manila for date formatting
+        date_default_timezone_set('Asia/Manila');
+
         $content = '
         <style>
             .header { text-align: center; color: #a31d1d; margin-bottom: 20px; }
