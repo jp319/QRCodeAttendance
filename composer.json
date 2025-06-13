@@ -8,10 +8,6 @@
         "spipu/html2pdf": "^5.3"
     },
     "require": {
-        "phpmailer/phpmailer": "^6.10",
-        "spipu/html2pdf": "^5.3"
-    },
-    "require": {
         "spipu/html2pdf": "^5.3.3"
     }
 }

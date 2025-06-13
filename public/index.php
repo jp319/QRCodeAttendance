@@ -67,6 +67,7 @@ $routes = [
     '/public/view_record2' => '../app/Controller/ViewAttendanceRecord2.php',
     '/public/forgot-password' => '../app/Controller/ForgotPassword.php',
     '/public/verify-otp' => '../app/Controller/VerifyOTP.php',
+    '/public/download-report' => '../app/Controller/PDFgeneration.php',
 
     // localhost
     '/QRCodeAttendance/QRCodeAttendance/public/login' => '../app/Controller/LoginPage.php',

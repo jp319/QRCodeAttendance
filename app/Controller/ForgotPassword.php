@@ -4,7 +4,7 @@ namespace Controller;
 require_once '../app/core/config.php';
 require_once '../app/core/Database.php';
 require_once '../app/Model/User.php';
-require_once '../vendor2/autoload.php';
+require_once '../vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
