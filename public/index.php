@@ -102,6 +102,7 @@ $routes = [
     '/QRCodeAttendance/QRCodeAttendance/public/view_record2' => '../app/Controller/ViewAttendanceRecord2.php',
     '/QRCodeAttendance/QRCodeAttendance/public/forgot-password' => '../app/Controller/ForgotPassword.php',
     '/QRCodeAttendance/QRCodeAttendance/public/verify-otp' => '../app/Controller/VerifyOTP.php',
+    '/QRCodeAttendance/QRCodeAttendance/public/download-report' => '../app/Controller/PDFgeneration.php',
     
 
 

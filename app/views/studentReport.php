@@ -111,7 +111,13 @@ $totalHours = array_sum(array_column($sanctionList, 'sanction_hours'));
                                         <td class="py-4 px-6 text-sm text-gray-800 font-medium"><?= htmlspecialchars($record['event_name'] ?? 'N/A'); ?></td>
                                         <td class="py-4 px-6 text-sm text-gray-600"><?= date('M j, Y', strtotime($record['atten_started'] ?? 'N/A')); ?></td>
                                         <td class="py-4 px-6 text-sm text-gray-600"><?= date('g:i A', strtotime($record['time_in'] ?? 'N/A')); ?></td>
-                                        <td class="py-4 px-6 text-sm text-gray-600"><?= date('g:i A', strtotime($record['time_out'] ?? 'N/A')); ?></td>
+                                        <td class="py-4 px-6 text-sm text-gray-600">
+                                            <p class="text-gray-800">
+                                                <?= !empty($record['time_out']) 
+                                                    ? date('g:i A', strtotime($record['time_out'])) 
+                                                    : '<span class="text-gray-400 italic">Not yet recorded</span>'; ?>
+                                            </p>
+                                        </td>
                                     </tr>
                                 <?php endforeach; ?>
                             <?php endif; ?>
@@ -155,6 +161,17 @@ $totalHours = array_sum(array_column($sanctionList, 'sanction_hours'));
                         </div>
                     <?php endforeach; ?>
                 <?php endif; ?>
+            </div>
+
+            <!-- Download Report Button -->
+            <div class="mt-6 flex justify-end">
+                <a href="<?php echo ROOT ?>download-report" 
+                   class="bg-[#a31d1d] text-white px-6 py-2 rounded-xl font-semibold shadow-[0px_4px_0px_1px_rgba(0,0,0,1)] outline outline-1 outline-black hover:bg-[#8a1818] transition-all duration-200 flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    Download Report PDF
+                </a>
             </div>
         </div>
     </div>
